@@ -1,9 +1,9 @@
 
 var opts = {projection: 'EPSG:900913', displayProjection: '4326'};
 
-           
+
 function init() {
-    
+  
     var wms = new OpenLayers.Layer.WMS(
             'OpenLayers WMS',
     'http://localhost:8080/geoserver/wms/',
@@ -28,13 +28,30 @@ function init() {
     {type: google.maps.MapTypeId.HYBRID},{isBaseLayer:true}
             );
     map.addLayer(google_hybrid);
+    map.addLayer(wms);
+    //var vector_layer = new OpenLayers.Layer.Vector('Basic Vector Layer');
     
-    var vector_layer = new OpenLayers.Layer.Vector('Basic Vector Layer');
-    
-    map.addLayers([wms, vector_layer]);
-    map.addControl(new  OpenLayers.Control.EditingToolbar(vector_layer));
+   // map.addLayer(vector_layer);
+    //map.addControl(new  OpenLayers.Control.EditingToolbar(vector_layer));
     map.addControl(new OpenLayers.Control.LayerSwitcher({}));
-    if(!map.getCenter()){
+    
+    var capa_wfs = new OpenLayers.Layer.Vector('Capa WFS', {
+        strategies: [new OpenLayers.Strategy.BBOX()],
+        protocol: new OpenLayers.Protocol.WFS({
+            url: 'http://localhost:8080/geoserver/wfs',
+            featurePrefix:'tsiglab2015',
+            featureType: 'departamento',
+            featureNS: 'tsig2015',
+            geometryName: 'the_geom',
+            srsName: new OpenLayers.Projection('EPSG:900913'),
+            version: '1.0.0'
+        })
+    });
+    
+    map.addLayer(capa_wfs);
+    
+        if(!map.getCenter()){
         map.zoomToMaxExtent();
     }
+    
 }
