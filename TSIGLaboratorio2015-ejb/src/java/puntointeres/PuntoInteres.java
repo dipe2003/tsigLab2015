@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import puntointeres.tipopuntointeres.TipoPuntoInteres;
 
 @Entity
@@ -13,6 +15,8 @@ public class PuntoInteres implements Serializable {
     @Id@GeneratedValue(strategy = GenerationType.AUTO)
     private int IdPuntoInteres;
     private String NombrePuntoInteres;
+    @OneToOne
+    @JoinColumn(name="TipoEstudio_Id", insertable=true, updatable=true)
     private TipoPuntoInteres TipoDePuntoInteres;
     
     //  Constructores

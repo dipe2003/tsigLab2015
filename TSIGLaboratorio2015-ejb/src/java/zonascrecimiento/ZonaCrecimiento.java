@@ -8,19 +8,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class ZonasCrecimiento implements Serializable {
+public class ZonaCrecimiento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int IdZonasCrecimiento;
+    private int IdZonaCrecimiento;
     private String DemandaZonaCrecimiento;
     
     //  Constructor
-    public ZonasCrecimiento(){}
+    public ZonaCrecimiento(){}
 
     //  Setters
     
-    public void setIdZonasCrecimiento(int IdZonasCrecimiento) {
-        this.IdZonasCrecimiento = IdZonasCrecimiento;
+    public void setIdZonaCrecimiento(int IdZonaCrecimiento) {
+        this.IdZonaCrecimiento = IdZonaCrecimiento;
     }
 
     public void setDemandaZonaCrecimiento(String DemandaZonaCrecimiento) {
@@ -29,8 +29,8 @@ public class ZonasCrecimiento implements Serializable {
     
     //  Getters
 
-    public int getIdZonasCrecimiento() {
-        return IdZonasCrecimiento;
+    public int getIdZonaCrecimiento() {
+        return IdZonaCrecimiento;
     }
 
     public String getDemandaZonaCrecimiento() {

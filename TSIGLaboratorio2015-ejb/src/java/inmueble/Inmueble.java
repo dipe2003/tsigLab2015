@@ -2,13 +2,14 @@
 package inmueble;
 
 import java.util.List;
+import javax.persistence.Entity;
 import propiedad.Propiedad;
 import propiedad.caracteristica.Caracteristica;
 import propiedad.enums.EnumEstadoPropiedad;
 import propiedad.enums.EnumTipoInmueble;
 
-
-public class Inmueble extends Propiedad{
+@Entity
+public class Inmueble extends Propiedad {
     private EnumTipoInmueble TipoInmueble;
     private int CantidadDormitorios;
     private int CantidadBanios;

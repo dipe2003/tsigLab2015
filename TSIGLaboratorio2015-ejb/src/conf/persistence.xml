@@ -3,6 +3,7 @@
   <persistence-unit name="TSIGLaboratorio2015-ejbPU" transaction-type="JTA">
     <jta-data-source>java:/jboss/datasource/tsigLab2015</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+    <properties>
+    </properties>
   </persistence-unit>
 </persistence>

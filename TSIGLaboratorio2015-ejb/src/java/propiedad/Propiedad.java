@@ -14,7 +14,7 @@ import propiedad.enums.EnumEstadoPropiedad;
 @Entity
 public class Propiedad implements Serializable{
    @Id@GeneratedValue(strategy = GenerationType.AUTO) 
-   private int Id;
+   private int IdPropiedad;
    private String DireccionPropiedad;
    private float PrecioPropiedad;
    private float MetrosConstruidosPropiedad;
@@ -44,8 +44,8 @@ public class Propiedad implements Serializable{
     
     //  Setters
 
-    public void setId(int Id) {
-        this.Id = Id;
+    public void setIdPropiedad(int IdPropiedad) {
+        this.IdPropiedad = IdPropiedad;
     }
 
     public void setDireccionPropiedad(String DireccionPropiedad) {
@@ -80,8 +80,8 @@ public class Propiedad implements Serializable{
     
     //  Getters
 
-    public int getId() {
-        return Id;
+    public int getIdPropiedad() {
+        return IdPropiedad;
     }
 
     public String getDireccionPropiedad() {

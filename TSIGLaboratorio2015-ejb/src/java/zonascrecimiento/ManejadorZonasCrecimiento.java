@@ -1,0 +1,72 @@
+
+package zonascrecimiento;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
+import javax.faces.bean.ManagedBean;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+
+@ManagedBean
+@Stateless
+@TransactionManagement(TransactionManagementType.CONTAINER)
+public class ManejadorZonasCrecimiento {
+    @PersistenceContext(unitName = "TSIGLaboratorio2015-ejbPU")
+    private EntityManager em ;
+    
+    public int CrearZonaCrecimiento(ZonaCrecimiento zonaCrecimiento){
+        try{
+            em.persist(zonaCrecimiento);
+            return zonaCrecimiento.getIdZonaCrecimiento();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+            return -1;
+        }        
+    }
+    
+    public int ActualizarZonaCrecimiento(ZonaCrecimiento zonaCrecimiento){
+        try{
+            em.merge(zonaCrecimiento);
+            return zonaCrecimiento.getIdZonaCrecimiento();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+            return -1;
+        }
+    }
+    
+    public int BorrarZonaCrecimiento(ZonaCrecimiento zonaCrecimiento){
+        try{
+            em.remove(zonaCrecimiento);
+            return 1;
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+            return -1;
+        }
+    }
+    
+    public ZonaCrecimiento GetZonaCrecimiento(int id){
+        try{
+            return em.find(ZonaCrecimiento.class, id);
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+            return null;
+        }
+    }
+    
+    public List<ZonaCrecimiento> ListarPuntosInteres(){
+        List<ZonaCrecimiento> lista = new ArrayList<>();
+        try{
+            TypedQuery<ZonaCrecimiento> query = em.createQuery("SELECT pi FROM ZonaCrecimiento pi", ZonaCrecimiento.class);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+        
+}
+    
