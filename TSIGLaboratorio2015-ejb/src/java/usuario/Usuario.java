@@ -4,6 +4,7 @@ package usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,16 +16,19 @@ import propiedad.Propiedad;
 public class Usuario implements Serializable{
     @Id@GeneratedValue(strategy = GenerationType.AUTO)
     private int IdUsuario;
+    @Column(unique = true)
     private String NicknameUsuario;
     private String PasswordUsuario;
+    private String CorreoUsuario;
     @OneToMany
     private List<Propiedad> Propiedades;
     
     //  Constructores
 
-    public Usuario(String NicknameUsuario, String PasswordUsuario) {
+    public Usuario(String NicknameUsuario, String PasswordUsuario, String CorreoUsuario) {
         this.NicknameUsuario = NicknameUsuario;
         this.PasswordUsuario = PasswordUsuario;
+        this.CorreoUsuario = CorreoUsuario;
         this.Propiedades = new ArrayList<>();
     }
 
@@ -36,6 +40,7 @@ public class Usuario implements Serializable{
     public void setNicknameUsuario(String NicknameUsuario) {this.NicknameUsuario = NicknameUsuario;}
     public void setPasswordUsuario(String PasswordUsuario) {this.PasswordUsuario = PasswordUsuario;}
     public void setPropiedades(List<Propiedad> Propiedades) {this.Propiedades = Propiedades;}    
+    public void setCorreoUsuario(String CorreoUsuario) {this.CorreoUsuario = CorreoUsuario;}
     
     //  Getters
 
@@ -43,6 +48,7 @@ public class Usuario implements Serializable{
     public String getNicknameUsuario() {return NicknameUsuario;}
     public String getPasswordUsuario() {return PasswordUsuario;}
     public List<Propiedad> getPropiedades() {return Propiedades;}
+    public String getCorreoUsuario() {return CorreoUsuario;}
     
     //  Propiedades
     public void addPropiedad(Propiedad propiedad){this.Propiedades.add(propiedad);}

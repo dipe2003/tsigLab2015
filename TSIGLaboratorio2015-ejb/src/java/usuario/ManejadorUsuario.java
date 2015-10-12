@@ -1,6 +1,7 @@
 
 package usuario;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -9,6 +10,7 @@ import javax.ejb.TransactionManagementType;
 import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 @ManagedBean
@@ -66,6 +68,25 @@ public class ManejadorUsuario {
             System.out.println("Error: " + ex.getMessage());
         }
         return lista;
+    }
+    
+    public int BuscarNicknameUsuario(String Nickname){
+        try{
+            Query query = em.createQuery("SELECT u.IdUsuario FROM Usuario u WHERE u.NicknameUsuario= :Nickname");
+            query.setParameter("Nickname", Nickname);
+            return (int)query.getSingleResult();
+        }catch(Exception ex){}
+        return 0;
+    }
+    
+    public int ValidarLoginUsuario(String Nickname, String Password){
+        try{
+            Query query = em.createQuery("SELECT u.IdUsuario FROM Usuario u WHERE u.NicknameUsuario= :Nickname AND u.PasswordUsuario= :Pass");
+            query.setParameter("Nickname", Nickname);
+            query.setParameter("Pass", Password);
+            return (int)query.getSingleResult();
+        }catch(Exception ex){}
+        return 0;
     }
         
 }
