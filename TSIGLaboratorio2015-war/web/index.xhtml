@@ -10,16 +10,32 @@
         <script type='text/javascript' src='http://maps.google.com/maps/api/js?v=3.5'/>
         <script type='text/javascript' src='./Resources/OpenLayers/OpenLayers.js'/>
         <script type="text/javascript" src="./Resources/Javascript/init.js"/>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="Resources/Css/Base.css" />
     </head>
     
     <body onload='init();' style="background-color: #EEE;">
-        <ui:include src="/Views/header.xhtml" />
-        <div >
-            <div>Contenido Lab TSIG 2015</div>
-            <div id='map_element' style='width: 800px; height: 600px;'></div>
-            
+        <div id="header">
+            <div id="headerCenter">
+                <div id="formLogin">
+                    Usuario <input type="text" class="form-control loginInput"/>
+                    Usuario <input type="password" class="form-control loginInput"/>
+                    <button type="button" class="btn btn-success loginButton">Success</button>
+                </div>
+                <div id="iconContainer">
+                    <img src="Resources/Images/logo.png" width="349" height="149" alt="logo"/>
+                </div>
+            </div>
         </div>
-        <ui:include src="/Views/footer.xhtml" />            
+        <div id="hoja">
+            <div id="menu">
+                <div class="menuItem">Home</div>
+                <div class="menuItem">Registrar Propiedad</div>
+                <div class="menuItem">Listar Propiedades</div>
+            </div>
+            <div id='map_element' class="mapa"></div>
+        </div>
     </body>
-    
 </html>
