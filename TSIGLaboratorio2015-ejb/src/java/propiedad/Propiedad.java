@@ -39,6 +39,16 @@ public class Propiedad implements Serializable{
         this.EstadoPropiedad = EstadoPropiedad;
         this.Caracteristicas = Caracteristicas;
     }
+
+    public Propiedad(String DireccionPropiedad, float PrecioPropiedad, float MetrosConstruidosPropiedad, float MetrosTerrenoPropiedad, 
+            int NumeroPadronPropiedad, EnumEstadoPropiedad EstadoPropiedad) {
+        this.DireccionPropiedad = DireccionPropiedad;
+        this.PrecioPropiedad = PrecioPropiedad;
+        this.MetrosConstruidosPropiedad = MetrosConstruidosPropiedad;
+        this.MetrosTerrenoPropiedad = MetrosTerrenoPropiedad;
+        this.NumeroPadronPropiedad = NumeroPadronPropiedad;
+        this.EstadoPropiedad = EstadoPropiedad;
+    }
     
     
     
