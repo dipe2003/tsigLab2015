@@ -122,6 +122,7 @@ public class RegistrarPropiedad implements Serializable {
                 break;
         }
         if (id!=-1) {
+            cProp.InsertarUbicacionPropiedad(id, Integer.parseInt(CoordX), Integer.parseInt(this.CoordY));
             return "registrada";
         }
         return "";
