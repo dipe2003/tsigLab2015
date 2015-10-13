@@ -3,11 +3,14 @@ package interfaz.registro;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import propiedad.ControladorPropiedad;
 import propiedad.caracteristica.Caracteristica;
 import propiedad.caracteristica.ControladorCaracteristica;
 import propiedad.enums.EnumTipoInmueble;
@@ -15,8 +18,10 @@ import propiedad.enums.EnumTipoInmueble;
 @Named
 @ViewScoped
 public class RegistrarPropiedad implements Serializable {
-    @EJB 
+    @EJB
     private ControladorCaracteristica cCar;
+    @EJB
+    private ControladorPropiedad cProp;
     
     private List<String> TipoPropiedad;
     private String TipoPropiedadSeleccionado;
@@ -39,9 +44,9 @@ public class RegistrarPropiedad implements Serializable {
     /**
      * Lista de Caracteristicas para utilizarse desde la pagina para registrar las caracteristicas del inmueble
      */
-    private static List<BeanCaracteristica> ListaCaracteristicas;
     
-      
+    private Map<Integer, Boolean> listChecked;
+    
     //  Setters
     public void setTipoPropiedadSeleccionado(String TipoPropiedadSeleccionado) {this.TipoPropiedadSeleccionado = TipoPropiedadSeleccionado;}
     public void setTipoPropiedad(List<String> TipoPropiedad) {this.TipoPropiedad = TipoPropiedad;}
@@ -62,9 +67,9 @@ public class RegistrarPropiedad implements Serializable {
         this.TipoInmueble = EnumTipoInmueble.valueOf(strEnumTipoInmuebleSeleccionado);
     }
     
-    public static void setListaCaracteristicas(List<BeanCaracteristica> ListaCaracteristicas) {RegistrarPropiedad.ListaCaracteristicas = ListaCaracteristicas;}
+    public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
     
-     
+    
     //  Getters
     public String getTipoPropiedadSeleccionado() {return TipoPropiedadSeleccionado;}
     public List<String> getTipoPropiedad() {return TipoPropiedad;}
@@ -82,7 +87,46 @@ public class RegistrarPropiedad implements Serializable {
     public List<String> getStrEnumTipoInmueble() {return strEnumTipoInmueble;}
     public String getStrEnumTipoInmuebleSeleccionado() {return strEnumTipoInmuebleSeleccionado;}
     
-    public static List<BeanCaracteristica> getListaCaracteristicas() {return ListaCaracteristicas;}
+    public Map<Integer, Boolean> getListChecked() {return listChecked;}
+    
+    /**
+     * Retorna la lista con las caracteristicas selaccionadas
+     * @return Retorna la lista vacia en caso de ninguna seleccionada
+     */
+    private  List<Integer> getCaracteristicasMarcadas(){
+        List<Integer> caracteristicasMarcadas = new ArrayList<>();
+        for (Map.Entry e : listChecked.entrySet()) {
+            boolean valor = (boolean)e.getValue();
+            int Key = (int) e.getKey();
+            if ( valor ) caracteristicasMarcadas.add(Key);
+        }
+        return caracteristicasMarcadas;
+    }
+    
+    //  Registro
+    public String registrarPropiedad(){
+        int id = -1;
+        switch(this.TipoPropiedadSeleccionado){
+            case "Inmueble":
+                if (this.TipoInmueble == TipoInmueble.Casa) {
+                    id = cProp.crearPropiedadCasa(CantidadDormitorios, CantidadBanios, DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad,
+                            MetrosTerrenoPropiedad, NumeroPadronPropiedad, getCaracteristicasMarcadas());
+                }else{
+                    id = cProp.crearPropiedadApto(CantidadDormitorios, CantidadBanios, DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad,
+                            MetrosTerrenoPropiedad, NumeroPadronPropiedad, getCaracteristicasMarcadas());
+                }
+                break;
+                
+            case "Terreno":
+                id = cProp.crearPropiedadTerreno(DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad,
+                        getCaracteristicasMarcadas());
+                break;
+        }
+        if (id!=-1) {
+            return "registrada";
+        }
+        return "";
+    }
     
     @PostConstruct
     public void init(){
@@ -92,15 +136,13 @@ public class RegistrarPropiedad implements Serializable {
         
         /**
          * Llenar con las caracteristicas que estan registradas en la base de datos.
-        */
-        RegistrarPropiedad.ListaCaracteristicas = new ArrayList<>();
+         */
         List<Caracteristica> caracteristicas = cCar.listarCaracteristicas();
+        listChecked = new HashMap<>();
         for (int i = 0; i < caracteristicas.size(); i++) {
-            ListaCaracteristicas.add(new BeanCaracteristica(caracteristicas.get(i).getIdCaracteristica(), caracteristicas.get(i).getNombreCaracteristica()));
+            listChecked.put(caracteristicas.get(i).getIdCaracteristica(), Boolean.FALSE);
         }
-        
     }
-    
     
     //  inner classBean de Caracteristicas
     

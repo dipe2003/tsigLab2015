@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import propiedad.caracteristica.ControladorCaracteristica;
 import propiedad.enums.EnumEstadoPropiedad;
 import propiedad.enums.EnumTipoInmueble;
+import terreno.Terreno;
 
 @Stateless
 @ManagedBean
@@ -19,7 +20,7 @@ public class ControladorPropiedad {
     private ControladorCaracteristica cCar;
     
     /**
-     * Crea una propiedad del tipo casa.
+     * Crea una propiedad inmueble del tipo casa.
      * @param CantidadDormitorios
      * @param CantidadBanios
      * @param DireccionPropiedad
@@ -27,13 +28,11 @@ public class ControladorPropiedad {
      * @param MetrosConstruidosPropiedad
      * @param MetrosTerrenoPropiedad
      * @param NumeroPadronPropiedad
-     * @param EstadoPropiedad
      * @param Caracteristicas
      * @return el id de la propiedad creada. -1 si no se pudo crear.
      */
    public int crearPropiedadCasa(int CantidadDormitorios, int CantidadBanios, String DireccionPropiedad, float PrecioPropiedad, 
-           float MetrosConstruidosPropiedad, float MetrosTerrenoPropiedad, int NumeroPadronPropiedad, 
-            EnumEstadoPropiedad EstadoPropiedad, List<Integer> Caracteristicas){
+           float MetrosConstruidosPropiedad, float MetrosTerrenoPropiedad, int NumeroPadronPropiedad, List<Integer> Caracteristicas){
        Propiedad propiedad = new Inmueble(EnumTipoInmueble.Casa,CantidadDormitorios, CantidadBanios, DireccionPropiedad, 
             PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad, 
             EnumEstadoPropiedad.Privada, cCar.ListarCaracteristicas(Caracteristicas));
@@ -41,7 +40,7 @@ public class ControladorPropiedad {
    }
    
    /**
-    * Crea una propiedad del tipo apartamento.
+    * Crea una propiedad inmueble del tipo apartamento.
     * @param CantidadDormitorios
     * @param CantidadBanios
     * @param DireccionPropiedad
@@ -49,17 +48,32 @@ public class ControladorPropiedad {
     * @param MetrosConstruidosPropiedad
     * @param MetrosTerrenoPropiedad
     * @param NumeroPadronPropiedad
-    * @param EstadoPropiedad
     * @param Caracteristicas
     * @return el id de la propiedad creada. -1 si no se pudo crear.
     */
    public int crearPropiedadApto(int CantidadDormitorios, int CantidadBanios, String DireccionPropiedad, float PrecioPropiedad, 
-           float MetrosConstruidosPropiedad, float MetrosTerrenoPropiedad, int NumeroPadronPropiedad, 
-            EnumEstadoPropiedad EstadoPropiedad, List<Integer> Caracteristicas){
+           float MetrosConstruidosPropiedad, float MetrosTerrenoPropiedad, int NumeroPadronPropiedad, List<Integer> Caracteristicas){
        Propiedad propiedad = new Inmueble(EnumTipoInmueble.Apartamento,CantidadDormitorios, CantidadBanios, DireccionPropiedad, 
             PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad, 
             EnumEstadoPropiedad.Privada, cCar.ListarCaracteristicas(Caracteristicas));
        return mProp.CrearPropiedad(propiedad);       
+   }
+   
+   /**
+    * Crea una propiedad Terreno.
+    * @param DireccionPropiedad
+    * @param PrecioPropiedad
+    * @param MetrosConstruidosPropiedad
+    * @param MetrosTerrenoPropiedad
+    * @param NumeroPadronPropiedad
+    * @param Caracteristicas
+    * @return 
+    */
+   public int crearPropiedadTerreno(String DireccionPropiedad, float PrecioPropiedad, float MetrosConstruidosPropiedad,float MetrosTerrenoPropiedad, 
+           int NumeroPadronPropiedad, List<Integer> Caracteristicas){
+       Propiedad propiedad = new Terreno(DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, 
+               NumeroPadronPropiedad, EnumEstadoPropiedad.Privada, cCar.ListarCaracteristicas(Caracteristicas));
+       return mProp.CrearPropiedad(propiedad);
    }
     
 }
