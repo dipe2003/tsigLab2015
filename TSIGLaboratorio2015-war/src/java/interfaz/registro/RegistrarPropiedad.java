@@ -5,13 +5,18 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import propiedad.caracteristica.Caracteristica;
+import propiedad.caracteristica.ControladorCaracteristica;
 import propiedad.enums.EnumTipoInmueble;
 
 @Named
 @ViewScoped
 public class RegistrarPropiedad implements Serializable {
+    @EJB 
+    private ControladorCaracteristica cCar;
     
     private List<String> TipoPropiedad;
     private String TipoPropiedadSeleccionado;
@@ -87,13 +92,13 @@ public class RegistrarPropiedad implements Serializable {
         
         /**
          * Llenar con las caracteristicas que estan registradas en la base de datos.
-         *
+        */
         RegistrarPropiedad.ListaCaracteristicas = new ArrayList<>();
-        List<Caracteristica> caracteristicas = fCar.ListarCaracteristicas();
+        List<Caracteristica> caracteristicas = cCar.listarCaracteristicas();
         for (int i = 0; i < caracteristicas.size(); i++) {
             ListaCaracteristicas.add(new BeanCaracteristica(caracteristicas.get(i).getIdCaracteristica(), caracteristicas.get(i).getNombreCaracteristica()));
         }
-        * */
+        
     }
     
     
