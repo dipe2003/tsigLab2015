@@ -75,5 +75,15 @@ public class ControladorPropiedad {
                NumeroPadronPropiedad, EnumEstadoPropiedad.Privada, cCar.ListarCaracteristicas(Caracteristicas));
        return mProp.CrearPropiedad(propiedad);
    }
-    
+   
+   /**
+    * Agrega la ubicacion de una propiedad.
+    * @param IdPropiedad
+    * @param CoordX
+    * @param CoordY
+    * @return devuelve el id de la propiedad si se agrego correctamente. Retorna -1 si no se agrego.
+    */
+   public int InsertarUbicacionPropiedad(int IdPropiedad, int CoordX, int CoordY){
+       return mProp.InsertarUbicacionPropiedad(IdPropiedad, CoordX, CoordY);
+   }
 }
