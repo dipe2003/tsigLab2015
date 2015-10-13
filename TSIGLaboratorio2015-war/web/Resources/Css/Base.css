@@ -1,0 +1,78 @@
+
+body{
+    margin: 0 auto;
+    background-image: url(../Images/background.png);
+    
+}
+#header{
+    background-color: #000;
+    width: 100%;
+    height: 200px;
+    box-shadow: #999999 0px 15px 5px;
+    color: #ffffff;
+}
+#headerCenter{
+    width: 1000px;
+    height: 100%;
+    margin: 0 auto;
+}
+#hoja{
+    width: 1000px;
+    min-height: 500px;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    box-shadow: #999999 10px 10px 5px;
+    border: #cccccc solid 1px;
+}
+.loginInput{
+    width: 250px;
+}
+.loginInput:focus{
+    width: 250px;
+    background-color: #A8CF45;
+    color: #ffffff;
+}
+.loginButton{
+    margin-top: 10px;
+    background-color: #A8CF45;
+    border-color: #076799;
+}
+.loginButton:hover{
+    margin-top: 10px;
+    border-color: #A8CF45;
+    background-color: #076799;
+}
+#formLogin{
+    margin-top: 10px;
+    float: right;
+}
+#iconContainer{
+    margin-top: 30px;
+    float:left;
+}
+#menu{
+    width: 100%;
+    height: 50px;
+    background-color: #A8CF45;
+    color: #ffffff;
+}
+.menuItem{
+    width: 200px;
+    height: 100%;
+    border-right: #076799 solid medium;
+    float: left;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+}
+.menuItem:hover{
+    box-shadow: #999999 3px 3px 3px;
+    background-color: #ffffff;
+    color: #A8CF45;
+    border-right: none;
+}
+
+.mapa{
+    width: 100%; 
+    height: 600px;
+}
