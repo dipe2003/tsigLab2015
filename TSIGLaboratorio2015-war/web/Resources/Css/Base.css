@@ -141,7 +141,7 @@ label.css-label {
     font-weight: inherit;
 }
 .escondido{
-    display: none;
+    visibility: hidden;
     height: 600px;
 }
 

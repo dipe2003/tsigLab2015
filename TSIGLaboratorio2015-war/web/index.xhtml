@@ -57,7 +57,7 @@
                     
                     <div class="contenidoFormulario">
                         
-                        <h:selectOneMenu value="#{registrarPropiedad.tipoPropiedadSeleccionado}">
+                        <h:selectOneMenu class="form-control loginInput" value="#{registrarPropiedad.tipoPropiedadSeleccionado}">
                             <f:selectItem itemValue="Casa" itemLabel="Casa" />
                             <f:selectItem itemValue="Apartamento" itemLabel="Apartamento" />	
                             <f:selectItem itemValue="Terreno" itemLabel="Terreno" />	                            
@@ -80,11 +80,11 @@
                         
                     </div>
                     
-                    <h:inputText value="#{registrarPropiedad.coordX}" id="coordx" class="escondido "/>
-                    <h:inputText value="#{registrarPropiedad.coordY}" id="coordy" class="escondido"/>
+                    <h:inputText value="#{registrarPropiedad.coordX}" id="coordx" />
+                    <h:inputText value="#{registrarPropiedad.coordY}" id="coordy" />
                     
                     <div class="aceptar">
-                        <h:commandButton type="button" value="Registrar" action="#{registrarPropiedad.registrarPropiedad()}" class="btn btn-success loginButton"/>
+                        <h:commandButton value="Registrar" action="#{registrarPropiedad.registrarPropiedad()}" class="btn btn-success loginButton"/>
                     </div>
                     
                 </div>
