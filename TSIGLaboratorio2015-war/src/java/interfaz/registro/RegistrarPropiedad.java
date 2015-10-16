@@ -13,7 +13,6 @@ import javax.inject.Named;
 import propiedad.ControladorPropiedad;
 import propiedad.caracteristica.Caracteristica;
 import propiedad.caracteristica.ControladorCaracteristica;
-import propiedad.enums.EnumTipoInmueble;
 
 @Named
 @ViewScoped
@@ -23,7 +22,6 @@ public class RegistrarPropiedad implements Serializable {
     @EJB
     private ControladorPropiedad cProp;
     
-    private List<String> TipoPropiedad;
     private String TipoPropiedadSeleccionado;
     
     private String CoordX;
@@ -34,11 +32,7 @@ public class RegistrarPropiedad implements Serializable {
     private float MetrosTerrenoPropiedad;
     private int NumeroPadronPropiedad;
     
-    private List<String> strEnumTipoInmueble;
-    private String strEnumTipoInmuebleSeleccionado;
-    
     //  Inmueble
-    private EnumTipoInmueble TipoInmueble;
     private int CantidadDormitorios;
     private int CantidadBanios;
     /**
@@ -49,7 +43,6 @@ public class RegistrarPropiedad implements Serializable {
     
     //  Setters
     public void setTipoPropiedadSeleccionado(String TipoPropiedadSeleccionado) {this.TipoPropiedadSeleccionado = TipoPropiedadSeleccionado;}
-    public void setTipoPropiedad(List<String> TipoPropiedad) {this.TipoPropiedad = TipoPropiedad;}
     public void setCoordX(String CoordX) {this.CoordX = CoordX;}
     public void setCoordY(String CoordY) {this.CoordY = CoordY;}
     public void setDireccionPropiedad(String DireccionPropiedad) {this.DireccionPropiedad = DireccionPropiedad;}
@@ -61,18 +54,11 @@ public class RegistrarPropiedad implements Serializable {
     public void setCantidadDormitorios(int CantidadDormitorios) {this.CantidadDormitorios = CantidadDormitorios;}
     public void setCantidadBanios(int CantidadBanios) {this.CantidadBanios = CantidadBanios;}
     
-    public void setStrEnumTipoInmueble(List<String> strEnumTipoInmueble) {this.strEnumTipoInmueble = strEnumTipoInmueble;}
-    public void setStrEnumTipoInmuebleSeleccionado(String strEnumTipoInmuebleSeleccionado) {
-        this.strEnumTipoInmuebleSeleccionado = strEnumTipoInmuebleSeleccionado;
-        this.TipoInmueble = EnumTipoInmueble.valueOf(strEnumTipoInmuebleSeleccionado);
-    }
-    
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
     
     
     //  Getters
     public String getTipoPropiedadSeleccionado() {return TipoPropiedadSeleccionado;}
-    public List<String> getTipoPropiedad() {return TipoPropiedad;}
     public String getCoordX() {return CoordX;}
     public String getCoordY() {return CoordY;}
     public String getDireccionPropiedad() {return DireccionPropiedad;}
@@ -83,9 +69,6 @@ public class RegistrarPropiedad implements Serializable {
     
     public int getCantidadDormitorios() {return CantidadDormitorios;}
     public int getCantidadBanios() {return CantidadBanios;}
-    
-    public List<String> getStrEnumTipoInmueble() {return strEnumTipoInmueble;}
-    public String getStrEnumTipoInmuebleSeleccionado() {return strEnumTipoInmuebleSeleccionado;}
     
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
     
@@ -107,16 +90,14 @@ public class RegistrarPropiedad implements Serializable {
     public String registrarPropiedad(){
         int id = -1;
         switch(this.TipoPropiedadSeleccionado){
-            case "Inmueble":
-                if (this.TipoInmueble == TipoInmueble.Casa) {
-                    id = cProp.crearPropiedadCasa(CantidadDormitorios, CantidadBanios, DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad,
-                            MetrosTerrenoPropiedad, NumeroPadronPropiedad, getCaracteristicasMarcadas());
-                }else{
-                    id = cProp.crearPropiedadApto(CantidadDormitorios, CantidadBanios, DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad,
-                            MetrosTerrenoPropiedad, NumeroPadronPropiedad, getCaracteristicasMarcadas());
-                }
+            case "Casa":
+                id = cProp.crearPropiedadCasa(CantidadDormitorios, CantidadBanios, DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad,
+                        MetrosTerrenoPropiedad, NumeroPadronPropiedad, getCaracteristicasMarcadas());
                 break;
-                
+            case "Apartamento":
+                id = cProp.crearPropiedadApto(CantidadDormitorios, CantidadBanios, DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad,
+                        MetrosTerrenoPropiedad, NumeroPadronPropiedad, getCaracteristicasMarcadas());
+                break;
             case "Terreno":
                 id = cProp.crearPropiedadTerreno(DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad,
                         getCaracteristicasMarcadas());
@@ -130,9 +111,6 @@ public class RegistrarPropiedad implements Serializable {
     
     @PostConstruct
     public void init(){
-        this.TipoPropiedad = new ArrayList<>();
-        this.TipoPropiedad.add("Innmueble");
-        this.TipoPropiedad.add("Terreno");
         
         /**
          * Llenar con las caracteristicas que estan registradas en la base de datos.
