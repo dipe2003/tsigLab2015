@@ -29,6 +29,11 @@ public class ControladorCaracteristica {
         return mCar.ListarCaracteristicas(idsCaracteristicas);
     }
     
+    /**
+     * Registra una caracteristica en la base de datos.
+     * @param NombreCaracteristica
+     * @return retorna el id de la caracteristica registrada. Retorna -1 si no se pudo registrar.
+     */
     public int CrearCaracteristica(String NombreCaracteristica){
         Caracteristica caracteristica = new Caracteristica(NombreCaracteristica);
         return mCar.CrearCaracteristica(caracteristica);

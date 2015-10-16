@@ -42,13 +42,13 @@ public class Login implements Serializable {
     public boolean getUsuarioLogueado() {return UsuarioLogueado;}
     
     /**
-     * Realiza el login del usuario. Si tiene un solo rol se loguea automaticamente, sino redirige a otra pagina para seleccionar el rol.
+     * Realiza el login del usuario.
      * @return
      */
     public String login(){
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        int idUsr =0;
+        int idUsr =-1;
         if ((idUsr=cUsr.ValidarLogin(Nickname, Password))!=-1) {
             request.getSession().setAttribute("Usuario", cUsr.GetUsuario(idUsr));
             this.UsuarioLogueado = true;
@@ -61,7 +61,7 @@ public class Login implements Serializable {
     
     
     /**
-     * Logout
+     * Reliza el logout del usuario.
      * @return
      */
     public String logout(){

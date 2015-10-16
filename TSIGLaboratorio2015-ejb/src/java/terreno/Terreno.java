@@ -10,6 +10,8 @@ import propiedad.enums.EnumEstadoPropiedad;
 @Entity
 public class Terreno extends Propiedad{
 
+    //  Constructores
+    
     public Terreno() {}
 
     public Terreno(String DireccionPropiedad, float PrecioPropiedad, float MetrosConstruidosPropiedad, float MetrosTerrenoPropiedad, int NumeroPadronPropiedad, 
