@@ -15,31 +15,17 @@ public class Caracteristica implements Serializable{
     
     //  Constructores
 
-    public Caracteristica(String NombreCaracteristica) {
-                this.NombreCaracteristica = NombreCaracteristica;    }
-
+    public Caracteristica(String NombreCaracteristica) {this.NombreCaracteristica = NombreCaracteristica;}
     public Caracteristica() {}
     
     //  Setters
 
-    public void setIdCaracteristica(int IdCaracteristica) {
-        this.IdCaracteristica = IdCaracteristica;
-    }
-
-    public void setNombreCaracteristica(String NombreCaracteristica) {
-        this.NombreCaracteristica = NombreCaracteristica;
-    }
+    public void setIdCaracteristica(int IdCaracteristica) {this.IdCaracteristica = IdCaracteristica;}
+    public void setNombreCaracteristica(String NombreCaracteristica) {this.NombreCaracteristica = NombreCaracteristica;}
 
  // Getters
 
-    public int getIdCaracteristica() {
-        return IdCaracteristica;
-    }
-
-    public String getNombreCaracteristica() {
-        return NombreCaracteristica;
-    }
-    
-    
+    public int getIdCaracteristica() {return IdCaracteristica;}
+    public String getNombreCaracteristica() {return NombreCaracteristica;}    
     
 }

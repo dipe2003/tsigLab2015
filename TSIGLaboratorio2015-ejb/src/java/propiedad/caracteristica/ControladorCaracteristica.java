@@ -28,4 +28,9 @@ public class ControladorCaracteristica {
     public List<Caracteristica> ListarCaracteristicas(List<Integer> idsCaracteristicas){
         return mCar.ListarCaracteristicas(idsCaracteristicas);
     }
+    
+    public int CrearCaracteristica(String NombreCaracteristica){
+        Caracteristica caracteristica = new Caracteristica(NombreCaracteristica);
+        return mCar.CrearCaracteristica(caracteristica);
+    }
 }

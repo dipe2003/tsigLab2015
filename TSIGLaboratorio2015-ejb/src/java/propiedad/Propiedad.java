@@ -54,73 +54,25 @@ public class Propiedad implements Serializable{
     
     //  Setters
 
-    public void setIdPropiedad(int IdPropiedad) {
-        this.IdPropiedad = IdPropiedad;
-    }
-
-    public void setDireccionPropiedad(String DireccionPropiedad) {
-        this.DireccionPropiedad = DireccionPropiedad;
-    }
-
-    public void setPrecioPropiedad(float PrecioPropiedad) {
-        this.PrecioPropiedad = PrecioPropiedad;
-    }
-
-    public void setMetrosConstruidosPropiedad(float MetrosConstruidosPropiedad) {
-        this.MetrosConstruidosPropiedad = MetrosConstruidosPropiedad;
-    }
-
-    public void setMetrosTerrenoPropiedad(float MetrosTerrenoPropiedad) {
-        this.MetrosTerrenoPropiedad = MetrosTerrenoPropiedad;
-    }
-
-    public void setNumeroPadronPropiedad(int NumeroPadronPropiedad) {
-        this.NumeroPadronPropiedad = NumeroPadronPropiedad;
-    }
-
-    public void setEstadoPropiedad(EnumEstadoPropiedad EstadoPropiedad) {
-        this.EstadoPropiedad = EstadoPropiedad;
-    }
-
-    public void setCaracteristicas(List<Caracteristica> Caracteristicas) {
-        this.Caracteristicas = Caracteristicas;
-    }
-    
-    
+    public void setIdPropiedad(int IdPropiedad) {this.IdPropiedad = IdPropiedad;}
+    public void setDireccionPropiedad(String DireccionPropiedad) {this.DireccionPropiedad = DireccionPropiedad;}
+    public void setPrecioPropiedad(float PrecioPropiedad) {this.PrecioPropiedad = PrecioPropiedad;}
+    public void setMetrosConstruidosPropiedad(float MetrosConstruidosPropiedad) {this.MetrosConstruidosPropiedad = MetrosConstruidosPropiedad;}
+    public void setMetrosTerrenoPropiedad(float MetrosTerrenoPropiedad) {this.MetrosTerrenoPropiedad = MetrosTerrenoPropiedad;}
+    public void setNumeroPadronPropiedad(int NumeroPadronPropiedad) {this.NumeroPadronPropiedad = NumeroPadronPropiedad;}
+    public void setEstadoPropiedad(EnumEstadoPropiedad EstadoPropiedad) {this.EstadoPropiedad = EstadoPropiedad;}
+    public void setCaracteristicas(List<Caracteristica> Caracteristicas) {this.Caracteristicas = Caracteristicas;}    
     
     //  Getters
 
-    public int getIdPropiedad() {
-        return IdPropiedad;
-    }
-
-    public String getDireccionPropiedad() {
-        return DireccionPropiedad;
-    }
-
-    public float getPrecioPropiedad() {
-        return PrecioPropiedad;
-    }
-
-    public float getMetrosConstruidosPropiedad() {
-        return MetrosConstruidosPropiedad;
-    }
-
-    public float getMetrosTerrenoPropiedad() {
-        return MetrosTerrenoPropiedad;
-    }
-
-    public int getNumeroPadronPropiedad() {
-        return NumeroPadronPropiedad;
-    }
-
-    public EnumEstadoPropiedad getEstadoPropiedad() {
-        return EstadoPropiedad;
-    }
-
-    public List<Caracteristica> getCaracteristicas() {
-        return Caracteristicas;
-    }
+    public int getIdPropiedad() {return IdPropiedad;}
+    public String getDireccionPropiedad() {return DireccionPropiedad;}
+    public float getPrecioPropiedad() {return PrecioPropiedad;}
+    public float getMetrosConstruidosPropiedad() {return MetrosConstruidosPropiedad;}
+    public float getMetrosTerrenoPropiedad() {return MetrosTerrenoPropiedad;}
+    public int getNumeroPadronPropiedad() {return NumeroPadronPropiedad;}
+    public EnumEstadoPropiedad getEstadoPropiedad() {return EstadoPropiedad;}
+    public List<Caracteristica> getCaracteristicas() {return Caracteristicas;}
     
     //  Caracteristicas
     public void addCaracteristica(Caracteristica caracteristica){this.Caracteristicas.add(caracteristica);}

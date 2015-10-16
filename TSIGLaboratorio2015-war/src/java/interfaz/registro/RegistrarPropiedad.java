@@ -109,16 +109,15 @@ public class RegistrarPropiedad implements Serializable {
             case "Inmueble":
                 if (this.TipoInmueble == TipoInmueble.Casa) {
                     id = cProp.crearPropiedadCasa(CantidadDormitorios, CantidadBanios, DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad,
-                            MetrosTerrenoPropiedad, NumeroPadronPropiedad, getCaracteristicasMarcadas());
+                            MetrosTerrenoPropiedad, NumeroPadronPropiedad);
                 }else{
                     id = cProp.crearPropiedadApto(CantidadDormitorios, CantidadBanios, DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad,
-                            MetrosTerrenoPropiedad, NumeroPadronPropiedad, getCaracteristicasMarcadas());
+                            MetrosTerrenoPropiedad, NumeroPadronPropiedad);
                 }
                 break;
                 
             case "Terreno":
-                id = cProp.crearPropiedadTerreno(DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad,
-                        getCaracteristicasMarcadas());
+                id = cProp.crearPropiedadTerreno(DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad);
                 break;
         }
         if (id!=-1) {

@@ -76,3 +76,9 @@ body{
     width: 100%; 
     height: 600px;
 }
+
+.nickLogueado {
+    display: block;
+    height: 34px;
+    color: #A8CF45;
+}

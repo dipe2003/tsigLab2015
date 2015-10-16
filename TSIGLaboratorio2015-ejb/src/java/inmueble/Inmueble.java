@@ -28,36 +28,27 @@ public class Inmueble extends Propiedad {
         this.CantidadDormitorios = CantidadDormitorios;
         this.CantidadBanios = CantidadBanios;
     }
-    
-    
-    //  Setters
-
-    public void setTipoInmueble(EnumTipoInmueble tipoInmueble) {
-        this.TipoInmueble = tipoInmueble;
-    }
-
-    public void setCantidadDormitorios(int CantidadDormitorios) {
+    public Inmueble(EnumTipoInmueble TipoInmueble, int CantidadDormitorios, int CantidadBanios, String DireccionPropiedad, 
+            float PrecioPropiedad, float MetrosConstruidosPropiedad, float MetrosTerrenoPropiedad, int NumeroPadronPropiedad, 
+            EnumEstadoPropiedad EstadoPropiedad) {
+        super(DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad, 
+                EstadoPropiedad);
+        this.TipoInmueble = TipoInmueble;
         this.CantidadDormitorios = CantidadDormitorios;
-    }
-
-    public void setCantidadBanios(int CantidadBanios) {
         this.CantidadBanios = CantidadBanios;
     }
     
     
+    //  Setters
+
+    public void setTipoInmueble(EnumTipoInmueble tipoInmueble) {this.TipoInmueble = tipoInmueble;}
+    public void setCantidadDormitorios(int CantidadDormitorios) {this.CantidadDormitorios = CantidadDormitorios;}
+    public void setCantidadBanios(int CantidadBanios) {this.CantidadBanios = CantidadBanios;}    
+    
     //  Getters
 
-    public EnumTipoInmueble getTipoInmueble() {
-        return TipoInmueble;
-    }
-
-    public int getCantidadDormitorios() {
-        return CantidadDormitorios;
-    }
-
-    public int getCantidadBanios() {
-        return CantidadBanios;
-    }
-    
+    public EnumTipoInmueble getTipoInmueble() {return TipoInmueble;}
+    public int getCantidadDormitorios() {return CantidadDormitorios;}
+    public int getCantidadBanios() {return CantidadBanios;}
     
 }
