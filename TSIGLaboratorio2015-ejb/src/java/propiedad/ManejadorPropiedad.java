@@ -9,6 +9,7 @@ import javax.ejb.TransactionManagementType;
 import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 @ManagedBean
@@ -67,6 +68,17 @@ public class ManejadorPropiedad {
         }
         return lista;
     }
-        
+    
+    public int InsertarUbicacionPropiedad(int IdPropiedad, int CoordX, int CoordY){
+        Query query = em.createNativeQuery("UPDATE Propiedad SET the_geom = ST_GeomFromText('POINT(:puntoX :puntoY)', '32721') WHERE Propiedad.idpropiedad= :IdProp");
+        query.setParameter("IdProp", IdPropiedad);
+        query.setParameter("puntoX", CoordX);
+        query.setParameter("puntoY", CoordY);
+        try{
+            return query.executeUpdate();
+        }catch(Exception ex){}
+        return -1;
+    }
+            
 }
     

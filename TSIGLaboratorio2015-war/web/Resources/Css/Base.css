@@ -142,4 +142,11 @@ label.css-label {
 }
 .escondido{
     display: none;
+    height: 600px;
+}
+
+.nickLogueado {
+    display: block;
+    height: 34px;
+    color: #A8CF45;
 }

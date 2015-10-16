@@ -45,4 +45,8 @@ public class ControladorUsuario {
         return mUsr.ValidarLoginUsuario(Nickname, Password);
     }
     
+    public Usuario GetUsuario(int IdUsuario){
+        return mUsr.GetUsuario(IdUsuario);
+    }
+    
 }

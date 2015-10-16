@@ -37,8 +37,7 @@ public class RegistrarPropiedad implements Serializable {
     private int CantidadBanios;
     /**
      * Lista de Caracteristicas para utilizarse desde la pagina para registrar las caracteristicas del inmueble
-     */
-    
+     */    
     private Map<Integer, Boolean> listChecked;
     
     //  Setters
@@ -78,10 +77,10 @@ public class RegistrarPropiedad implements Serializable {
      */
     private  List<Integer> getCaracteristicasMarcadas(){
         List<Integer> caracteristicasMarcadas = new ArrayList<>();
-        for (Map.Entry e : listChecked.entrySet()) {
-            boolean valor = (boolean)e.getValue();
-            int Key = (int) e.getKey();
-            if ( valor ) caracteristicasMarcadas.add(Key);
+        for (int i = 0; i < listChecked.size(); i++) {
+            if (this.listChecked.get(i)) {
+                caracteristicasMarcadas.add(i);
+            }
         }
         return caracteristicasMarcadas;
     }
@@ -99,11 +98,11 @@ public class RegistrarPropiedad implements Serializable {
                         MetrosTerrenoPropiedad, NumeroPadronPropiedad, getCaracteristicasMarcadas());
                 break;
             case "Terreno":
-                id = cProp.crearPropiedadTerreno(DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad,
-                        getCaracteristicasMarcadas());
+                id = cProp.crearPropiedadTerreno(DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad);
                 break;
         }
         if (id!=-1) {
+            cProp.InsertarUbicacionPropiedad(id, Integer.parseInt(CoordX), Integer.parseInt(this.CoordY));
             return "registrada";
         }
         return "";

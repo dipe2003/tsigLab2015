@@ -20,11 +20,20 @@
     <body onload='init();' style="background-color: #EEE;">
         <div id="header">
             <div id="headerCenter">
-                <div id="formLogin">
-                    Usuario <input type="text" class="form-control loginInput"/>
-                    Usuario <input type="password" class="form-control loginInput"/>
-                    <button type="button" class="btn btn-success loginButton">Success</button>
-                </div>
+                <h:form id="login">
+                    <div id="formLogin">
+                        <h:panelGroup rendered="#{!login.usuarioLogueado}">
+                            Usuario <h:inputText class="form-control loginInput" value="#{login.nickname}"/>
+                            Password <h:inputSecret class="form-control loginInput" value="#{login.password}"/>
+                            <h:commandButton id="login" class="btn btn-success loginButton" action="#{login.login()}" value="Ingresar"/>
+                            <h:message for="login" />
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{login.usuarioLogueado}">
+                            <h:outputText class="nickLogueado" value="#{login.nickname}"/>
+                            <h:commandButton id="logout" class="btn btn-success loginButton" action="#{login.logout()}" value="Salir"/>
+                        </h:panelGroup>
+                    </div>
+                </h:form>
                 <div id="iconContainer">
                     <img src="Resources/Images/logo.png" width="349" height="149" alt="logo"/>
                 </div>

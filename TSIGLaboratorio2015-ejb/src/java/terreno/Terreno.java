@@ -16,6 +16,10 @@ public class Terreno extends Propiedad{
             EnumEstadoPropiedad EstadoPropiedad, List<Caracteristica> Caracteristicas) {
         super(DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad, EstadoPropiedad, Caracteristicas);
     }
+    public Terreno(String DireccionPropiedad, float PrecioPropiedad, float MetrosConstruidosPropiedad, float MetrosTerrenoPropiedad, int NumeroPadronPropiedad, 
+            EnumEstadoPropiedad EstadoPropiedad) {
+        super(DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad, EstadoPropiedad);
+    }
     
     
 }

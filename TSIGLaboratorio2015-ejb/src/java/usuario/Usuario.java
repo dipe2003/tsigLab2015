@@ -54,8 +54,6 @@ public class Usuario implements Serializable{
     public void addPropiedad(Propiedad propiedad){this.Propiedades.add(propiedad);}
     
     //  Otras
-    public boolean esCorrectoPassword(String Password){
-        return this.PasswordUsuario.equals(Password);
-    }
+    public boolean esCorrectoPassword(String Password){return this.PasswordUsuario.equals(Password);}
     
 }

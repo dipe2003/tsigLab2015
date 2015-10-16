@@ -19,23 +19,12 @@ public class ZonaCrecimiento implements Serializable {
 
     //  Setters
     
-    public void setIdZonaCrecimiento(int IdZonaCrecimiento) {
-        this.IdZonaCrecimiento = IdZonaCrecimiento;
-    }
-
-    public void setDemandaZonaCrecimiento(String DemandaZonaCrecimiento) {
-        this.DemandaZonaCrecimiento = DemandaZonaCrecimiento;
-    }
+    public void setIdZonaCrecimiento(int IdZonaCrecimiento) {this.IdZonaCrecimiento = IdZonaCrecimiento;}
+    public void setDemandaZonaCrecimiento(String DemandaZonaCrecimiento) {this.DemandaZonaCrecimiento = DemandaZonaCrecimiento;}
     
     //  Getters
 
-    public int getIdZonaCrecimiento() {
-        return IdZonaCrecimiento;
-    }
-
-    public String getDemandaZonaCrecimiento() {
-        return DemandaZonaCrecimiento;
-    }
-        
+    public int getIdZonaCrecimiento() {return IdZonaCrecimiento;}
+    public String getDemandaZonaCrecimiento() {return DemandaZonaCrecimiento;}        
     
 }

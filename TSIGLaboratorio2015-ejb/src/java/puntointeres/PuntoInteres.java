@@ -31,33 +31,13 @@ public class PuntoInteres implements Serializable {
     
     //  Setters
 
-    public void setIdPuntoInteres(int IdPuntoInteres) {
-        this.IdPuntoInteres = IdPuntoInteres;
-    }
-
-    public void setNombrePuntoInteres(String NombrePuntoInteres) {
-        this.NombrePuntoInteres = NombrePuntoInteres;
-    }
-
-    public void setTipoDePuntoInteres(TipoPuntoInteres TipoDePuntoInteres) {
-        this.TipoDePuntoInteres = TipoDePuntoInteres;
-    }    
-    
+    public void setIdPuntoInteres(int IdPuntoInteres) {this.IdPuntoInteres = IdPuntoInteres;}
+    public void setNombrePuntoInteres(String NombrePuntoInteres) {this.NombrePuntoInteres = NombrePuntoInteres;}
+    public void setTipoDePuntoInteres(TipoPuntoInteres TipoDePuntoInteres) {this.TipoDePuntoInteres = TipoDePuntoInteres;}        
     
     //  Getters
 
-    public int getIdPuntoInteres() {
-        return IdPuntoInteres;
-    }
-
-    public String getNombrePuntoInteres() {
-        return NombrePuntoInteres;
-    }
-
-    public TipoPuntoInteres getTipoDePuntoInteres() {
-        return TipoDePuntoInteres;
-    }
-    
-    
-    
+    public int getIdPuntoInteres() {return IdPuntoInteres;}
+    public String getNombrePuntoInteres() {return NombrePuntoInteres;}
+    public TipoPuntoInteres getTipoDePuntoInteres() {return TipoDePuntoInteres;}    
 }
