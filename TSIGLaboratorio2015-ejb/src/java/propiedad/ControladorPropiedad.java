@@ -134,7 +134,7 @@ public class ControladorPropiedad {
     * @param CoordY
     * @return devuelve el id de la propiedad si se agrego correctamente. Retorna -1 si no se agrego.
     */
-   public int InsertarUbicacionPropiedad(int IdPropiedad, int CoordX, int CoordY){
+   public int InsertarUbicacionPropiedad(int IdPropiedad, float CoordX, float CoordY){
        return mProp.InsertarUbicacionPropiedad(IdPropiedad, CoordX, CoordY);
    }
 }

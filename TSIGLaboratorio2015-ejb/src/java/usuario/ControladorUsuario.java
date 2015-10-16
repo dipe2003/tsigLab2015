@@ -45,6 +45,11 @@ public class ControladorUsuario {
         return mUsr.ValidarLoginUsuario(Nickname, Password);
     }
     
+    /**
+     * Obtiene el usuario especificado por su id.
+     * @param IdUsuario
+     * @return 
+     */
     public Usuario GetUsuario(int IdUsuario){
         return mUsr.GetUsuario(IdUsuario);
     }

@@ -28,6 +28,7 @@ public class Inmueble extends Propiedad {
         this.CantidadDormitorios = CantidadDormitorios;
         this.CantidadBanios = CantidadBanios;
     }
+    
     public Inmueble(EnumTipoInmueble TipoInmueble, int CantidadDormitorios, int CantidadBanios, String DireccionPropiedad, 
             float PrecioPropiedad, float MetrosConstruidosPropiedad, float MetrosTerrenoPropiedad, int NumeroPadronPropiedad, 
             EnumEstadoPropiedad EstadoPropiedad) {
