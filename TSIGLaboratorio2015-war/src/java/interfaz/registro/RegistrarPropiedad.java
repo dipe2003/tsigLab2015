@@ -29,11 +29,10 @@ public class RegistrarPropiedad implements Serializable {
     private float PrecioPropiedad;
     private float MetrosConstruidosPropiedad;
     private float MetrosTerrenoPropiedad;
-    private int NumeroPadronPropiedad;    
+    private int NumeroPadronPropiedad;
+    private List<Caracteristica> listaCaracteristica;
     
-    private List<Caracteristica> listaCaracteristicas;
-    
-    //  Inmueble
+//  Inmueble
     private int CantidadDormitorios;
     private int CantidadBanios;
     /**
@@ -50,14 +49,11 @@ public class RegistrarPropiedad implements Serializable {
     public void setMetrosConstruidosPropiedad(float MetrosConstruidosPropiedad) {this.MetrosConstruidosPropiedad = MetrosConstruidosPropiedad;}
     public void setMetrosTerrenoPropiedad(float MetrosTerrenoPropiedad) {this.MetrosTerrenoPropiedad = MetrosTerrenoPropiedad;}
     public void setNumeroPadronPropiedad(int NumeroPadronPropiedad) {this.NumeroPadronPropiedad = NumeroPadronPropiedad;}
-    
     public void setCantidadDormitorios(int CantidadDormitorios) {this.CantidadDormitorios = CantidadDormitorios;}
     public void setCantidadBanios(int CantidadBanios) {this.CantidadBanios = CantidadBanios;}
-    
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
-
-    public void setListaCaracteristicas(List<Caracteristica> listaCaracteristicas) {this.listaCaracteristicas = listaCaracteristicas;}
-    
+    public List<Caracteristica> getListaCaracteristica() {return listaCaracteristica;}
+   
     
     
     //  Getters
@@ -69,14 +65,13 @@ public class RegistrarPropiedad implements Serializable {
     public float getMetrosConstruidosPropiedad() {return MetrosConstruidosPropiedad;}
     public float getMetrosTerrenoPropiedad() {return MetrosTerrenoPropiedad;}
     public int getNumeroPadronPropiedad() {return NumeroPadronPropiedad;}
-    
+    public void setListaCaracteristica(List<Caracteristica> listaCaracteristica) {this.listaCaracteristica = listaCaracteristica;}  
     public int getCantidadDormitorios() {return CantidadDormitorios;}
     public int getCantidadBanios() {return CantidadBanios;}
     
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
 
-    public List<Caracteristica> getListaCaracteristicas() {return listaCaracteristicas;}    
-    
+   
     
     /**
      * Retorna la lista con las caracteristicas selaccionadas
@@ -121,33 +116,14 @@ public class RegistrarPropiedad implements Serializable {
         /**
          * Llenar con las caracteristicas que estan registradas en la base de datos.
          */
-        listaCaracteristicas = cCar.listarCaracteristicas();
-        listChecked = new HashMap<>();
-        for (int i = 0; i < listaCaracteristicas.size(); i++) {
-            listChecked.put(listaCaracteristicas.get(i).getIdCaracteristica(), Boolean.FALSE);
+        this.listaCaracteristica = cCar.listarCaracteristicas();
+       listChecked = new HashMap<>();
+        for (int i = 0; i < listaCaracteristica.size(); i++) {
+            listChecked.put(listaCaracteristica.get(i).getIdCaracteristica(), Boolean.FALSE);
         }
     }
     
-    //  inner classBean de Caracteristicas
-    
-    public static class BeanCaracteristica{
-        private int IdCaracteristica;
-        private String NombreCaracteristica;
-        
-        //  Constructor
-        public BeanCaracteristica(int IdCaracteristica, String NombreCaracteristica) {
-            this.IdCaracteristica = IdCaracteristica;
-            this.NombreCaracteristica = NombreCaracteristica;
-        }
-        //  Getters & Setters
-        
-        public int getIdCaracteristica() {return IdCaracteristica;}
-        public void setIdCaracteristica(int IdCaracteristica) {this.IdCaracteristica = IdCaracteristica;}
-        public String getNombreCaracteristica() {return NombreCaracteristica;}
-        public void setNombreCaracteristica(String NombreCaracteristica) {this.NombreCaracteristica = NombreCaracteristica;}
-        
-        
-    }
+  
     
     
 }
