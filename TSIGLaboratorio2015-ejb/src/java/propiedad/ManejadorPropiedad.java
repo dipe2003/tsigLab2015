@@ -70,10 +70,7 @@ public class ManejadorPropiedad {
     }
     
     public int InsertarUbicacionPropiedad(int IdPropiedad, float CoordX, float CoordY){
-        Query query = em.createNativeQuery("UPDATE Propiedad SET the_geom = ST_GeomFromText('POINT(:puntoX :puntoY)', '32721') WHERE Propiedad.idpropiedad= :IdProp");
-        query.setParameter("IdProp", IdPropiedad);
-        query.setParameter("puntoX", CoordX);
-        query.setParameter("puntoY", CoordY);
+        Query query = em.createNativeQuery("UPDATE Propiedad SET the_geom = ST_GeomFromText('POINT(" +CoordX + " " + CoordY+ " )', '32721') WHERE Propiedad.idpropiedad= "+IdPropiedad);
         try{
             return query.executeUpdate();
         }catch(Exception ex){}

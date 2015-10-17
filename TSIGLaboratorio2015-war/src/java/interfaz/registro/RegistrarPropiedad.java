@@ -22,15 +22,16 @@ public class RegistrarPropiedad implements Serializable {
     @EJB
     private ControladorPropiedad cProp;
     
-    private String TipoPropiedadSeleccionado;
-    
+    private String TipoPropiedadSeleccionado;    
     private String CoordX;
     private String CoordY;
     private String DireccionPropiedad;
     private float PrecioPropiedad;
     private float MetrosConstruidosPropiedad;
     private float MetrosTerrenoPropiedad;
-    private int NumeroPadronPropiedad;
+    private int NumeroPadronPropiedad;    
+    
+    private List<Caracteristica> listaCaracteristicas;
     
     //  Inmueble
     private int CantidadDormitorios;
@@ -54,6 +55,9 @@ public class RegistrarPropiedad implements Serializable {
     public void setCantidadBanios(int CantidadBanios) {this.CantidadBanios = CantidadBanios;}
     
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
+
+    public void setListaCaracteristicas(List<Caracteristica> listaCaracteristicas) {this.listaCaracteristicas = listaCaracteristicas;}
+    
     
     
     //  Getters
@@ -70,6 +74,9 @@ public class RegistrarPropiedad implements Serializable {
     public int getCantidadBanios() {return CantidadBanios;}
     
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
+
+    public List<Caracteristica> getListaCaracteristicas() {return listaCaracteristicas;}    
+    
     
     /**
      * Retorna la lista con las caracteristicas selaccionadas
@@ -114,10 +121,10 @@ public class RegistrarPropiedad implements Serializable {
         /**
          * Llenar con las caracteristicas que estan registradas en la base de datos.
          */
-        List<Caracteristica> caracteristicas = cCar.listarCaracteristicas();
+        listaCaracteristicas = cCar.listarCaracteristicas();
         listChecked = new HashMap<>();
-        for (int i = 0; i < caracteristicas.size(); i++) {
-            listChecked.put(caracteristicas.get(i).getIdCaracteristica(), Boolean.FALSE);
+        for (int i = 0; i < listaCaracteristicas.size(); i++) {
+            listChecked.put(listaCaracteristicas.get(i).getIdCaracteristica(), Boolean.FALSE);
         }
     }
     
