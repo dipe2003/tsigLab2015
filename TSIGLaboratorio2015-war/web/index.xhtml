@@ -5,6 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
         <meta charset='utf-8' />
@@ -75,10 +76,9 @@
                     
                     <div class="columnas">
                         <c:forEach var="car" items="#{registrarPropiedad.listaCaracteristica}">                    
-                            <h:selectBooleanCheckbox id="#{car.idCaracteristica}" class="css-checkbox" value="#{registrarPropiedad.listChecked[car.idCaracteristica]}" />  
-                            <label for="#{car.idCaracteristica}" class="css-label" >#{car.nombreCaracteristica}</label><br/>
+                            <h:selectBooleanCheckbox value="#{registrarPropiedad.listChecked[car.idCaracteristica]}" />  #{car.nombreCaracteristica}<br/>
                         </c:forEach>
-<!--                    <input type="checkbox" id="checkboxG1" class="css-checkbox" /> <label for="checkboxG1" class="css-label" >Garage</label><br/>
+<!--                        <input type="checkbox" id="checkboxG1" class="css-checkbox" /> <label for="checkboxG1" class="css-label" >Garage</label><br/>
                         <input type="checkbox" id="checkboxG2" class="css-checkbox" /> <label for="checkboxG2" class="css-label">Pisina</label><br/>
                         <input type="checkbox" id="checkboxG3" class="css-checkbox" /> <label for="checkboxG3" class="css-label">Barbacoa</label><br/>-->
                     </div>
