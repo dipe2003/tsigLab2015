@@ -78,7 +78,7 @@ function AgregarPunto(ev){
     var punto = ev.feature.geometry;
     $('#formulario\\:coordx').val(punto.x);
     $('#formulario\\:coordy').val(punto.y);
-    if (vector_layer.features.length>1){
-        vector_layer.removeFeatures(vector_layer.features[0]);
-    }
+//    if (vector_layer.features.length>1){
+//        vector_layer.removeFeatures(vector_layer.features[0]);
+//    }
 }
