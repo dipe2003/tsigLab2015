@@ -74,13 +74,13 @@
                     </div>
                     
                     <div class="columnas">
-                        <c:forEach var="car" items="#{registrarPropiedad.listaCaracteristica}">                    
+<!--                        <c:forEach var="car" items="#{registrarPropiedad.listaCaracteristica}">                    
                             <h:selectBooleanCheckbox id="#{car.idCaracteristica}" class="css-checkbox" value="#{registrarPropiedad.listChecked[car.idCaracteristica]}" />  
                             <label for="#{car.idCaracteristica}" class="css-label" >#{car.nombreCaracteristica}</label><br/>
-                        </c:forEach>
-<!--                    <input type="checkbox" id="checkboxG1" class="css-checkbox" /> <label for="checkboxG1" class="css-label" >Garage</label><br/>
+                        </c:forEach>-->
+                    <input type="checkbox" id="checkboxG1" class="css-checkbox" /> <label for="checkboxG1" class="css-label" >Garage</label><br/>
                         <input type="checkbox" id="checkboxG2" class="css-checkbox" /> <label for="checkboxG2" class="css-label">Pisina</label><br/>
-                        <input type="checkbox" id="checkboxG3" class="css-checkbox" /> <label for="checkboxG3" class="css-label">Barbacoa</label><br/>-->
+                        <input type="checkbox" id="checkboxG3" class="css-checkbox" /> <label for="checkboxG3" class="css-label">Barbacoa</label><br/>
                     </div>
                     
                     <h:inputText value="#{registrarPropiedad.coordX}" id="coordx" />
