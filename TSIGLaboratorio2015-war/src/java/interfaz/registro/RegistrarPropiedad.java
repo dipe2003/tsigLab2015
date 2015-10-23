@@ -40,6 +40,21 @@ public class RegistrarPropiedad implements Serializable {
      */    
     private Map<Integer, Boolean> listChecked;
     
+    //  Getters
+    public String getTipoPropiedadSeleccionado() {return TipoPropiedadSeleccionado;}
+    public String getCoordX() {return CoordX;}
+    public String getCoordY() {return CoordY;}
+    public String getDireccionPropiedad() {return DireccionPropiedad;}
+    public float getPrecioPropiedad() {return PrecioPropiedad;}
+    public float getMetrosConstruidosPropiedad() {return MetrosConstruidosPropiedad;}
+    public float getMetrosTerrenoPropiedad() {return MetrosTerrenoPropiedad;}
+    public int getNumeroPadronPropiedad() {return NumeroPadronPropiedad;}
+     
+    public int getCantidadDormitorios() {return CantidadDormitorios;}
+    public int getCantidadBanios() {return CantidadBanios;}
+    public List<Caracteristica> getListaCaracteristica() {return listaCaracteristica;}
+    public Map<Integer, Boolean> getListChecked() {return listChecked;}
+    
     //  Setters
     public void setTipoPropiedadSeleccionado(String TipoPropiedadSeleccionado) {this.TipoPropiedadSeleccionado = TipoPropiedadSeleccionado;}
     public void setCoordX(String CoordX) {this.CoordX = CoordX;}
@@ -52,24 +67,11 @@ public class RegistrarPropiedad implements Serializable {
     public void setCantidadDormitorios(int CantidadDormitorios) {this.CantidadDormitorios = CantidadDormitorios;}
     public void setCantidadBanios(int CantidadBanios) {this.CantidadBanios = CantidadBanios;}
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
-    public List<Caracteristica> getListaCaracteristica() {return listaCaracteristica;}
    
+   public void setListaCaracteristica(List<Caracteristica> listaCaracteristica) {this.listaCaracteristica = listaCaracteristica;} 
     
     
-    //  Getters
-    public String getTipoPropiedadSeleccionado() {return TipoPropiedadSeleccionado;}
-    public String getCoordX() {return CoordX;}
-    public String getCoordY() {return CoordY;}
-    public String getDireccionPropiedad() {return DireccionPropiedad;}
-    public float getPrecioPropiedad() {return PrecioPropiedad;}
-    public float getMetrosConstruidosPropiedad() {return MetrosConstruidosPropiedad;}
-    public float getMetrosTerrenoPropiedad() {return MetrosTerrenoPropiedad;}
-    public int getNumeroPadronPropiedad() {return NumeroPadronPropiedad;}
-    public void setListaCaracteristica(List<Caracteristica> listaCaracteristica) {this.listaCaracteristica = listaCaracteristica;}  
-    public int getCantidadDormitorios() {return CantidadDormitorios;}
-    public int getCantidadBanios() {return CantidadBanios;}
     
-    public Map<Integer, Boolean> getListChecked() {return listChecked;}
 
    
     
