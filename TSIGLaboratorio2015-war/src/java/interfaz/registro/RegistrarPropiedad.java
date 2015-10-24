@@ -81,10 +81,10 @@ public class RegistrarPropiedad implements Serializable {
      */
     private  List<Integer> getCaracteristicasMarcadas(){
         List<Integer> caracteristicasMarcadas = new ArrayList<>();
-        for (int i = 0; i < listChecked.size(); i++) {
-            if (this.listChecked.get(i)) {
-                caracteristicasMarcadas.add(i);
-            }
+        for (Map.Entry e : listChecked.entrySet()) {
+            boolean valor = (boolean)e.getValue();
+            int Key = (int) e.getKey();
+            if ( valor ) caracteristicasMarcadas.add((int)e.getKey());
         }
         return caracteristicasMarcadas;
     }

@@ -1,5 +1,5 @@
 
-var opts = {projection: 'EPSG:900913', displayProjection: '4326'};
+var opts = {projection: 'EPSG:900913', displayProjection: '4326', numZoomLevel: 20};
 
 var vector_layer;
 
