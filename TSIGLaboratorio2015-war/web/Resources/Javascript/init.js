@@ -47,21 +47,27 @@ function init() {
     //            );
     //    map.addLayer(wms);
     //---------------------WFS - Departamento
-    //    var capa_wfs = new OpenLayers.Layer.Vector('Capa WFS', {
-    //        strategies: [new OpenLayers.Strategy.Fixed()],
-    //        protocol: new OpenLayers.Protocol.WFS({
-    //            url: 'http://localhost:8080/geoserver/wfs',
-    //            featureType: 'departamento',
-    //            featureNS: 'tsiglab2015',
-    //            featurePrefix:'tsiglab2015',            
-    //            geometryName: 'the_geom',
-    //            srsName: new OpenLayers.Projection('EPSG:900913'),
-    //            version: '1.1.0'
-    //        })
-    //    });
-    //    map.addLayer(capa_wfs);
+        var capa_wfs = new OpenLayers.Layer.Vector('Propiedades', {
+            strategies: [new OpenLayers.Strategy.Fixed()],
+            protocol: new OpenLayers.Protocol.WFS({
+                url: 'http://localhost:8080/geoserver/wfs',
+                featureType: 'propiedad',
+                featureNS: 'tsiglab2015',
+                featurePrefix:'tsiglab2015',            
+                geometryName: 'the_geom',
+                srsName: new OpenLayers.Projection('EPSG:900913'),
+                version: '1.1.0'
+            })
+        });
+        map.addLayer(capa_wfs);
     
-    
+    var wms = new OpenLayers.Layer.WMS(
+                'Propiedades',
+        'http://localhost:8080/geoserver/wms/',
+        {layers: 'propiedad', transparent: true},
+        {isBaseLayer: false, opacity: 0.5}
+                );
+        map.addLayer(wms);
     //------------------Agregar Coordenadas de un Punto------------------------
     //---------------------Capa auxiliar 
     var vector_layer = new OpenLayers.Layer.Vector('Basic Vector Layer');
@@ -75,9 +81,15 @@ function init() {
 }
 
 function AgregarPunto(ev){
+    var desdeProjection = new OpenLayers.Projection("EPSG:900913");   
+    var aProjection   = new OpenLayers.Projection("EPSG:4326");
     var punto = ev.feature.geometry;
-    $('#formulario\\:coordx').val(punto.x);
-    $('#formulario\\:coordy').val(punto.y);
+      var punto = ev.feature.geometry.getBounds().getCenterLonLat().clone().transform(desdeProjection, aProjection);
+      coord_x = punto.lon.toFixed(5);
+      coord_y = punto.lat.toFixed(5);
+
+    $('#formulario\\:coordx').val(coord_x);
+    $('#formulario\\:coordy').val(coord_y);
 //    if (vector_layer.features.length>1){
 //        vector_layer.removeFeatures(vector_layer.features[0]);
 //    }

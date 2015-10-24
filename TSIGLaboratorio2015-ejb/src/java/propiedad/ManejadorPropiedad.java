@@ -70,10 +70,12 @@ public class ManejadorPropiedad {
     }
     
     public int InsertarUbicacionPropiedad(int IdPropiedad, float CoordX, float CoordY){
-        Query query = em.createNativeQuery("UPDATE Propiedad SET the_geom = ST_GeomFromText('POINT(" +CoordX + " " + CoordY+ " )', '32721') WHERE Propiedad.idpropiedad= "+IdPropiedad);
+        Query query = em.createNativeQuery("UPDATE Propiedad SET the_geom = ST_Transform(ST_GeomFromText('POINT(" +CoordX + " " + CoordY+ " )', '4326'), 32721) WHERE Propiedad.idpropiedad= "+IdPropiedad);
         try{
             return query.executeUpdate();
-        }catch(Exception ex){}
+        }catch(Exception ex){
+            System.out.println("Error:" + ex.getMessage());
+        }
         return -1;
     }
             
