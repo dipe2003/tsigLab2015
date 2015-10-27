@@ -40,6 +40,10 @@ public class RegistrarPropiedad implements Serializable {
      * Lista de Caracteristicas para utilizarse desde la pagina para registrar las caracteristicas del inmueble
      */    
     private Map<Integer, Boolean> listChecked;
+    
+    //  alquiler o venta
+    private Map<String, Boolean> AlquilerVenta;
+  
        
     //  Getters
     public String getTipoPropiedadSeleccionado() {return TipoPropiedadSeleccionado;}
@@ -55,7 +59,8 @@ public class RegistrarPropiedad implements Serializable {
     public List<Caracteristica> getListaCaracteristica() {return listaCaracteristica;}
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
     public boolean getEnAlquiler() {return EnAlquiler;}
-    public boolean getEnVenta() {return EnVenta;}    
+    public boolean getEnVenta() {return EnVenta;}
+    public Map<String, Boolean> getAlquilerVenta() {return AlquilerVenta;}
     
     //  Setters
     public void setTipoPropiedadSeleccionado(String TipoPropiedadSeleccionado) {this.TipoPropiedadSeleccionado = TipoPropiedadSeleccionado;}
@@ -72,6 +77,7 @@ public class RegistrarPropiedad implements Serializable {
     public void setListaCaracteristica(List<Caracteristica> listaCaracteristica) {this.listaCaracteristica = listaCaracteristica;} 
     public void setEnAlquiler(boolean EnAlquiler) {this.EnAlquiler = EnAlquiler;}
     public void setEnVenta(boolean EnVenta) {this.EnVenta = EnVenta;}
+    public void setAlquilerVenta(Map<String, Boolean> AlquilerVenta) {this.AlquilerVenta = AlquilerVenta;}
     
     /**
      * Retorna la lista con las caracteristicas selaccionadas
@@ -86,6 +92,8 @@ public class RegistrarPropiedad implements Serializable {
         }
         return caracteristicasMarcadas;
     }
+    
+//    private List<String> getAlquilerVenta
     
     //  Registro
     public String registrarPropiedad(){

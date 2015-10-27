@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import propiedad.caracteristica.Caracteristica;
 import propiedad.enums.EnumEstadoPropiedad;
 
@@ -21,7 +21,7 @@ public class Propiedad implements Serializable{
     private float MetrosTerrenoPropiedad;
     private int NumeroPadronPropiedad;
     private EnumEstadoPropiedad EstadoPropiedad;
-    @OneToMany
+    @ManyToMany
     private List<Caracteristica> Caracteristicas;
     private boolean EnAlquiler;
     private boolean EnVenta;
