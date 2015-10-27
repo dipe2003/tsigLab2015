@@ -1,0 +1,51 @@
+<ui:composition template="/index.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="page_content">
+        
+        <h:form id="formulario">
+            <div class="formulario">
+                
+                <div class="tituloGrande">
+                    Registrar Propiedad
+                </div>
+                
+                <div class="contenidoFormulario">
+                    
+                    <h:selectOneMenu class="form-control loginInput" value="#{registrarPropiedad.tipoPropiedadSeleccionado}">
+                        <f:selectItem itemValue="Casa" itemLabel="Casa" />
+                        <f:selectItem itemValue="Apartamento" itemLabel="Apartamento" />	
+                        <f:selectItem itemValue="Terreno" itemLabel="Terreno" />	                            
+                    </h:selectOneMenu>
+                    
+                    Direccion  <h:inputText value="#{registrarPropiedad.direccionPropiedad}" class="form-control loginInput"/>
+                    Precio <h:inputText value="#{registrarPropiedad.precioPropiedad}" class="form-control loginInput"/>
+                    Metros Contruidos <h:inputText value="#{registrarPropiedad.metrosConstruidosPropiedad}" class="form-control loginInput"/>
+                    Metros de Terreno<h:inputText value="#{registrarPropiedad.metrosTerrenoPropiedad}" class="form-control loginInput"/>
+                    
+                    Cantidad de Dormitorios<h:inputText value="#{registrarPropiedad.cantidadDormitorios}" class="form-control loginInput"/>
+                    Cantidad de Baños<h:inputText value="#{registrarPropiedad.cantidadBanios}" class="form-control loginInput"/>
+                    
+
+                </div>
+                
+                <div class="columnas">
+                    <c:forEach var="car" items="#{registrarPropiedad.listaCaracteristica}">                    
+                        <h:selectBooleanCheckbox value="#{registrarPropiedad.listChecked[car.idCaracteristica]}" />  #{car.nombreCaracteristica}<br/>
+                    </c:forEach>
+                </div>
+                
+                <h:inputText value="#{registrarPropiedad.coordX}" id="coordx" />
+                <h:inputText value="#{registrarPropiedad.coordY}" id="coordy" />
+                
+                <div class="aceptar">
+                    <h:commandButton value="Registrar" action="#{registrarPropiedad.registrarPropiedad()}" class="btn btn-success loginButton"/>
+                </div>
+                
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

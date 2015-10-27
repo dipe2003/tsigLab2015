@@ -31,7 +31,8 @@ public class RegistrarPropiedad implements Serializable {
     private float MetrosTerrenoPropiedad;
     private int NumeroPadronPropiedad;
     private List<Caracteristica> listaCaracteristica;
-    
+    private boolean EnAlquiler;
+    private boolean EnVenta;
 //  Inmueble
     private int CantidadDormitorios;
     private int CantidadBanios;
@@ -39,7 +40,7 @@ public class RegistrarPropiedad implements Serializable {
      * Lista de Caracteristicas para utilizarse desde la pagina para registrar las caracteristicas del inmueble
      */    
     private Map<Integer, Boolean> listChecked;
-    
+       
     //  Getters
     public String getTipoPropiedadSeleccionado() {return TipoPropiedadSeleccionado;}
     public String getCoordX() {return CoordX;}
@@ -49,11 +50,12 @@ public class RegistrarPropiedad implements Serializable {
     public float getMetrosConstruidosPropiedad() {return MetrosConstruidosPropiedad;}
     public float getMetrosTerrenoPropiedad() {return MetrosTerrenoPropiedad;}
     public int getNumeroPadronPropiedad() {return NumeroPadronPropiedad;}
-     
     public int getCantidadDormitorios() {return CantidadDormitorios;}
     public int getCantidadBanios() {return CantidadBanios;}
     public List<Caracteristica> getListaCaracteristica() {return listaCaracteristica;}
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
+    public boolean getEnAlquiler() {return EnAlquiler;}
+    public boolean getEnVenta() {return EnVenta;}    
     
     //  Setters
     public void setTipoPropiedadSeleccionado(String TipoPropiedadSeleccionado) {this.TipoPropiedadSeleccionado = TipoPropiedadSeleccionado;}
@@ -67,13 +69,9 @@ public class RegistrarPropiedad implements Serializable {
     public void setCantidadDormitorios(int CantidadDormitorios) {this.CantidadDormitorios = CantidadDormitorios;}
     public void setCantidadBanios(int CantidadBanios) {this.CantidadBanios = CantidadBanios;}
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
-   
-   public void setListaCaracteristica(List<Caracteristica> listaCaracteristica) {this.listaCaracteristica = listaCaracteristica;} 
-    
-    
-    
-
-   
+    public void setListaCaracteristica(List<Caracteristica> listaCaracteristica) {this.listaCaracteristica = listaCaracteristica;} 
+    public void setEnAlquiler(boolean EnAlquiler) {this.EnAlquiler = EnAlquiler;}
+    public void setEnVenta(boolean EnVenta) {this.EnVenta = EnVenta;}
     
     /**
      * Retorna la lista con las caracteristicas selaccionadas
@@ -95,14 +93,15 @@ public class RegistrarPropiedad implements Serializable {
         switch(this.TipoPropiedadSeleccionado){
             case "Casa":
                 id = cProp.crearPropiedadCasa(CantidadDormitorios, CantidadBanios, DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad,
-                        MetrosTerrenoPropiedad, NumeroPadronPropiedad);
+                        MetrosTerrenoPropiedad, NumeroPadronPropiedad, getCaracteristicasMarcadas(), EnAlquiler, EnVenta);
                 break;
             case "Apartamento":
                 id = cProp.crearPropiedadApto(CantidadDormitorios, CantidadBanios, DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad,
-                        MetrosTerrenoPropiedad, NumeroPadronPropiedad);
+                        MetrosTerrenoPropiedad, NumeroPadronPropiedad, getCaracteristicasMarcadas(), EnAlquiler, EnVenta);
                 break;
             case "Terreno":
-                id = cProp.crearPropiedadTerreno(DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad);
+                id = cProp.crearPropiedadTerreno(DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad,
+                        getCaracteristicasMarcadas(), EnAlquiler, EnVenta);
                 break;
         }
         if (id!=-1) {
@@ -123,6 +122,9 @@ public class RegistrarPropiedad implements Serializable {
         for (int i = 0; i < listaCaracteristica.size(); i++) {
             listChecked.put(listaCaracteristica.get(i).getIdCaracteristica(), Boolean.FALSE);
         }
+        
+        this.EnVenta = true;
+        this.EnAlquiler = false;
     }
     
   

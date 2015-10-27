@@ -29,15 +29,18 @@ public class ControladorPropiedad {
      * @param MetrosTerrenoPropiedad
      * @param NumeroPadronPropiedad
      * @param Caracteristicas
+     * @param EnAlquiler
+     * @param EnVenta
      * @return el id de la propiedad creada. -1 si no se pudo crear.
      */
-   public int crearPropiedadCasa(int CantidadDormitorios, int CantidadBanios, String DireccionPropiedad, float PrecioPropiedad, 
-           float MetrosConstruidosPropiedad, float MetrosTerrenoPropiedad, int NumeroPadronPropiedad, List<Integer> Caracteristicas){
-       Propiedad propiedad = new Inmueble(EnumTipoInmueble.Casa,CantidadDormitorios, CantidadBanios, DireccionPropiedad, 
-            PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad, 
-            EnumEstadoPropiedad.Privada, cCar.ListarCaracteristicas(Caracteristicas));
-       return mProp.CrearPropiedad(propiedad);               
-   }
+    public int crearPropiedadCasa(int CantidadDormitorios, int CantidadBanios, String DireccionPropiedad, float PrecioPropiedad,
+            float MetrosConstruidosPropiedad, float MetrosTerrenoPropiedad, int NumeroPadronPropiedad, List<Integer> Caracteristicas,
+            boolean EnAlquiler, boolean EnVenta){
+        Propiedad propiedad = new Inmueble(EnumTipoInmueble.Casa,CantidadDormitorios, CantidadBanios, DireccionPropiedad,
+                PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad,
+                EnumEstadoPropiedad.Privada, cCar.ListarCaracteristicas(Caracteristicas), EnAlquiler, EnVenta);
+        return mProp.CrearPropiedad(propiedad);
+    }
     /**
      * Crea una propiedad inmueble del tipo casa sin caracteristicas.
      * @param CantidadDormitorios
@@ -47,94 +50,105 @@ public class ControladorPropiedad {
      * @param MetrosConstruidosPropiedad
      * @param MetrosTerrenoPropiedad
      * @param NumeroPadronPropiedad
+     * @param EnAlquiler
+     * @param EnVenta
      * @return el id de la propiedad creada. -1 si no se pudo crear.
      */
-   public int crearPropiedadCasa(int CantidadDormitorios, int CantidadBanios, String DireccionPropiedad, float PrecioPropiedad, 
-           float MetrosConstruidosPropiedad, float MetrosTerrenoPropiedad, int NumeroPadronPropiedad){
-       Propiedad propiedad = new Inmueble(EnumTipoInmueble.Casa,CantidadDormitorios, CantidadBanios, DireccionPropiedad, 
-            PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad, 
-            EnumEstadoPropiedad.Privada);
-       return mProp.CrearPropiedad(propiedad);               
-   }
-   
-   /**
-    * Crea una propiedad inmueble del tipo apartamento.
-    * @param CantidadDormitorios
-    * @param CantidadBanios
-    * @param DireccionPropiedad
-    * @param PrecioPropiedad
-    * @param MetrosConstruidosPropiedad
-    * @param MetrosTerrenoPropiedad
-    * @param NumeroPadronPropiedad
-    * @param Caracteristicas
-    * @return el id de la propiedad creada. -1 si no se pudo crear.
-    */
-   public int crearPropiedadApto(int CantidadDormitorios, int CantidadBanios, String DireccionPropiedad, float PrecioPropiedad, 
-           float MetrosConstruidosPropiedad, float MetrosTerrenoPropiedad, int NumeroPadronPropiedad, List<Integer> Caracteristicas){
-       Propiedad propiedad = new Inmueble(EnumTipoInmueble.Apartamento,CantidadDormitorios, CantidadBanios, DireccionPropiedad, 
-            PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad, 
-            EnumEstadoPropiedad.Privada, cCar.ListarCaracteristicas(Caracteristicas));
-       return mProp.CrearPropiedad(propiedad);       
-   }
-   /**
-    * Crea una propiedad inmueble del tipo apartamento sin caracteristicas.
-    * @param CantidadDormitorios
-    * @param CantidadBanios
-    * @param DireccionPropiedad
-    * @param PrecioPropiedad
-    * @param MetrosConstruidosPropiedad
-    * @param MetrosTerrenoPropiedad
-    * @param NumeroPadronPropiedad
-    * @return el id de la propiedad creada. -1 si no se pudo crear.
-    */
-   public int crearPropiedadApto(int CantidadDormitorios, int CantidadBanios, String DireccionPropiedad, float PrecioPropiedad, 
-           float MetrosConstruidosPropiedad, float MetrosTerrenoPropiedad, int NumeroPadronPropiedad){
-       Propiedad propiedad = new Inmueble(EnumTipoInmueble.Apartamento,CantidadDormitorios, CantidadBanios, DireccionPropiedad, 
-            PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad, 
-            EnumEstadoPropiedad.Privada);
-       return mProp.CrearPropiedad(propiedad);       
-   }
-   
-   /**
-    * Crea una propiedad Terreno.
-    * @param DireccionPropiedad
-    * @param PrecioPropiedad
-    * @param MetrosConstruidosPropiedad
-    * @param MetrosTerrenoPropiedad
-    * @param NumeroPadronPropiedad
-    * @param Caracteristicas
-    * @return 
-    */
-   public int crearPropiedadTerreno(String DireccionPropiedad, float PrecioPropiedad, float MetrosConstruidosPropiedad,float MetrosTerrenoPropiedad, 
-           int NumeroPadronPropiedad, List<Integer> Caracteristicas){
-       Propiedad propiedad = new Terreno(DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, 
-               NumeroPadronPropiedad, EnumEstadoPropiedad.Privada, cCar.ListarCaracteristicas(Caracteristicas));
-       return mProp.CrearPropiedad(propiedad);
-   }
-   /**
-    * Crea una propiedad Terreno sin caracteristicas.
-    * @param DireccionPropiedad
-    * @param PrecioPropiedad
-    * @param MetrosConstruidosPropiedad
-    * @param MetrosTerrenoPropiedad
-    * @param NumeroPadronPropiedad
-    * @return 
-    */
-   public int crearPropiedadTerreno(String DireccionPropiedad, float PrecioPropiedad, float MetrosConstruidosPropiedad,float MetrosTerrenoPropiedad, 
-           int NumeroPadronPropiedad){
-       Propiedad propiedad = new Terreno(DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, 
-               NumeroPadronPropiedad, EnumEstadoPropiedad.Privada);
-       return mProp.CrearPropiedad(propiedad);
-   }
-   
-   /**
-    * Agrega la ubicacion de una propiedad.
-    * @param IdPropiedad
-    * @param CoordX
-    * @param CoordY
-    * @return devuelve el id de la propiedad si se agrego correctamente. Retorna -1 si no se agrego.
-    */
-   public int InsertarUbicacionPropiedad(int IdPropiedad, float CoordX, float CoordY){
-       return mProp.InsertarUbicacionPropiedad(IdPropiedad, CoordX, CoordY);
-   }
+    public int crearPropiedadCasa(int CantidadDormitorios, int CantidadBanios, String DireccionPropiedad, float PrecioPropiedad,
+            float MetrosConstruidosPropiedad, float MetrosTerrenoPropiedad, int NumeroPadronPropiedad,  boolean EnAlquiler, boolean EnVenta){
+        Propiedad propiedad = new Inmueble(EnumTipoInmueble.Casa,CantidadDormitorios, CantidadBanios, DireccionPropiedad,
+                PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad,
+                EnumEstadoPropiedad.Privada, EnAlquiler, EnVenta);
+        return mProp.CrearPropiedad(propiedad);
+    }
+    
+    /**
+     * Crea una propiedad inmueble del tipo apartamento.
+     * @param CantidadDormitorios
+     * @param CantidadBanios
+     * @param DireccionPropiedad
+     * @param PrecioPropiedad
+     * @param MetrosConstruidosPropiedad
+     * @param MetrosTerrenoPropiedad
+     * @param NumeroPadronPropiedad
+     * @param Caracteristicas
+     * @param EnAlquiler
+     * @param EnVenta
+     * @return el id de la propiedad creada. -1 si no se pudo crear.
+     */
+    public int crearPropiedadApto(int CantidadDormitorios, int CantidadBanios, String DireccionPropiedad, float PrecioPropiedad,
+            float MetrosConstruidosPropiedad, float MetrosTerrenoPropiedad, int NumeroPadronPropiedad, List<Integer> Caracteristicas,
+            boolean EnAlquiler, boolean EnVenta){
+        Propiedad propiedad = new Inmueble(EnumTipoInmueble.Apartamento,CantidadDormitorios, CantidadBanios, DireccionPropiedad,
+                PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad,
+                EnumEstadoPropiedad.Privada, cCar.ListarCaracteristicas(Caracteristicas), EnAlquiler, EnVenta);
+        return mProp.CrearPropiedad(propiedad);
+    }
+    /**
+     * Crea una propiedad inmueble del tipo apartamento sin caracteristicas.
+     * @param CantidadDormitorios
+     * @param CantidadBanios
+     * @param DireccionPropiedad
+     * @param PrecioPropiedad
+     * @param MetrosConstruidosPropiedad
+     * @param MetrosTerrenoPropiedad
+     * @param NumeroPadronPropiedad
+     * @param EnAlquiler
+     * @param EnVenta
+     * @return el id de la propiedad creada. -1 si no se pudo crear.
+     */
+    public int crearPropiedadApto(int CantidadDormitorios, int CantidadBanios, String DireccionPropiedad, float PrecioPropiedad,
+            float MetrosConstruidosPropiedad, float MetrosTerrenoPropiedad, int NumeroPadronPropiedad,  boolean EnAlquiler, boolean EnVenta){
+        Propiedad propiedad = new Inmueble(EnumTipoInmueble.Apartamento,CantidadDormitorios, CantidadBanios, DireccionPropiedad,
+                PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad,
+                EnumEstadoPropiedad.Privada, EnAlquiler, EnVenta);
+        return mProp.CrearPropiedad(propiedad);
+    }
+    
+    /**
+     * Crea una propiedad Terreno.
+     * @param DireccionPropiedad
+     * @param PrecioPropiedad
+     * @param MetrosConstruidosPropiedad
+     * @param MetrosTerrenoPropiedad
+     * @param NumeroPadronPropiedad
+     * @param Caracteristicas
+     * @param EnAlquiler
+     * @param EnVenta
+     * @return
+     */
+    public int crearPropiedadTerreno(String DireccionPropiedad, float PrecioPropiedad, float MetrosConstruidosPropiedad,float MetrosTerrenoPropiedad,
+            int NumeroPadronPropiedad, List<Integer> Caracteristicas,  boolean EnAlquiler, boolean EnVenta){
+        Propiedad propiedad = new Terreno(DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad,
+                NumeroPadronPropiedad, EnumEstadoPropiedad.Privada, cCar.ListarCaracteristicas(Caracteristicas), EnAlquiler, EnVenta);
+        return mProp.CrearPropiedad(propiedad);
+    }
+    /**
+     * Crea una propiedad Terreno sin caracteristicas.
+     * @param DireccionPropiedad
+     * @param PrecioPropiedad
+     * @param MetrosConstruidosPropiedad
+     * @param MetrosTerrenoPropiedad
+     * @param NumeroPadronPropiedad
+     * @param EnAlquiler
+     * @param EnVenta
+     * @return
+     */
+    public int crearPropiedadTerreno(String DireccionPropiedad, float PrecioPropiedad, float MetrosConstruidosPropiedad,float MetrosTerrenoPropiedad,
+            int NumeroPadronPropiedad,  boolean EnAlquiler, boolean EnVenta){
+        Propiedad propiedad = new Terreno(DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad,
+                NumeroPadronPropiedad, EnumEstadoPropiedad.Privada, EnAlquiler, EnVenta);
+        return mProp.CrearPropiedad(propiedad);
+    }
+    
+    /**
+     * Agrega la ubicacion de una propiedad.
+     * @param IdPropiedad
+     * @param CoordX
+     * @param CoordY
+     * @return devuelve el id de la propiedad si se agrego correctamente. Retorna -1 si no se agrego.
+     */
+    public int InsertarUbicacionPropiedad(int IdPropiedad, float CoordX, float CoordY){
+        return mProp.InsertarUbicacionPropiedad(IdPropiedad, CoordX, CoordY);
+    }
 }

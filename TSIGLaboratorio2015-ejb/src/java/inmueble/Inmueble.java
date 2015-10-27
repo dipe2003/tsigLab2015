@@ -21,9 +21,9 @@ public class Inmueble extends Propiedad {
 
     public Inmueble(EnumTipoInmueble TipoInmueble, int CantidadDormitorios, int CantidadBanios, String DireccionPropiedad, 
             float PrecioPropiedad, float MetrosConstruidosPropiedad, float MetrosTerrenoPropiedad, int NumeroPadronPropiedad, 
-            EnumEstadoPropiedad EstadoPropiedad, List<Caracteristica> Caracteristicas) {
+            EnumEstadoPropiedad EstadoPropiedad, List<Caracteristica> Caracteristicas,  boolean EnAlquiler, boolean EnVenta) {
         super(DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad, 
-                EstadoPropiedad, Caracteristicas);
+                EstadoPropiedad, Caracteristicas,  EnAlquiler, EnVenta);
         this.TipoInmueble = TipoInmueble;
         this.CantidadDormitorios = CantidadDormitorios;
         this.CantidadBanios = CantidadBanios;
@@ -31,9 +31,9 @@ public class Inmueble extends Propiedad {
     
     public Inmueble(EnumTipoInmueble TipoInmueble, int CantidadDormitorios, int CantidadBanios, String DireccionPropiedad, 
             float PrecioPropiedad, float MetrosConstruidosPropiedad, float MetrosTerrenoPropiedad, int NumeroPadronPropiedad, 
-            EnumEstadoPropiedad EstadoPropiedad) {
+            EnumEstadoPropiedad EstadoPropiedad,  boolean EnAlquiler, boolean EnVenta) {
         super(DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad, 
-                EstadoPropiedad);
+                EstadoPropiedad,  EnAlquiler, EnVenta);
         this.TipoInmueble = TipoInmueble;
         this.CantidadDormitorios = CantidadDormitorios;
         this.CantidadBanios = CantidadBanios;

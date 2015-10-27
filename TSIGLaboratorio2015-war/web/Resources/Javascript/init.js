@@ -1,5 +1,5 @@
 
-var opts = {projection: 'EPSG:900913', displayProjection: '4326', numZoomLevel: 20};
+var opts = {projection: 'EPSG:900913', displayProjection: '4326', numZoomLevels: 20};
 
 var vector_layer;
 
@@ -9,11 +9,11 @@ function init() {
     
     //---------------------google map-----------------------------
     //---------------------Satelital
-    var google_hybrid = new OpenLayers.Layer.Google(
-            "Stelital",
-    {type: google.maps.MapTypeId.SATELLITE},{isBaseLayer:true}
-            );
-    map.addLayer(google_hybrid);
+//    var google_hybrid = new OpenLayers.Layer.Google(
+//            "Stelital",
+//    {type: google.maps.MapTypeId.SATELLITE},{isBaseLayer:true}
+//            );
+//    map.addLayer(google_hybrid);
     //---------------------Calles
     //    var google_road = new OpenLayers.Layer.Google(
     //            "Carretera",
@@ -21,11 +21,11 @@ function init() {
     //            ); 
     //    map.addLayer(google_road);
     //---------------------Hibrido
-    //    var google_hybrid = new OpenLayers.Layer.Google(
-    //            "Hibrido",
-    //    {type: google.maps.MapTypeId.HYBRID},{isBaseLayer:true}
-    //            );
-    //     map.addLayer(google_hybrid);
+        var google_hybrid = new OpenLayers.Layer.Google(
+                "Hibrido",
+        {type: google.maps.MapTypeId.HYBRID},{isBaseLayer:true}
+                );
+         map.addLayer(google_hybrid);
     
     //---------------------ajustar pantalla-----------------------
     //---------------------Posicion y Zoom
@@ -60,14 +60,7 @@ function init() {
             })
         });
         map.addLayer(capa_wfs);
-    
-    var wms = new OpenLayers.Layer.WMS(
-                'Propiedades',
-        'http://localhost:8080/geoserver/wms/',
-        {layers: 'propiedad', transparent: true},
-        {isBaseLayer: false, opacity: 0.5}
-                );
-        map.addLayer(wms);
+
     //------------------Agregar Coordenadas de un Punto------------------------
     //---------------------Capa auxiliar 
     var vector_layer = new OpenLayers.Layer.Vector('Basic Vector Layer');

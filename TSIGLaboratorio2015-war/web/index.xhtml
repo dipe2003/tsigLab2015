@@ -43,56 +43,23 @@
         </div>
         <div id="hoja">
             <div id="menu">
+                <a href="index.xhtml">
                 <div class="menuItem">Home</div>
+                </a>
+                <a href="registrarPropiedad.xhtml" >
                 <div class="menuItem">Registrar Propiedad</div>
+                </a>
                 <div class="menuItem">Listar Propiedades</div>
             </div>
             
             <div id='map_element' class="mapa"></div>
-            
-            <h:form id="formulario">
-                <div class="formulario">
-                    
+            <h:panelGroup >
+            <ui:insert name="page_content" >
                     <div class="tituloGrande">
-                        Registrar Propiedad
-                    </div>
-                    
-                    <div class="contenidoFormulario">
-                        
-                        <h:selectOneMenu class="form-control loginInput" value="#{registrarPropiedad.tipoPropiedadSeleccionado}">
-                            <f:selectItem itemValue="Casa" itemLabel="Casa" />
-                            <f:selectItem itemValue="Apartamento" itemLabel="Apartamento" />	
-                            <f:selectItem itemValue="Terreno" itemLabel="Terreno" />	                            
-                        </h:selectOneMenu>
-                        
-                        Direccion  <h:inputText value="#{registrarPropiedad.direccionPropiedad}" class="form-control loginInput"/>
-                        Precio <h:inputText value="#{registrarPropiedad.precioPropiedad}" class="form-control loginInput"/>
-                        Metros Contruidos <h:inputText value="#{registrarPropiedad.metrosConstruidosPropiedad}" class="form-control loginInput"/>
-                        Metros de Terreno<h:inputText value="#{registrarPropiedad.metrosTerrenoPropiedad}" class="form-control loginInput"/>
-                        
-                        Cantidad de Dormitorios<h:inputText value="#{registrarPropiedad.cantidadDormitorios}" class="form-control loginInput"/>
-                        Cantidad de Baños<h:inputText value="#{registrarPropiedad.cantidadBanios}" class="form-control loginInput"/>
-                    </div>
-                    
-                    <div class="columnas">
-                        <c:forEach var="car" items="#{registrarPropiedad.listaCaracteristica}">                    
-                            <h:selectBooleanCheckbox value="#{registrarPropiedad.listChecked[car.idCaracteristica]}" />  #{car.nombreCaracteristica}<br/>
-                        </c:forEach>
-<!--                        <input type="checkbox" id="checkboxG1" class="css-checkbox" /> <label for="checkboxG1" class="css-label" >Garage</label><br/>
-                        <input type="checkbox" id="checkboxG2" class="css-checkbox" /> <label for="checkboxG2" class="css-label">Pisina</label><br/>
-                        <input type="checkbox" id="checkboxG3" class="css-checkbox" /> <label for="checkboxG3" class="css-label">Barbacoa</label><br/>-->
-                    </div>
-                    
-                    <h:inputText value="#{registrarPropiedad.coordX}" id="coordx" />
-                    <h:inputText value="#{registrarPropiedad.coordY}" id="coordy" />
-                    
-                    <div class="aceptar">
-                        <h:commandButton value="Registrar" action="#{registrarPropiedad.registrarPropiedad()}" class="btn btn-success loginButton"/>
-                    </div>
-                    
+                    Bienvenido
                 </div>
-            </h:form>
-            
+            </ui:insert>
+            </h:panelGroup>           
         </div>
     </body>
 </html>
