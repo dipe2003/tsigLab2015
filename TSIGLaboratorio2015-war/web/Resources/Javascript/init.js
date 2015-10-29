@@ -32,6 +32,20 @@ function init() {
     if(!map.getCenter()){
         map.zoomToMaxExtent();
     }
+    
+    //---------------------estilo--------------------------------
+    var vector_style = new OpenLayers.Style({
+        'fillColor': 'blue',
+        'fillOpacity': .8,
+        'strokeColor': '#aaee77',
+        'strokeWidth': 3,
+        'pointRadius': 8
+        });
+    var vector_style_map = new OpenLayers.StyleMap({
+        'default': vector_style
+    });
+    
+    
     //---------------------opcion cambiar capa
     map.addControl(new OpenLayers.Control.LayerSwitcher({}));
     //---------------------seleccion figura geometrica- 
@@ -48,6 +62,7 @@ function init() {
     //    map.addLayer(wms);
     //---------------------WFS - Departamento
         var capa_wfs = new OpenLayers.Layer.Vector('Propiedades', {
+           
             strategies: [new OpenLayers.Strategy.Fixed()],
             protocol: new OpenLayers.Protocol.WFS({
                 url: 'http://localhost:8080/geoserver/wfs',
@@ -59,11 +74,12 @@ function init() {
                 version: '1.1.0'
             })
         });
+        capa_wfs.styleMap = vector_style_map;
         map.addLayer(capa_wfs);
 
     //------------------Agregar Coordenadas de un Punto------------------------
     //---------------------Capa auxiliar 
-    var vector_layer = new OpenLayers.Layer.Vector('Basic Vector Layer');
+    vector_layer = new OpenLayers.Layer.Vector('Basic Vector Layer');
     map.addLayer(vector_layer);
     //---------------------Agregat puntos
     var drawPoint = new OpenLayers.Control.DrawFeature(vector_layer, OpenLayers.Handler.Point);
@@ -83,7 +99,8 @@ function AgregarPunto(ev){
 
     $('#formulario\\:coordx').val(coord_x);
     $('#formulario\\:coordy').val(coord_y);
-//    if (vector_layer.features.length>1){
-//        vector_layer.removeFeatures(vector_layer.features[0]);
-//    }
+
+    if (vector_layer.features.length>1){
+        vector_layer.removeFeatures(vector_layer.features[0]);
+    }
 }
