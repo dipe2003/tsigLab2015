@@ -6,8 +6,40 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="page_content">
         <div class="tituloGrande">
-            Listar Propiedades
+            Lista de Propiedades
         </div>
-        
+        <h:form id="frmListado">
+            <div >
+                <h:selectOneMenu value="#{listarPropiedadesBean.tipoSeleccionado}" class="form-control loginInput" >
+                    <f:selectItems value="#{listarPropiedadesBean.tipoPropiedad}" />
+                    <f:ajax event="valueChange" listener="#{listarPropiedadesBean.cambiarLista()}" render="frmListado:lista"/>
+                </h:selectOneMenu>
+            </div>
+            <br/>            
+            <h:panelGroup id="lista">
+                <h:panelGroup rendered="#{empty listarPropiedadesBean.propiedades}">
+                    <div class="tituloGrande tituloListado">
+                        No hay #{listarPropiedadesBean.tipoSeleccionado}
+                    </div>
+                </h:panelGroup>
+                <div>
+                    <c:forEach var="prop" items="#{listarPropiedadesBean.propiedades}" >
+                        <fieldset>
+                            <legend>
+                                <div class="tituloGrande tituloListado">
+                                    #{prop.direccionPropiedad}
+                                </div>
+                            </legend>                            
+                            <div class="tituloGrande tituloListado contenidoListado">
+                                Superficie Construida: #{prop.metrosConstruidosPropiedad} m2 <br/>
+                                Superficie Total: #{prop.metrosTerrenoPropiedad} m2 <br/>
+                                Precio: $#{prop.precioPropiedad} <br/>
+                                Padron: #{prop.numeroPadronPropiedad} <br/>
+                            </div>
+                        </fieldset>
+                    </c:forEach>
+                </div>
+            </h:panelGroup>
+        </h:form>
     </ui:define>
 </ui:composition>

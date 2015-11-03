@@ -20,7 +20,7 @@ public class Usuario implements Serializable{
     private String NicknameUsuario;
     private String PasswordUsuario;
     private String CorreoUsuario;
-    @OneToMany
+    @OneToMany(mappedBy = "UsuarioPropiedad")
     private List<Propiedad> Propiedades;
     
     //  Constructores
@@ -34,6 +34,14 @@ public class Usuario implements Serializable{
 
     public Usuario() {}
     
+        //  Getters
+
+    public int getIdUsuario() {return IdUsuario;}
+    public String getNicknameUsuario() {return NicknameUsuario;}
+    public String getPasswordUsuario() {return PasswordUsuario;}
+    public List<Propiedad> getPropiedades() {return Propiedades;}
+    public String getCorreoUsuario() {return CorreoUsuario;}
+    
     //  Setters
 
     public void setIdUsuario(int IdUsuario) {this.IdUsuario = IdUsuario;}
@@ -42,16 +50,13 @@ public class Usuario implements Serializable{
     public void setPropiedades(List<Propiedad> Propiedades) {this.Propiedades = Propiedades;}    
     public void setCorreoUsuario(String CorreoUsuario) {this.CorreoUsuario = CorreoUsuario;}
     
-    //  Getters
-
-    public int getIdUsuario() {return IdUsuario;}
-    public String getNicknameUsuario() {return NicknameUsuario;}
-    public String getPasswordUsuario() {return PasswordUsuario;}
-    public List<Propiedad> getPropiedades() {return Propiedades;}
-    public String getCorreoUsuario() {return CorreoUsuario;}
-    
     //  Propiedades
-    public void addPropiedad(Propiedad propiedad){this.Propiedades.add(propiedad);}
+    public void addPropiedad(Propiedad propiedad){
+        this.Propiedades.add(propiedad);
+        if (!propiedad.getUsuarioPropiedad().equals(this)) {
+            propiedad.setUsuarioPropiedad(this);
+        }
+    }
     
     //  Otras
     public boolean esCorrectoPassword(String Password){return this.PasswordUsuario.equals(Password);}

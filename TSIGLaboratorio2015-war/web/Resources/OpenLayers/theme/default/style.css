@@ -318,7 +318,7 @@ div.olControlSaveFeaturesItemInactive {
     margin-bottom: 3px;
     font-size: smaller;
     color: white;
-    background-color: transparent;
+    background-color: #A8CF45!important;
 }
 
 .olControlLayerSwitcher .layersDiv {
@@ -326,7 +326,7 @@ div.olControlSaveFeaturesItemInactive {
     padding-left: 10px;
     padding-bottom: 5px;
     padding-right: 10px;
-    background-color: darkblue;
+    background-color: #A8CF45;
 }
 
 .olControlLayerSwitcher .layersDiv .baseLbl,

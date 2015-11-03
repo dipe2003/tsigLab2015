@@ -6,47 +6,46 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="page_content">
         
-        <h:form id="formulario">
-            <div class="formulario">
-                
+        <h:form id="frmProp">           
+            <div class="formulario">                
                 <div class="tituloGrande">
                     Registrar Propiedad
                 </div>
-                
-                <div class="contenidoFormulario">
-                    
-                    <h:selectOneMenu class="form-control loginInput" value="#{registrarPropiedad.tipoPropiedadSeleccionado}">
-                        <f:selectItem itemValue="Casa" itemLabel="Casa" />
-                        <f:selectItem itemValue="Apartamento" itemLabel="Apartamento" />	
-                        <f:selectItem itemValue="Terreno" itemLabel="Terreno" />	                            
+                <h:message for="inputDireccion" id="errDireccion" class="error" style="flex: auto;"/>
+                <div class="contenidoFormulario">                    
+                    <h:selectOneMenu value="#{registrarPropiedad.tipoPropiedadSeleccionado}" class="form-control loginInput" >
+                        <f:selectItems value="#{registrarPropiedad.tipoPropiedades}" />
+                        <f:ajax event="change" render="frmProp:noterreno" />
                     </h:selectOneMenu>
                     
-                    Direccion  <h:inputText value="#{registrarPropiedad.direccionPropiedad}" class="form-control loginInput"/>
+                    Direccion  <h:inputText id="inputDireccion" value="#{registrarPropiedad.direccionPropiedad}" class="form-control loginInput"/><br/>
+                    <h:commandButton  value="BuscarDir" class="btn btn-success loginButton"  >
+                        <f:ajax event="click" execute="coordx coordy" listener="#{registrarPropiedad.obtenerDireccion(registrarPropiedad.coordX, registrarPropiedad.coordY)}" render="inputDireccion errDireccion"/>
+                    </h:commandButton><br/>
                     Precio <h:inputText value="#{registrarPropiedad.precioPropiedad}" class="form-control loginInput"/>
-                    Metros Contruidos <h:inputText value="#{registrarPropiedad.metrosConstruidosPropiedad}" class="form-control loginInput"/>
+                    Metros Construidos <h:inputText value="#{registrarPropiedad.metrosConstruidosPropiedad}" class="form-control loginInput"/>
                     Metros de Terreno<h:inputText value="#{registrarPropiedad.metrosTerrenoPropiedad}" class="form-control loginInput"/>
-                    
+                    <h:panelGroup id="noterreno">
+                    <h:panelGroup rendered="#{registrarPropiedad.tipoPropiedadSeleccionado != 'Terreno'}">
                     Cantidad de Dormitorios<h:inputText value="#{registrarPropiedad.cantidadDormitorios}" class="form-control loginInput"/>
                     Cantidad de Baños<h:inputText value="#{registrarPropiedad.cantidadBanios}" class="form-control loginInput"/>
-                    
+                    </h:panelGroup>
+                    </h:panelGroup>
                     En Alquiler <h:selectBooleanCheckbox value="#{registrarPropiedad.enAlquiler}"/> <br/>
-                    En Venta    <h:selectBooleanCheckbox value="#{registrarPropiedad.enVenta}"/>
-   
+                    En Venta    <h:selectBooleanCheckbox value="#{registrarPropiedad.enVenta}"/> <br/>
+                    
                 </div>
                 
                 <div class="columnas">
                     <c:forEach var="car" items="#{registrarPropiedad.listaCaracteristica}">                    
                         <h:selectBooleanCheckbox value="#{registrarPropiedad.listChecked[car.idCaracteristica]}" />  #{car.nombreCaracteristica}<br/>
                     </c:forEach>
-                </div>
-                
+                </div>                
                 <h:inputText value="#{registrarPropiedad.coordX}" id="coordx" />
-                <h:inputText value="#{registrarPropiedad.coordY}" id="coordy" />
-                
+                <h:inputText value="#{registrarPropiedad.coordY}" id="coordy"/>               
                 <div class="aceptar">
                     <h:commandButton value="Registrar" action="#{registrarPropiedad.registrarPropiedad()}" class="btn btn-success loginButton"/>
-                </div>
-                
+                </div>                
             </div>
         </h:form>
     </ui:define>

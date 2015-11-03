@@ -16,7 +16,7 @@ public class PuntoInteres implements Serializable {
     private int IdPuntoInteres;
     private String NombrePuntoInteres;
     @OneToOne
-    @JoinColumn(name="TipoEstudio_Id", insertable=true, updatable=true)
+    @JoinColumn(name="TipoPuntoInteres_Id", insertable=true, updatable=true)
     private TipoPuntoInteres TipoDePuntoInteres;
     
     //  Constructores

@@ -8,13 +8,19 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import propiedad.ControladorPropiedad;
 import propiedad.caracteristica.Caracteristica;
 import propiedad.caracteristica.ControladorCaracteristica;
+import usuario.Usuario;
 
 @Named
+@ManagedBean
 @ViewScoped
 public class RegistrarPropiedad implements Serializable {
     @EJB
@@ -22,7 +28,8 @@ public class RegistrarPropiedad implements Serializable {
     @EJB
     private ControladorPropiedad cProp;
     
-    private String TipoPropiedadSeleccionado;    
+    private String[] TipoPropiedades;
+    private String TipoPropiedadSeleccionado;
     private String CoordX;
     private String CoordY;
     private String DireccionPropiedad;
@@ -38,10 +45,9 @@ public class RegistrarPropiedad implements Serializable {
     private int CantidadBanios;
     /**
      * Lista de Caracteristicas para utilizarse desde la pagina para registrar las caracteristicas del inmueble
-     */    
+     */
     private Map<Integer, Boolean> listChecked;
- 
-       
+    
     //  Getters
     public String getTipoPropiedadSeleccionado() {return TipoPropiedadSeleccionado;}
     public String getCoordX() {return CoordX;}
@@ -57,7 +63,8 @@ public class RegistrarPropiedad implements Serializable {
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
     public boolean isEnAlquiler() {return EnAlquiler;}
     public boolean isEnVenta() {return EnVenta;}
-
+    public String[] getTipoPropiedades() {return TipoPropiedades;}
+    
     //  Setters
     public void setTipoPropiedadSeleccionado(String TipoPropiedadSeleccionado) {this.TipoPropiedadSeleccionado = TipoPropiedadSeleccionado;}
     public void setCoordX(String CoordX) {this.CoordX = CoordX;}
@@ -70,10 +77,11 @@ public class RegistrarPropiedad implements Serializable {
     public void setCantidadDormitorios(int CantidadDormitorios) {this.CantidadDormitorios = CantidadDormitorios;}
     public void setCantidadBanios(int CantidadBanios) {this.CantidadBanios = CantidadBanios;}
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
-    public void setListaCaracteristica(List<Caracteristica> listaCaracteristica) {this.listaCaracteristica = listaCaracteristica;} 
+    public void setListaCaracteristica(List<Caracteristica> listaCaracteristica) {this.listaCaracteristica = listaCaracteristica;}
     public void setEnAlquiler(boolean EnAlquiler) {this.EnAlquiler = EnAlquiler;}
     public void setEnVenta(boolean EnVenta) {this.EnVenta = EnVenta;}
-
+    public void setTipoPropiedades(String[] TipoPropiedades) {this.TipoPropiedades = TipoPropiedades;}
+    
     
     /**
      * Retorna la lista con las caracteristicas selaccionadas
@@ -89,28 +97,42 @@ public class RegistrarPropiedad implements Serializable {
         return caracteristicasMarcadas;
     }
     
+    public void obtenerDireccion(String coordX,String coordY){
+        String Direccion = "";
+        try{
+            Direccion = cProp.ObtenerDireccion(Float.parseFloat(CoordX), Float.parseFloat(this.CoordY));
+            this.DireccionPropiedad = Direccion;
+        }catch(NullPointerException | NumberFormatException e){
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage("frmProp:inputDireccion", new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "No se pudo ubicar la direccion"));
+        }
+    }
+    
     //  Registro
     public String registrarPropiedad(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        int idUsuario = ((Usuario)request.getSession().getAttribute("Usuario")).getIdUsuario();
         int id = -1;
         switch(this.TipoPropiedadSeleccionado){
             case "Casa":
                 id = cProp.crearPropiedadCasa(CantidadDormitorios, CantidadBanios, DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad,
-                        MetrosTerrenoPropiedad, NumeroPadronPropiedad, getCaracteristicasMarcadas(), this.EnAlquiler, this.EnVenta);
+                        MetrosTerrenoPropiedad, NumeroPadronPropiedad, getCaracteristicasMarcadas(), this.EnAlquiler, this.EnVenta, idUsuario);
                 break;
             case "Apartamento":
                 id = cProp.crearPropiedadApto(CantidadDormitorios, CantidadBanios, DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad,
-                        MetrosTerrenoPropiedad, NumeroPadronPropiedad, getCaracteristicasMarcadas(), EnAlquiler, EnVenta);
+                        MetrosTerrenoPropiedad, NumeroPadronPropiedad, getCaracteristicasMarcadas(), EnAlquiler, EnVenta, idUsuario);
                 break;
             case "Terreno":
                 id = cProp.crearPropiedadTerreno(DireccionPropiedad, PrecioPropiedad, MetrosConstruidosPropiedad, MetrosTerrenoPropiedad, NumeroPadronPropiedad,
-                        getCaracteristicasMarcadas(), EnAlquiler, EnVenta);
+                        getCaracteristicasMarcadas(), EnAlquiler, EnVenta, idUsuario);
                 break;
         }
         if (id!=-1) {
             cProp.InsertarUbicacionPropiedad(id, Float.parseFloat(CoordX), Float.parseFloat(this.CoordY));
             return "registrada";
         }
-        return "";
+        return "/listarPropiedades.xhtml";
     }
     
     @PostConstruct
@@ -120,14 +142,12 @@ public class RegistrarPropiedad implements Serializable {
          * Llenar con las caracteristicas que estan registradas en la base de datos.
          */
         this.listaCaracteristica = cCar.listarCaracteristicas();
-       listChecked = new HashMap<>();
+        listChecked = new HashMap<>();
         for (int i = 0; i < listaCaracteristica.size(); i++) {
             listChecked.put(listaCaracteristica.get(i).getIdCaracteristica(), Boolean.FALSE);
         }
-
+        this.TipoPropiedades = new String[]{"Casa", "Apartamento", "Terreno" };
     }
-    
-  
     
     
 }

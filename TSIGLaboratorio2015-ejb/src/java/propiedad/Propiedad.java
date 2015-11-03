@@ -2,14 +2,17 @@
 package propiedad;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import propiedad.caracteristica.Caracteristica;
 import propiedad.enums.EnumEstadoPropiedad;
+import usuario.Usuario;
 
 @Entity
 public class Propiedad implements Serializable{
@@ -25,6 +28,8 @@ public class Propiedad implements Serializable{
     private List<Caracteristica> Caracteristicas;
     private boolean EnAlquiler;
     private boolean EnVenta;
+    @ManyToOne
+    private Usuario UsuarioPropiedad;
     
     //   Constructores
     
@@ -66,6 +71,8 @@ public class Propiedad implements Serializable{
     public List<Caracteristica> getCaracteristicas() {return Caracteristicas;}
     public boolean isEnAlquiler() {return EnAlquiler;}
     public boolean isEnVenta() {return EnVenta;}
+    public Usuario getUsuarioPropiedad() {return UsuarioPropiedad;}
+   
     
     //  Setters    
     public void setIdPropiedad(int IdPropiedad) {this.IdPropiedad = IdPropiedad;}
@@ -78,8 +85,15 @@ public class Propiedad implements Serializable{
     public void setCaracteristicas(List<Caracteristica> Caracteristicas) {this.Caracteristicas = Caracteristicas;}
     public void setEnAlquiler(boolean EnAlquiler) {this.EnAlquiler = EnAlquiler;}
     public void setEnVenta(boolean EnVenta) {this.EnVenta = EnVenta;}
+    public void setUsuarioPropiedad(Usuario UsuarioPropiedad) {
+        this.UsuarioPropiedad = UsuarioPropiedad;
+        if (!UsuarioPropiedad.getPropiedades().contains(this)) {
+            UsuarioPropiedad.getPropiedades().add(this);
+        }
+    }
+    
     
     //  Caracteristicas
     public void addCaracteristica(Caracteristica caracteristica){this.Caracteristicas.add(caracteristica);}
-    
+
 }

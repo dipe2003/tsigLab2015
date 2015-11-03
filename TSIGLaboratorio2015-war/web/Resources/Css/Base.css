@@ -150,3 +150,18 @@ label.css-label {
     height: 34px;
     color: #A8CF45;
 }
+
+.tituloListado{
+    padding-left: 10px;
+    font-size: 20px;
+    text-align: left;
+    text-shadow: none;
+    color: #076799;
+}
+
+.contenidoListado{
+    padding-left: 15px;
+    font-size: 15px;
+    text-align: left;
+    text-shadow: none;
+}
