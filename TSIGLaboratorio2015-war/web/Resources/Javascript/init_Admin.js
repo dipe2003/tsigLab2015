@@ -4,10 +4,8 @@ var opts = {
     numZoomLevels: 19
 };
 
-var vector_layer;
-
-function init() {
-    var map = new OpenLayers.Map('map_element', opts);
+function init_admin() {
+    var map = new OpenLayers.Map('map_element_admin', opts);
     
     //---------------------google map-----------------------------
     // Hibrido
@@ -56,16 +54,6 @@ function init() {
     capa_wfs.styleMap = vector_style_map;
     map.addLayer(capa_wfs);
     
-    //------------------Agregar Coordenadas de un Punto------------------------
-    //---------------------Capa auxiliar 
-    vector_layer = new OpenLayers.Layer.Vector('Marcar Propiedades');
-    map.addLayer(vector_layer);
-    //---------------------Agregat puntos
-    var drawPoint = new OpenLayers.Control.DrawFeature(vector_layer, OpenLayers.Handler.Point);
-    map.addControl(drawPoint);
-    drawPoint.activate();
-    //---------------------trigger
-    drawPoint.events.register('featureadded', vector_layer, AgregarPunto);
     //---------------------Posicion y Zoom
     if(!map.getCenter()){
         map.zoomToExtent(new OpenLayers.Bounds(-6316547.1474847,-4076411.4051729,-6307011.6282075,-4073545.0166127));
@@ -83,25 +71,38 @@ function init() {
     map.addControl(select_feature_control);
     select_feature_control.activate();
     map.layers[2].events.register('featureselected', this, VerInfo);
+    
+    var DragPoint = new OpenLayers.Control.DragFeature(capa_wfs, {
+        onComplete: function(feature){
+            VerInfo(feature);
+        },
+        onClick: function(feature){
+            VerInfo(feature);
+        }
+        });
+
+    map.addControl(DragPoint);
+    DragPoint.activate();
+    
 }
 
-function AgregarPunto(ev){
+function VerInfo(feature){
+    var prop = feature.attributes;
     var desdeProjection = new OpenLayers.Projection("EPSG:900913");   
     var aProjection   = new OpenLayers.Projection("EPSG:4326");
-    var punto = ev.feature.geometry;
-    var punto = ev.feature.geometry.getBounds().getCenterLonLat().clone().transform(desdeProjection, aProjection);
+    var punto = feature.geometry;
+    var punto = feature.geometry.getBounds().getCenterLonLat().clone().transform(desdeProjection, aProjection);
     coord_x = punto.lon.toFixed(5);
-    coord_y = punto.lat.toFixed(5);
-    
-    $('#frmProp\\:coordx').val(coord_x);
-    $('#frmProp\\:coordy').val(coord_y);
-    
-    if (vector_layer.features.length>1){
-        vector_layer.removeFeatures(vector_layer.features[0]);
-    }    
-}
-
-function VerInfo(event){
-    var prop = event.feature.attributes;
-    alert("info de la propiedad: " + prop.direccionpropiedad + " " + prop.idpropiedad + " " + prop.preciopropiedad);
+    coord_y = punto.lat.toFixed(5);    
+    $('#frmAdminPropiedad\\:coordx').val(coord_x);
+    $('#frmAdminPropiedad\\:coordy').val(coord_y);
+    $('#frmAdminPropiedad\\:inputDireccion').val(prop.direccionpropiedad);
+    $('#frmAdminPropiedad\\:inputPrecio').val(prop.preciopropiedad);
+    $('#frmAdminPropiedad\\:inputMetrosConstruidos').val(prop.metrosconstruidospropiedad);
+    $('#frmAdminPropiedad\\:inputMetrosTerreno').val(prop.metrosterrenopropiedad);
+    $('#frmAdminPropiedad\\:inputDormitorios').val(prop.cantidaddormitorios);
+    $('#frmAdminPropiedad\\:inputBanios').val(prop.cantidadbanios);
+    $('#frmAdminPropiedad\\:inputAlquiler').val(prop.enalquiler);
+    $('#frmAdminPropiedad\\:inputVenta').val(prop.enventa);
+    //$('#frmAdminPropiedad\\:btnCargar').click();
 }

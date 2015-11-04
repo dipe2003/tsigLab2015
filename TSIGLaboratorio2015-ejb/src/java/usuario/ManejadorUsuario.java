@@ -76,7 +76,7 @@ public class ManejadorUsuario {
             query.setParameter("Nickname", Nickname);
             return (int)query.getSingleResult();
         }catch(Exception ex){}
-        return 0;
+        return -1;
     }
     
     public int ValidarLoginUsuario(String Nickname, String Password){
@@ -86,7 +86,7 @@ public class ManejadorUsuario {
             query.setParameter("Pass", Password);
             return (int)query.getSingleResult();
         }catch(Exception ex){}
-        return 0;
+        return -1;
     }
         
 }

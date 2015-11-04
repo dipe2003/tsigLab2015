@@ -48,7 +48,7 @@ public class Login implements Serializable {
     public String login(){
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        int idUsr =-1;
+        int idUsr;
         if ((idUsr=cUsr.ValidarLogin(Nickname, Password))!=-1) {
             request.getSession().setAttribute("Usuario", cUsr.GetUsuario(idUsr));
             this.UsuarioLogueado = true;
