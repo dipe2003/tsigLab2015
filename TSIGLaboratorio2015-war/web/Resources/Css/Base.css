@@ -29,7 +29,7 @@ body{
 .loginInput:focus{
     width: 250px;
     background-color: #A8CF45;
-    color: #ffffff;
+    color: #ffffff !important;
 }
 .loginButton{
     margin-top: 10px;
@@ -164,4 +164,11 @@ label.css-label {
     font-size: 15px;
     text-align: left;
     text-shadow: none;
+}
+
+.contenidoFiltro{
+    width: 100%;
+    display: flex;
+    box-shadow: #999999 0px 3px 3px;
+    text-align: end;
 }
