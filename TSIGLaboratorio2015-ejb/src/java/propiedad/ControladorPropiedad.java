@@ -266,11 +266,28 @@ public class ControladorPropiedad {
     }
     
     /**
+     * Lista todas las propiedades registradas por el usuario.
+     * @param IdUsuario
+     * @return Retorna una lista vacia si no hay propiedades registradas.
+     */
+    public List<Propiedad> ListarPropiedadesUsuario(int IdUsuario){
+        return mProp.ListarPropiedadesUsuario(IdUsuario);
+    }
+    
+    /**
      * Lista todos los terrenos registrados en la base de datos.
      * @return Retorna una lista vacia si no hay terrnos registrados.
      */
     public List<Propiedad> ListarTerrenos(){
         return mProp.ListarTerrenos();
+    }
+    /**
+     * Lista todos los terrenos registrados por el usuario en la base de datos.
+     * @param IdUsuario
+     * @return Retorna una lista vacia si no hay terrnos registrados.
+     */
+    public List<Propiedad> ListarTerrenosUsuario(int IdUsuario){
+        return mProp.ListarTerrenosUsuario(IdUsuario);
     }
     
     /**
@@ -280,6 +297,14 @@ public class ControladorPropiedad {
     public List<Propiedad> ListarCasas(){
         return mProp.ListarCasas();
     }
+    /**
+     * Lista todas las casas registradas por el usuario en la base de datos.
+     * @param IdUsuario
+     * @return Retorna una lista vacia si no hay casas registradas.
+     */
+    public List<Propiedad> ListarCasasUsuario(int IdUsuario){
+        return mProp.ListarCasasUsuario(IdUsuario);
+    }
     
     /**
      * Lista todos los apartamentos registrados en la base de datos.
@@ -288,13 +313,16 @@ public class ControladorPropiedad {
     public List<Propiedad> ListarApartamentos(){
         return mProp.ListarApartamentos();
     }
-    
     /**
-     * Lista todas las propiedades registradas por el usuario.
+     * Lista todos los apartamentos registrados por el usuario en la base de datos.
      * @param IdUsuario
-     * @return Retorna una lista vacia si no hay propiedades registradas.
+     * @return Retorna una lista vacia si no hay apartamentos registrados.
      */
-    public List<Propiedad> ListarPropiedadesUsuario(int IdUsuario){
-        return mProp.ListarPropiedadesUsuario(IdUsuario);
+    public List<Propiedad> ListarApartamentosUsuario(int IdUsuario){
+        return mProp.ListarApartamentosUsuario(IdUsuario);
+    }
+    
+    public Propiedad ObtenerPropiedadPorDireccion(String DireccionPropiedad){
+        return mProp.GetPropiedad(DireccionPropiedad);
     }
 }

@@ -98,6 +98,19 @@ public class ManejadorPropiedad {
         }
         return terrenos;
     }
+    
+    public List<Propiedad> ListarTerrenosUsuario(int IdUsuario){
+        List<Propiedad> lista = new ArrayList<>();
+        try{
+            TypedQuery<Propiedad> query = em.createQuery("SELECT t FROM Terreno t, Usuario u WHERE t MEMBER OF u.Propiedades AND u.IdUsuario= :idUsuario", Propiedad.class);
+            query.setParameter("idUsuario", IdUsuario);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+    
     public List<Propiedad> ListarCasas(){
         List<Propiedad> casas = new ArrayList<>();
         try{
@@ -106,6 +119,22 @@ public class ManejadorPropiedad {
             lista = query.getResultList();
             for(Propiedad prop : lista){
                 if(((Inmueble) prop).getTipoInmueble()==EnumTipoInmueble.Casa) casas.add(prop);
+            }
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return casas;
+    }
+    
+        public List<Propiedad> ListarCasasUsuario(int IdUsuario){
+        List<Propiedad> casas = new ArrayList<>();
+        try{
+            TypedQuery<Propiedad> query = em.createQuery("SELECT i FROM Inmueble i, Usuario u WHERE i MEMBER OF u.Propiedades AND u.IdUsuario= :idUsuario", Propiedad.class);
+            query.setParameter("idUsuario", IdUsuario);
+            List<Propiedad> lista;
+            lista = query.getResultList();
+            for(Propiedad prop: lista){
+                if(((Inmueble)prop).getTipoInmueble()==EnumTipoInmueble.Casa) casas.add(prop);
             }
         }catch(Exception ex){
             System.out.println("Error: " + ex.getMessage());
@@ -127,6 +156,21 @@ public class ManejadorPropiedad {
         return apartamentos;
     }
     
+    public List<Propiedad> ListarApartamentosUsuario(int IdUsuario){
+        List<Propiedad> apartamentos = new ArrayList<>();
+        try{
+            TypedQuery<Propiedad> query = em.createQuery("SELECT i FROM Inmueble i, Usuario u WHERE i MEMBER OF u.Propiedades AND u.IdUsuario= :idUsuario", Propiedad.class);
+            query.setParameter("idUsuario", IdUsuario);
+            List<Propiedad> lista;
+            lista = query.getResultList();
+            for(Propiedad prop: lista){
+                if(((Inmueble)prop).getTipoInmueble()==EnumTipoInmueble.Apartamento) apartamentos.add(prop);
+            }
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return apartamentos;
+    }
     public int InsertarUbicacionPropiedad(int IdPropiedad, float CoordX, float CoordY){
         Query query = em.createNativeQuery("UPDATE Propiedad SET the_geom = ST_Transform(ST_GeomFromText('POINT(" +CoordX + " " + CoordY+ " )', '4326'), 32721) WHERE Propiedad.idpropiedad= "+IdPropiedad);
         try{
@@ -155,6 +199,15 @@ public class ManejadorPropiedad {
             System.out.println("Error: "+ ex.getMessage());
         }
         return "";
+    }
+    
+    public Propiedad GetPropiedad(String DireccionPropiedad){
+        try{
+          TypedQuery<Propiedad> query = em.createQuery("SELECT p FROM Propiedad p WHERE p.DireccionPropiedad= :dirProp", Propiedad.class);
+          query.setParameter("dirProp", DireccionPropiedad);
+          return (Propiedad) query.getSingleResult();
+        }catch(Exception ex){}
+        return null;        
     }
             
 }
