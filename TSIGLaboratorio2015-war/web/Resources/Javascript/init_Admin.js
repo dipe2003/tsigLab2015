@@ -74,19 +74,56 @@ function init_admin() {
     
     var DragPoint = new OpenLayers.Control.DragFeature(capa_wfs, {
         onComplete: function(feature){
-            VerInfo(feature);
-        },
-        onClick: function(feature){
-            VerInfo(feature);
+            VerInfoChDir(feature);
         }
-        });
+    });
 
     map.addControl(DragPoint);
-    DragPoint.activate();
+    
+    var control_panel = new OpenLayers.Control.Panel({});
+    map.addControl(control_panel);
+    control_panel.moveTo(new OpenLayers.Pixel(0,0));
+    
+    var btnChDir = new OpenLayers.Control.Button({
+        title: 'Cambiar Direcion',
+        text:'CambiarDireccion',
+        displayClass: 'olControlCustomButtonToggle',
+        eventListeners: {
+            'activate': function() {
+                DragPoint.activate();
+            },
+            'deactivate': function() {
+                DragPoint.deactivate();              
+            },
+        },
+        type: OpenLayers.Control.TYPE_TOGGLE
+    });
+    control_panel.addControls([btnChDir]);
+    map.addControl(control_panel);
     
 }
 
-function VerInfo(feature){
+function VerInfo(event){
+    var prop = event.feature.attributes;
+    var desdeProjection = new OpenLayers.Projection("EPSG:900913");   
+    var aProjection   = new OpenLayers.Projection("EPSG:4326");
+    var punto = event.feature.geometry;
+    var punto = event.feature.geometry.getBounds().getCenterLonLat().clone().transform(desdeProjection, aProjection);
+    coord_x = punto.lon.toFixed(5);
+    coord_y = punto.lat.toFixed(5);    
+    $('#frmAdminPropiedad\\:coordx').val(coord_x);
+    $('#frmAdminPropiedad\\:coordy').val(coord_y);
+    $('#frmAdminPropiedad\\:inputDireccion').val(prop.direccionpropiedad);
+    $('#frmAdminPropiedad\\:inputPrecio').val(prop.preciopropiedad);
+    $('#frmAdminPropiedad\\:inputMetrosConstruidos').val(prop.metrosconstruidospropiedad);
+    $('#frmAdminPropiedad\\:inputMetrosTerreno').val(prop.metrosterrenopropiedad);
+    $('#frmAdminPropiedad\\:inputDormitorios').val(prop.cantidaddormitorios);
+    $('#frmAdminPropiedad\\:inputBanios').val(prop.cantidadbanios);
+    $('#frmAdminPropiedad\\:inputAlquiler').val(prop.enalquiler);
+    $('#frmAdminPropiedad\\:inputVenta').val(prop.enventa);
+    //$('#frmAdminPropiedad\\:btnCargar').click();
+}
+function VerInfoChDir(feature){
     var prop = feature.attributes;
     var desdeProjection = new OpenLayers.Projection("EPSG:900913");   
     var aProjection   = new OpenLayers.Projection("EPSG:4326");
