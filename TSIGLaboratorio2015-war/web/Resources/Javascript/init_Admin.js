@@ -83,7 +83,7 @@ function init_admin() {
 
     map.addControl(DragPoint);
     DragPoint.activate();
-    
+
 }
 
 function VerInfo(feature){

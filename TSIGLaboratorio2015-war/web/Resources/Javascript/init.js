@@ -98,7 +98,7 @@ function AgregarPunto(ev){
     
     if (vector_layer.features.length>1){
         vector_layer.removeFeatures(vector_layer.features[0]);
-    }    
+    }   
 }
 
 function VerInfo(event){
