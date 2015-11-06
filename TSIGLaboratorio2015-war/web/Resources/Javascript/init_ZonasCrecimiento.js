@@ -4,7 +4,7 @@ var opts = {
     numZoomLevels: 19
 };
 
-function init_admin() {
+function init_ZonasCrecimiento() {
     var map = new OpenLayers.Map('map_element_zonas', opts);
     
     //---------------------google map-----------------------------
@@ -59,22 +59,27 @@ function init_admin() {
         map.zoomToExtent(new OpenLayers.Bounds(-6316547.1474847,-4076411.4051729,-6307011.6282075,-4073545.0166127));
     }
     
-    var select_feature_control = new OpenLayers.Control.
-            SelectFeature(
-            capa_wfs,
-        {
-            multiple: false,
-            toggle: false,
-            multipleKey: 'shiftKey'
-        }
-            );
+    //---------------------Capa auxiliar 
+    vector_layer = new OpenLayers.Layer.Vector('Marcar Propiedades');
+    map.addLayer(vector_layer);
         
-    //-----------------------------  dibujar poligonos
+    //---------------------Dibujar poligonos
     
     var drawPolygon = new OpenLayers.Control.DrawFeature(vector_layer, OpenLayers.Handler.Polygon);
     map.addControl(drawPolygon);
-    drawPolygon.activate();
+    drawPolygon.activate(); 
     
-    
+    vector_layer.events.on({
+    featuresadded: onFeaturesAdded
+});
+}
+
+function onFeaturesAdded(event){
+    var bounds = event.features[0].geometry.getBounds();
+    var answer = "bottom: " + bounds.bottom  + "\n";
+    answer += "left: " + bounds.left  + "\n";
+    answer += "right: " + bounds.right  + "\n";
+    answer += "top: " + bounds.top  + "\n";
+    alert(answer);
 }
 
