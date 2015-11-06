@@ -121,7 +121,9 @@ function VerInfo(event){
     $('#frmAdminPropiedad\\:inputBanios').val(prop.cantidadbanios);
     $('#frmAdminPropiedad\\:inputAlquiler').val(prop.enalquiler);
     $('#frmAdminPropiedad\\:inputVenta').val(prop.enventa);
-    //$('#frmAdminPropiedad\\:btnCargar').click();
+     $('#frmAdminPropiedad\\:idprop').val(prop.idpropiedad);
+    var boton = $('#frmAdminPropiedad\\:btnCargar');
+            boton.click();
 }
 function VerInfoChDir(feature){
     var prop = feature.attributes;
@@ -141,5 +143,7 @@ function VerInfoChDir(feature){
     $('#frmAdminPropiedad\\:inputBanios').val(prop.cantidadbanios);
     $('#frmAdminPropiedad\\:inputAlquiler').val(prop.enalquiler);
     $('#frmAdminPropiedad\\:inputVenta').val(prop.enventa);
-    //$('#frmAdminPropiedad\\:btnCargar').click();
+    $('#frmAdminPropiedad\\:idprop').val(prop.idpropiedad);
+    var boton = $('#frmAdminPropiedad\\:btnCambiarDir');
+            boton.click();
 }

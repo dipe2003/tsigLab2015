@@ -25,7 +25,7 @@ public class ManejadorCaracteristica {
         }catch(Exception ex){
             System.out.println("Error: " + ex.getMessage());
             return -1;
-        }        
+        }
     }
     
     public int ActualizarCaracteristica(Caracteristica caracteristica){
@@ -70,15 +70,17 @@ public class ManejadorCaracteristica {
     
     public List<Caracteristica> ListarCaracteristicas(List<Integer> idsCaracteristicas){
         List<Caracteristica> lista = new ArrayList<>();
-        try{
-            TypedQuery<Caracteristica> query = em.createQuery("SELECT c FROM Caracteristica c WHERE c.IdCaracteristica IN (:ids)", Caracteristica.class);
-            query.setParameter("ids", idsCaracteristicas);
-            lista = query.getResultList();
-        }catch(Exception ex){
-            System.out.println("Error: " + ex.getMessage());
+        if (!idsCaracteristicas.isEmpty()){
+            try{
+                TypedQuery<Caracteristica> query = em.createQuery("SELECT c FROM Caracteristica c WHERE c.IdCaracteristica IN (:ids)", Caracteristica.class);
+                query.setParameter("ids", idsCaracteristicas);
+                lista = query.getResultList();
+            }catch(Exception ex){
+                System.out.println("Error: " + ex.getMessage());
+            }
         }
         return lista;
     }
-        
-}
     
+}
+
