@@ -1,8 +1,10 @@
 
 package interfaz.admin;
 
+import inmueble.Inmueble;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -16,16 +18,21 @@ import propiedad.Propiedad;
 import propiedad.caracteristica.Caracteristica;
 import propiedad.caracteristica.ControladorCaracteristica;
 import propiedad.enums.EnumEstadoPropiedad;
+import propiedad.enums.EnumTipoInmueble;
+import terreno.Terreno;
 import usuario.Usuario;
 
 @Named
 @ViewScoped
-public class adminPropiedadesBean implements Serializable{
+public class AdminPropiedades implements Serializable{
     @EJB
     private ControladorPropiedad cProp;
     @EJB
     private ControladorCaracteristica cCar;
+    private Propiedad propiedad;
     
+    private String TipoPropiedad;
+    private String idPropiedad;
     private String DireccionPropiedad;
     private float PrecioPropiedad;
     private float MetrosConstruidosPropiedad;
@@ -64,6 +71,9 @@ public class adminPropiedadesBean implements Serializable{
     public int getIdUsuario() {return IdUsuario;}
     public List<String> getListEstado() {return listEstado;}
     public String getEstadoSeleccionado() {return estadoSeleccionado;}
+    public Propiedad getPropiedad() {return propiedad;}
+    public String getIdPropiedad() {return idPropiedad;}
+    public String getTipoPropiedad() {return TipoPropiedad;}
     
     //  Setters
     public void setPropiedades(List<String> Propiedades) {this.Propiedades = Propiedades;}
@@ -83,17 +93,60 @@ public class adminPropiedadesBean implements Serializable{
     public void setIdUsuario(int IdUsuario) {this.IdUsuario = IdUsuario;}
     public void setListEstado(List<String> listEstado) {this.listEstado = listEstado;}
     public void setEstadoSeleccionado(String estadoSeleccionado) {this.estadoSeleccionado = estadoSeleccionado;}
+    public void setPropiedad(Propiedad propiedad) {this.propiedad = propiedad;}
+    public void setIdPropiedad(String idPropiedad) {this.idPropiedad = idPropiedad;}
+    public void setTipoPropiedad(String TipoPropiedad) {this.TipoPropiedad = TipoPropiedad;}
     
     public void modificarPropiedad(){
-        Propiedad prop = cProp.ObtenerPropiedadPorDireccion(DireccionPropiedad);
-        prop.setDireccionPropiedad(DireccionPropiedad);
-        prop.setEnAlquiler(EnAlquiler);
-        prop.setEnVenta(EnVenta);
-        prop.setEstadoPropiedad(EnumEstadoPropiedad.valueOf(estadoSeleccionado));
-        prop.setMetrosConstruidosPropiedad(MetrosConstruidosPropiedad);
-        prop.setMetrosTerrenoPropiedad(MetrosTerrenoPropiedad);
-        prop.setPrecioPropiedad(PrecioPropiedad);
-        //cProp.ModificarPropiedad(prop, coordX, coordY);
+        propiedad.setDireccionPropiedad(DireccionPropiedad);
+        propiedad.setEnAlquiler(EnAlquiler);
+        propiedad.setEnVenta(EnVenta);
+        propiedad.setEstadoPropiedad(EnumEstadoPropiedad.valueOf(estadoSeleccionado));
+        propiedad.setMetrosConstruidosPropiedad(MetrosConstruidosPropiedad);
+        propiedad.setMetrosTerrenoPropiedad(MetrosTerrenoPropiedad);
+        propiedad.setPrecioPropiedad(PrecioPropiedad);
+        List<Caracteristica> cars = cCar.ListarCaracteristicas(getCaracteristicasMarcadas());
+        propiedad.setCaracteristicas(cars);
+        propiedad.setEstadoPropiedad(EnumEstadoPropiedad.valueOf(estadoSeleccionado));
+        if(!(propiedad instanceof Terreno)){
+            ((Inmueble)propiedad).setCantidadBanios(CantidadBanios);
+            ((Inmueble)propiedad).setCantidadDormitorios(CantidadDormitorios);            
+        }
+        cProp.ModificarPropiedad(propiedad, Float.parseFloat(CoordX), Float.parseFloat(CoordY));
+    }
+    
+    public void actualizarDatosBean(String IdPropiedad){
+        this.propiedad = cProp.ObtenerPropiedadPorId(Integer.parseInt(IdPropiedad));
+        this.EnVenta = propiedad.isEnVenta();
+        this.EnAlquiler = propiedad.isEnAlquiler();
+        this.estadoSeleccionado = propiedad.getEstadoPropiedad().name();
+        setTipoPropiedad();
+        setCaracteristicasMarcadas();
+        this.DireccionPropiedad = propiedad.getDireccionPropiedad();
+    }
+    public void cambiarDir(String IdPropiedad){
+        this.propiedad = cProp.ObtenerPropiedadPorId(Integer.parseInt(IdPropiedad));
+        this.EnVenta = propiedad.isEnVenta();
+        this.EnAlquiler = propiedad.isEnAlquiler();
+        this.estadoSeleccionado = propiedad.getEstadoPropiedad().name();
+        setTipoPropiedad();
+        setCaracteristicasMarcadas();
+        String dir = cProp.ObtenerDireccion(Float.parseFloat(CoordX), Float.parseFloat(CoordY));
+        this.DireccionPropiedad = dir;
+    }
+    
+    private void setTipoPropiedad(){
+        if (propiedad instanceof Terreno) {
+            this.TipoPropiedad = "Terreno";
+        }else{
+            if (propiedad instanceof inmueble.Inmueble) {
+                if (((Inmueble)propiedad).getTipoInmueble().equals(EnumTipoInmueble.Casa)) {
+                    this.TipoPropiedad = "Casa";
+                }else{
+                    this.TipoPropiedad = "Apartamento";//
+                }
+            }
+        }
     }
     
     @PostConstruct
@@ -111,7 +164,30 @@ public class adminPropiedadesBean implements Serializable{
         for (int i = 0; i < EnumEstadoPropiedad.values().length; i++) {
             listEstado.add(EnumEstadoPropiedad.values()[i].toString());
         }
+        this.listChecked = new HashMap<>();
     }
     
+     /**
+     * Retorna la lista con las caracteristicas selaccionadas
+     * @return Retorna la lista vacia en caso de ninguna seleccionada
+     */
+    private  List<Integer> getCaracteristicasMarcadas(){
+        List<Integer> caracteristicasMarcadas = new ArrayList<>();
+        for (Map.Entry e : listChecked.entrySet()) {
+            boolean valor = (boolean)e.getValue();
+            int Key = (int) e.getKey();
+            if ( valor ) caracteristicasMarcadas.add((int)e.getKey());
+        }
+        return caracteristicasMarcadas;
+    }
     
+    private void setCaracteristicasMarcadas(){
+        List<Caracteristica> caracteristicasMarcadas= propiedad.getCaracteristicas();
+        for(Caracteristica car: listaCaracteristica){
+            listChecked.put(car.getIdCaracteristica(), Boolean.FALSE);
+        }
+        for(Caracteristica car: caracteristicasMarcadas){
+            listChecked.replace(car.getIdCaracteristica(), Boolean.TRUE);
+        }
+    }
 }

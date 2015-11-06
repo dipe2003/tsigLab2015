@@ -56,7 +56,7 @@ public class Login implements Serializable {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Los datos ingresados no son correctos");
             context.addMessage("login:msj", fm);
         }
-       return "";
+       return "index.xhtml";
     }
     
     
@@ -69,7 +69,7 @@ public class Login implements Serializable {
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         request.getSession().invalidate();
         this.UsuarioLogueado = false;
-        return "";
+        return "index.xhtml";
     }
      
     @PostConstruct

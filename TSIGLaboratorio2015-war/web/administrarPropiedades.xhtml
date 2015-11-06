@@ -11,48 +11,51 @@
                 <div class="tituloGrande">
                     Administrar Propiedades
                 </div>
-                <h:panelGroup rendered="#{empty adminPropiedadesBean.propiedades}">
+                <h:panelGroup rendered="#{empty adminPropiedades.propiedades}">
                     <div class="tituloGrande tituloListado">
                         No hay propiedades seleccionadas.
                     </div>
                 </h:panelGroup>
-                <h:panelGroup rendered="#{not empty adminPropiedadesBean.propiedades}" >
+                <h:panelGroup rendered="#{not empty adminPropiedades.propiedades}" >
                     <div class="contenidoFormulario">
-                        Direccion  <h:inputText id="inputDireccion" value="#{administrarPropiedadesBean.direccionPropiedad}" class="form-control loginInput"/>
-                        Precio <h:inputText id="inputPrecio" value="#{adminPropiedadesBean.precioPropiedad}" class="form-control loginInput"/>
-                        Metros Contruidos <h:inputText id="inputMetrosConstruidos" value="#{adminPropiedadesBean.metrosConstruidosPropiedad}" class="form-control loginInput"/>
-                        Metros de Terreno<h:inputText id="inputMetrosTerreno" value="#{adminPropiedadesBean.metrosTerrenoPropiedad}" class="form-control loginInput"/>
-                        <h:panelGroup id="noterreno">
-                            <h:panelGroup rendered="#{registrarPropiedad.tipoPropiedadSeleccionado != 'Terreno'}">
-                                Cantidad de Dormitorios<h:inputText id="inputDormitorios" value="#{registrarPropiedad.cantidadDormitorios}" class="form-control loginInput"/>
-                                Cantidad de Baños<h:inputText id="inputBanios" value="#{registrarPropiedad.cantidadBanios}" class="form-control loginInput"/>
+                        Direccion  <h:inputText id="inputDireccion" value="#{adminPropiedades.direccionPropiedad}" class="form-control loginInput" disabled="true"/>
+                        Precio <h:inputText id="inputPrecio" value="#{adminPropiedades.precioPropiedad}" class="form-control loginInput"/>
+                        Metros Contruidos <h:inputText id="inputMetrosConstruidos" value="#{adminPropiedades.metrosConstruidosPropiedad}" class="form-control loginInput"/>
+                        Metros de Terreno<h:inputText id="inputMetrosTerreno" value="#{adminPropiedades.metrosTerrenoPropiedad}" class="form-control loginInput"/>
+                        <h:panelGroup id="noterreno" >
+                            <h:panelGroup id="comodidades" rendered="#{adminPropiedades.tipoPropiedad != 'Terreno'}">
+                                Cantidad de Dormitorios<h:inputText id="inputDormitorios" value="#{adminPropiedades.cantidadDormitorios}" class="form-control loginInput"/>
+                                Cantidad de Baños<h:inputText id="inputBanios" value="#{adminPropiedades.cantidadBanios}" class="form-control loginInput"/>
                             </h:panelGroup>
                         </h:panelGroup>
-                        En Alquiler <h:selectBooleanCheckbox id="inputAlquiler" value="#{adminPropiedadesBean.enAlquiler}"/> <br/>
-                        En Venta    <h:selectBooleanCheckbox id="inputVenta" value="#{adminPropiedadesBean.enVenta}"/> <br/>
+                        En Alquiler <h:selectBooleanCheckbox id="inputAlquiler" value="#{adminPropiedades.enAlquiler}"/> <br/>
+                        En Venta    <h:selectBooleanCheckbox id="inputVenta" value="#{adminPropiedades.enVenta}"/> <br/>
                         Estado
-                        <h:selectOneMenu value="#{adminPropiedadesBean.estadoSeleccionado}" class="form-control loginInput" >
-                            <f:selectItems value="#{adminPropiedadesBean.listEstado}" />
+                        <h:selectOneMenu id="selEstado" value="#{adminPropiedades.estadoSeleccionado}" class="form-control loginInput" >
+                            <f:selectItems value="#{adminPropiedades.listEstado}" />
                         </h:selectOneMenu>
                     </div>
                     <div class="columnas">
-                        <c:forEach var="car" items="#{adminPropiedadesBean.listaCaracteristica}">                    
-                            <h:selectBooleanCheckbox value="#{adminPropiedadesBean.listChecked[car.idCaracteristica]}" />  #{car.nombreCaracteristica}<br/>
+                        <c:forEach var="car" items="#{adminPropiedades.listaCaracteristica}">                    
+                            <h:selectBooleanCheckbox value="#{adminPropiedades.listChecked[car.idCaracteristica]}" />  #{car.nombreCaracteristica}<br/>
                         </c:forEach>
-                    </div>           
-                    
-                    
+                    </div>                    
                     <div class="aceptar">
-                        <h:commandButton value="Guardar" action="#{adminPropiedadesBean.modificarPropiedad()}" class="btn btn-success loginButton"/>
-                    </div>                
-                    
+                        <h:commandButton value="Guardar" action="#{adminPropiedades.modificarPropiedad()}" class="btn btn-success loginButton"/>
+                    </div>                    
                 </h:panelGroup>
             </div>
-            <h:inputText value="#{adminPropiedadesBean.coordX}" id="coordx" />
-            <h:inputText value="#{adminPropiedadesBean.coordY}" id="coordy"/>
-            <h:commandButton id="btnCargar"  >
-                <f:ajax execute="@form" render="@form"/>
+            <h:inputText value="#{adminPropiedades.coordX}" id="coordx" style="display: none" />
+            <h:inputText value="#{adminPropiedades.coordY}" id="coordy" style="display: none" />
+            <h:inputText value="#{adminPropiedades.idPropiedad}" id="idprop" style="display: none"/>
+            <h:commandButton id="btnCargar" value="actualizar bean" class="btn btn-success loginButton" style="display: none"  >
+                <f:ajax event="click" execute="@form" listener="#{adminPropiedades.actualizarDatosBean(adminPropiedades.idPropiedad)}" render="@form"/>
             </h:commandButton>
+            <h:commandButton id="btnCambiarDir" value="cambiar dir" class="btn btn-success loginButton" style="display: none"  >
+                <f:ajax event="click" execute="@form" listener="#{adminPropiedades.cambiarDir(adminPropiedades.idPropiedad)}" render="@form" />
+            </h:commandButton>
+            
+            
         </h:form>
     </ui:define>
 </ui:composition>

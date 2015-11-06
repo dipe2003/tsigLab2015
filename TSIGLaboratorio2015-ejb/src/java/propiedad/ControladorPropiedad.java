@@ -239,6 +239,10 @@ public class ControladorPropiedad {
         dbPropiedad.setMetrosTerrenoPropiedad(datosPropiedad.getMetrosTerrenoPropiedad());
         dbPropiedad.setNumeroPadronPropiedad(datosPropiedad.getNumeroPadronPropiedad());
         dbPropiedad.setPrecioPropiedad(datosPropiedad.getPrecioPropiedad());
+        if (datosPropiedad instanceof Inmueble) {
+            ((Inmueble)dbPropiedad).setCantidadBanios(((Inmueble)datosPropiedad).getCantidadBanios());
+            ((Inmueble)dbPropiedad).setCantidadDormitorios(((Inmueble)datosPropiedad).getCantidadDormitorios()); 
+        }
         if (mProp.InsertarUbicacionPropiedad(datosPropiedad.getIdPropiedad(), CoordX, CoordY)!=-1) {
             return mProp.ActualizarPropiedad(dbPropiedad);
         }
@@ -324,5 +328,9 @@ public class ControladorPropiedad {
     
     public Propiedad ObtenerPropiedadPorDireccion(String DireccionPropiedad){
         return mProp.GetPropiedad(DireccionPropiedad);
+    }
+    
+    public Propiedad ObtenerPropiedadPorId(int IdPropiedad){
+        return mProp.GetPropiedad(IdPropiedad);
     }
 }
