@@ -38,16 +38,14 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         
-        <script type="text/javascript" src="./Resources/Javascript/MapInit.js"/>
-        <script type="text/javascript" src="./Resources/Javascript/Index.js"/>
-        <script type="text/javascript" src="./Resources/Javascript/RegistrarPropiedad.js"/>
+        <script type="text/javascript" src="./Resources/Javascript/Variables.js"/>
         
         <link rel="stylesheet" href="Resources/Css/Base.css" />
         <link rel="stylesheet" href="Resources/Css/Mensajes.css" />
         
     </h:head>
     
-    <h:body onload='initIndex(); initRegistroPropiedad();' style="background-color: #EEE;">
+    <h:body onload='init();' style="background-color: #EEE;">
         <div id="header">
             <div id="headerCenter">
                 <h:form id="login">
@@ -87,7 +85,8 @@
             
             <h:panelGroup >
                 <ui:insert name="page_content" >
-                    <div  id='map_index' class="mapa" style="height: 500px"></div>
+                    <script type="text/javascript" src="./Resources/Javascript/Index.js"/>
+                    <div  id='map' class="mapa" style="height: 500px"></div>
                     <div class="contenidoFiltro">  
                         <input type="text" id="direccion" class="loginInput" placeholder="Direccion"/>
                         Rango de Precio: <input type="text" id="desde" class="loginInput" placeholder="Desde" style="width: 50px" /> 
@@ -110,4 +109,5 @@
             </h:panelGroup>         
         </div>
     </h:body>
+    <script type="text/javascript" src="./Resources/Javascript/Funciones.js"/>
 </html>
