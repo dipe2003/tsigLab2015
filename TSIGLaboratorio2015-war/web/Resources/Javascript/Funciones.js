@@ -218,7 +218,7 @@ function CargarPropiedades(){
     
 }
 
-function onFeaturesAdded(event){
+function AgregarPlogono(event){
     var vertices = event.features[0].geometry.getVertices();
     var desdeProjection = new OpenLayers.Projection("EPSG:900913");   
     var aProjection   = new OpenLayers.Projection("EPSG:4326");

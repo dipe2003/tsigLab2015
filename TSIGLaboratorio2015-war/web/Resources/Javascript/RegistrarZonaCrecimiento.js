@@ -9,7 +9,7 @@ function init() {
     drawPolygon.activate(); 
     
     vector_layer.events.on({
-    featuresadded: onFeaturesAdded
+    featuresadded: AgregarPlogono
     });
 
     drawPolygon.handler.callbacks.point = function(data) {
@@ -17,6 +17,3 @@ function init() {
     };
     
 }
-
-
-
