@@ -12,17 +12,15 @@
                 </div>
                 
                 <div class="contenidoFormulario">   
-                    Correo  <h:inputText id="inputCorreo" value="#{registroUsuarioBean.correoUsuario}" class="form-control loginInput" required="true" requiredMessage="Ingresa Correo"/>
+                    Correo  <h:inputText id="inputCorreo" value="#{registroUsuario.correoUsuario}" class="form-control loginInput" required="true" requiredMessage="Ingresa Correo" />
                     <h:message for="inputCorreo" id="errCorreo" class="error"/>
-                    Nickname <h:inputText id="inputNick" value="#{registroUsuarioBean.nicknameUsuario}" class="form-control loginInput" required="true" requiredMessage="Ingresa Nickname">
-                        <f:ajax event="valueChange" execute="inputNick @this" render="@this errNick" listener="#{registroUsuarioBean.comprobarNickname()}"/>                        
-                    </h:inputText><h:message for="inputNick" id="errNick" class="error"/>
-                    Contraseña <h:inputSecret id="inputPass" value="#{registroUsuarioBean.passwordUsuario}" class="form-control loginInput" required="true" requiredMessage="Ingresa Contraseña"/>
-                    Repite Contraseña<h:inputSecret id="repPass" value="#{registroUsuarioBean.repeticionPasswordUsuario}" class="form-control loginInput" required="true" requiredMessage="Ingresa Contraseña">
-                        <f:ajax event="valueChange" execute="inputPass @this" render="errPass" listener="#{registroUsuarioBean.comprobarPass()}"/>
-                    </h:inputSecret><h:message for="repPass" id="errPass" class="error"/>
-                </div>          
-                <h:commandButton value="Registrar" action="#{registroUsuarioBean.registrarUsuario()}" class="btn btn-success loginButton"/>       
+                    Nickname <h:inputText id="inputNick" value="#{registroUsuario.nicknameUsuario}" class="form-control loginInput" required="true" requiredMessage="Ingresa Nickname"/>
+                    Contraseña <h:inputSecret id="inputPass" value="#{registroUsuario.passwordUsuario}" class="form-control loginInput" required="true" requiredMessage="Ingresa Contraseña"/>
+                    Repite Contraseña<h:inputSecret id="repPass" value="#{registroUsuario.repeticionPasswordUsuario}" class="form-control loginInput" required="true" requiredMessage="Ingresa Contraseña"/>
+
+                    <h:commandButton id="btnReg" value="Registrar" action="#{registroUsuario.registrarUsuario()}" class="btn btn-success loginButton"/>
+                    <h:message for="btnReg" id="errReg" class="error"/>
+                </div>
             </div>
         </h:form>
     </ui:define>

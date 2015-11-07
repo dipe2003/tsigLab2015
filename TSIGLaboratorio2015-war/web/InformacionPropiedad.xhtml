@@ -1,0 +1,43 @@
+<ui:composition template="/index.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="page_content">
+        <div id='map_element_info' class="mapa"></div>
+        <h:form id="frmInfoPropiedad">
+            <h:panelGroup rendered="#{not empty informacionPropiedad.direccionPropiedad}" >
+                <div class="formulario">                
+                    <div class="tituloGrande">
+                        #{informacionPropiedad.tipoPropiedad} en #{informacionPropiedad.direccionPropiedad}
+                    </div>
+                    <div class="contenidoFormulario">
+                        Direccion  <h:outputText id="outputDireccion" value="#{informacionPropiedad.direccionPropiedad}" class="output"/>
+                        Precio <h:outputText id="outputPrecio" value="$ #{informacionPropiedad.precioPropiedad}" class="output"/>
+                        Metros Construidos <h:outputText id="outputMetrosConstruidos" value="#{informacionPropiedad.metrosConstruidosPropiedad} m2" class="output"/>
+                        Metros de Terreno<h:outputText id="outputMetrosTerreno" value="#{informacionPropiedad.metrosTerrenoPropiedad} m2" class="output"/>
+                        <h:panelGroup id="comodidades" rendered="#{informacionPropiedad.tipoPropiedad != 'Terreno'}">
+                            Cantidad de Dormitorios<h:outputText id="outputDormitorios" value="#{informacionPropiedad.cantidadDormitorios}" class="output"/>
+                            Cantidad de Baños<h:outputText id="outputBanios" value="#{informacionPropiedad.cantidadBanios}" class="output"/>
+                        </h:panelGroup>
+                        Estado      <h:outputText id="outputEstado" value="#{informacionPropiedad.estadoPropiedad}" class="output"/>
+                        Publicado por: <h:outputText id="outputUsr" value="#{informacionPropiedad.nombreUsuario} #{informacionPropiedad.correoUsuario}" class="output"/>
+                        En Alquiler <h:selectBooleanCheckbox id="outputAlquiler" value="#{informacionPropiedad.enAlquiler}" disabled="true" /> <br/>
+                        En Venta    <h:selectBooleanCheckbox id="outputVenta" value="#{informacionPropiedad.enVenta}" disabled="true" /> <br/>
+                    </div>
+                    <div class="columnas">
+                        <c:forEach var="car" items="#{informacionPropiedad.listaCaracteristica}">                    
+                            <h:selectBooleanCheckbox value="#{informacionPropiedad.listChecked[car.idCaracteristica]}" disabled="true" />  #{car.nombreCaracteristica}<br/>
+                        </c:forEach>
+                    </div>                    
+                </div>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{empty informacionPropiedad.direccionPropiedad}">
+                <div class="tituloGrande tituloListado">
+                    No hay propiedad seleccionada.
+                </div>
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+</ui:composition>
