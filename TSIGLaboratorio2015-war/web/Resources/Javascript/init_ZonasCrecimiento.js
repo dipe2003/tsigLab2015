@@ -75,11 +75,12 @@ function init_ZonasCrecimiento() {
 }
 
 function onFeaturesAdded(event){
-    var bounds = event.features[0].geometry.getBounds();
-    var answer = "bottom: " + bounds.bottom  + "\n";
-    answer += "left: " + bounds.left  + "\n";
-    answer += "right: " + bounds.right  + "\n";
-    answer += "top: " + bounds.top  + "\n";
-    alert(answer);
+    var vertices = event.features[0].geometry.getVertices();
+    var strVertices = "";
+    for (var x in vertices) {
+        strVertices += "(" + vertices[x].x + "," + vertices[x].y + ")";
+    }
+
+    alert(strVertices);
 }
 
