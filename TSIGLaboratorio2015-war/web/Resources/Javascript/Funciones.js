@@ -217,3 +217,15 @@ function CargarPropiedades(){
     map.addLayer(Propiedades);
     
 }
+
+function onFeaturesAdded(event){
+    var vertices = event.features[0].geometry.getVertices();
+    var desdeProjection = new OpenLayers.Projection("EPSG:900913");   
+    var aProjection   = new OpenLayers.Projection("EPSG:4326");
+    var strVertices = "";
+    for (var x in vertices){
+        strVertices += "(" + vertices[x].x + "," + vertices[x].y + ")";
+    }
+    
+    alert(strVertices);
+}

@@ -70,3 +70,5 @@ var btnChDir = new OpenLayers.Control.Button({
 var vector_layer = new OpenLayers.Layer.Vector('Marcar Propiedades');
 
 var drawPoint = new OpenLayers.Control.DrawFeature(vector_layer, OpenLayers.Handler.Point);
+
+var drawPolygon = new OpenLayers.Control.DrawFeature(vector_layer, OpenLayers.Handler.Polygon);
