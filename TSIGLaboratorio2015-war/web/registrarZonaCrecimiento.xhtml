@@ -1,0 +1,29 @@
+<ui:composition template="/index.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="page_content">
+        <div  id='map_registroZonaCrecimiento' class="mapa"></div>
+        <h:form id="frmProp">           
+            <div class="formulario">                
+                <div class="tituloGrande">
+                    Registrar Zona Crecimiento
+                </div>
+                <h:message for="inputDireccion" id="errDireccion" class="error" style="flex: auto;"/>
+                <div class="contenidoFormulario">                    
+                    Demanda: <h:selectOneMenu value="#{registrarZonaCrecimiento.demandaZonaCrecimiento}">
+                                <f:selectItem itemValue="Alta" itemLabel="Alta" />
+                                <f:selectItem itemValue="Media" itemLabel="Media" />
+                                <f:selectItem itemValue="Baja" itemLabel="Baja" />		   							
+                            </h:selectOneMenu>
+                </div>
+                <h:inputText id="inputCoords" value="#{registrarZonaCrecimiento.coords}" style="display: none" />             
+                <div class="aceptar">
+                    <h:commandButton value="Registrar" action="#{registrarZonaCrecimiento.coords}" class="btn btn-success loginButton"/>
+                </div>                
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

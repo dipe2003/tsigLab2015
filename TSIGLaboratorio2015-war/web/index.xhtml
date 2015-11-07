@@ -13,7 +13,7 @@
         <style>
             .olControlCustomButtonToggleItemActive {
                 right: 10px !important;
-                background: #076799 none repeat scroll 0% 0%;
+                background-image: url(.Resources/Images/boton_toggled_activated.png);
                 cursor: pointer;
                 height: 28px;
                 width: 100px;
@@ -22,7 +22,7 @@
             }
             .olControlCustomButtonToggleItemInactive {
                 right: 10px !important;
-                background: #A8CF45 none repeat scroll 0% 0%;
+                background-image: url(.Resources/Images/boton_toggled_activated.png);
                 cursor: pointer;
                 height: 28px;
                 width: 100px;
@@ -54,7 +54,7 @@
                             Usuario <h:inputText class="form-control loginInput" value="#{login.nickname}"/>
                             Password <h:inputSecret class="form-control loginInput" value="#{login.password}"/>
                             <h:commandButton id="login" class="btn btn-success loginButton" action="#{login.login()}" value="Ingresar"/>
-                            <h:commandButton id="reg" class="btn btn-success loginButton" action="#{registroUsuarioBean.regUsr()}" value="Registrarse"/>
+                            <h:commandButton id="reg" class="btn btn-success loginButton" action="/registrarUsuario.xhtml" value="Registrarse"/>
                             <h:message for="login" />
                         </h:panelGroup>
                         <h:panelGroup rendered="#{login.usuarioLogueado}">
@@ -79,6 +79,9 @@
                     </a>
                     <a href="administrarPropiedades.xhtml" >
                         <div class="menuItem">Administrar Propiedadades</div>
+                    </a>                    
+                    <a href="registrarZonaCrecimiento.xhtml" >
+                        <div class="menuItem">Registrar Zona Crecimiento</div>
                     </a>
                 </div>
             </h:panelGroup>

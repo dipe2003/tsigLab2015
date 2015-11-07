@@ -17,6 +17,10 @@ public class ZonaCrecimiento implements Serializable {
     //  Constructor
     public ZonaCrecimiento(){}
 
+    ZonaCrecimiento(String demandaZonaCrecimiento) {
+        this.DemandaZonaCrecimiento = demandaZonaCrecimiento;
+    }
+
     //  Setters
     
     public void setIdZonaCrecimiento(int IdZonaCrecimiento) {this.IdZonaCrecimiento = IdZonaCrecimiento;}
