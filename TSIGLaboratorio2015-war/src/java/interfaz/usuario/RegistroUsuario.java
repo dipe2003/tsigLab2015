@@ -67,20 +67,22 @@ public class RegistroUsuario implements Serializable{
         return 0;
     }
     
-    public void registrarUsuario(){
+    public void registrarUsuario() throws IOException{
         String msj = "";
         if (comprobarPass()==-1) {
-            msj = "Las copntraseñas no coinciden";
+            msj = "Las contraseñas no coinciden";
         }else{
             if (comprobarNickname()==-1) {
                 msj = "El Nick ya está registrado.";
             }else{
                 if(cUsr.CrearUsuario(NicknameUsuario, PasswordUsuario, CorreoUsuario)==null){
                     msj = "No se pudo registrar.";
+                }else{
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
                 }
             }
         }
-        FacesContext.getCurrentInstance().addMessage("frmUsr:errReg", new FacesMessage("Error", msj));
+        FacesContext.getCurrentInstance().addMessage("frmUsr:btnReg", new FacesMessage("Error", msj));
     }
     
     public void editarUsuario() throws IOException{

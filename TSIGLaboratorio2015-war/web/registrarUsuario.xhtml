@@ -22,7 +22,9 @@
                     <h:panelGroup rendered="#{registroUsuario.opt == 'no'}">
                         Contraseña <h:inputSecret id="inputPass" value="#{registroUsuario.passwordUsuario}" class="form-control loginInput" required="true" requiredMessage="Ingresa Contraseña"/>
                         Repite Contraseña<h:inputSecret id="repPass" value="#{registroUsuario.repeticionPasswordUsuario}" class="form-control loginInput" required="true" requiredMessage="Ingresa Contraseña"/>
-                        <h:commandButton id="btnReg" value="Registrar" action="#{registroUsuario.registrarUsuario()}" class="btn btn-success loginButton"/>
+                        <h:commandButton id="btnReg" value="Registrar" action="#{registroUsuario.registrarUsuario()}" class="btn btn-success loginButton">
+                            <f:ajax execute="@form" render="@form"/>
+                        </h:commandButton>
                         <h:message for="btnReg" id="errReg" class="error"/>
                     </h:panelGroup>
                     <h:panelGroup rendered="#{registroUsuario.opt != 'no'}">

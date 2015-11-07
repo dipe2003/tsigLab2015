@@ -32,7 +32,7 @@ public class ControladorUsuario {
      * @return 
      */
     public boolean ExisteNickname(String Nickname){
-        return mUsr.BuscarNicknameUsuario(Nickname)!=0;
+        return mUsr.BuscarNicknameUsuario(Nickname)!=-1;
     }
     
     /**
