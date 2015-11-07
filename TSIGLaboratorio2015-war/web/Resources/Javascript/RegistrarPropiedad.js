@@ -30,7 +30,7 @@ function initRegistroPropiedad() {
     //---------------------Capa auxiliar 
     vector_layer = new OpenLayers.Layer.Vector('Marcar Propiedades');
     mapRegistro.addLayer(vector_layer);
-    //---------------------Agregat puntos
+    //---------------------Agregar puntos
     var drawPoint = new OpenLayers.Control.DrawFeature(vector_layer, OpenLayers.Handler.Point);
     mapRegistro.addControl(drawPoint);
     drawPoint.activate();

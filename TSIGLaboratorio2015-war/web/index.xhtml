@@ -41,13 +41,14 @@
         <script type="text/javascript" src="./Resources/Javascript/MapInit.js"/>
         <script type="text/javascript" src="./Resources/Javascript/Index.js"/>
         <script type="text/javascript" src="./Resources/Javascript/RegistrarPropiedad.js"/>
+        <script type="text/javascript" src="./Resources/Javascript/init_ZonasCrecimiento.js"/>
         
         <link rel="stylesheet" href="Resources/Css/Base.css" />
         <link rel="stylesheet" href="Resources/Css/Mensajes.css" />
         
     </h:head>
     
-    <h:body onload='initIndex(); initRegistroPropiedad();' style="background-color: #EEE;">
+    <h:body onload='initIndex(); initRegistroPropiedad(); init_ZonasCrecimiento();' style="background-color: #EEE;">
         <div id="header">
             <div id="headerCenter">
                 <h:form id="login">
@@ -81,6 +82,9 @@
                     </a>
                     <a href="administrarPropiedades.xhtml" >
                         <div class="menuItem">Administrar Propiedadades</div>
+                    </a>                    
+                    <a href="registrarZonaCrecimiento.xhtml" >
+                        <div class="menuItem">Registrar Zona Crecimiento</div>
                     </a>
                 </div>
             </h:panelGroup>
