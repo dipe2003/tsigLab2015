@@ -130,7 +130,7 @@ public class RegistrarPropiedad implements Serializable {
         }
         if (id!=-1) {
             cProp.InsertarUbicacionPropiedad(id, Float.parseFloat(CoordX), Float.parseFloat(this.CoordY));
-            return "listarPropiedades.xhtml";
+            return "index.xhtml";
         }
         return "registrarPropiedades.xhtml";
     }
