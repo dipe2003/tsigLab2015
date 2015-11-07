@@ -1,26 +1,3 @@
-//---------------------WFS - Propiedad-----------------------
-var filterStrategy = new OpenLayers.Strategy.Filter();
-var Propiedades = new OpenLayers.Layer.Vector('Propiedades', {
-        strategies: [new OpenLayers.Strategy.Fixed(), filterStrategy],
-        protocol: new OpenLayers.Protocol.WFS({
-            url: 'http://localhost:8080/geoserver/wfs',
-            featureType: 'propiedad',
-            featureNS: 'tsiglab2015',
-            featurePrefix:'tsiglab2015',            
-            geometryName: 'the_geom',
-            srsName: new OpenLayers.Projection('EPSG:900913'),
-            version: '1.1.0'
-        }, {transistionEffect:'resize'}),
-        preFeatureInsert: function(feature) {
-            cargarIconos(feature);
-        }
-    });
-    
-//---------------------google map-----------------------------
-var google_hybrid = new OpenLayers.Layer.Google(
-        "San Jose",
-{type: google.maps.MapTypeId.HYBRID},{isBaseLayer:true}
-        );
 
 function filtrar(){
     
@@ -148,4 +125,107 @@ function cargarIconos(feature){
     });
     feature.style = style;
     Propiedades.drawFeature(feature);
+}
+
+function AbrirPopup(event){
+    var prop = event.feature.attributes;
+    var popup = new OpenLayers.Popup.FramedCloud(
+            "IdPopup",
+    new OpenLayers.LonLat(event.feature.geometry.x,event.feature.geometry.y),
+    null,
+    '<div style="color:#FF0000; font-size:15px; font-weight:600">'+prop.direccionpropiedad + '</div>'
+            +'</br> Tipo: '+ prop.dtype
+            +'</br> En venta: '+ prop.enventa
+            +'</br> En alquiler: '+ prop.enalquiler
+            +'</br> <a href="/InformacionPropiedad.xhtml?id='+ prop.idpropiedad+'">Mas Informacion</a>'
+    ,
+    null,
+    true
+            );
+    if (arrayPopup.length>0){
+        for(var index = 0; index < arrayPopup.length; index++) {
+            map.removePopup(arrayPopup[index]);
+        }
+    }
+    arrayPopup = new Array();
+    map.addPopup(popup);
+    arrayPopup.push(popup);
+    select_feature_control.unselectAll();
+}
+
+function AgregarPunto(ev){
+    var desdeProjection = new OpenLayers.Projection("EPSG:900913");   
+    var aProjection   = new OpenLayers.Projection("EPSG:4326");
+    var punto = ev.feature.geometry;
+    var punto = ev.feature.geometry.getBounds().getCenterLonLat().clone().transform(desdeProjection, aProjection);
+    coord_x = punto.lon.toFixed(5);
+    coord_y = punto.lat.toFixed(5);
+    
+    $('#frmProp\\:coordx').val(coord_x);
+    $('#frmProp\\:coordy').val(coord_y);
+    
+    if (vector_layer.features.length>1){
+        vector_layer.removeFeatures(vector_layer.features[0]);
+    }    
+    $("#frmProp\\:registrarPropiedad").click();
+}
+
+function VerInfo(event){
+    VerInfoChDir(event.feature);
+}
+
+function VerInfoChDir(feature){
+        var prop = feature.attributes;
+    var desdeProjection = new OpenLayers.Projection("EPSG:900913");   
+    var aProjection   = new OpenLayers.Projection("EPSG:4326");
+    var punto = feature.geometry;
+    var punto = feature.geometry.getBounds().getCenterLonLat().clone().transform(desdeProjection, aProjection);
+    coord_x = punto.lon.toFixed(5);
+    coord_y = punto.lat.toFixed(5);    
+    $('#frmAdminPropiedad\\:coordx').val(coord_x);
+    $('#frmAdminPropiedad\\:coordy').val(coord_y);
+    $('#frmAdminPropiedad\\:inputDireccion').val(prop.direccionpropiedad);
+    $('#frmAdminPropiedad\\:inputPrecio').val(prop.preciopropiedad);
+    $('#frmAdminPropiedad\\:inputMetrosConstruidos').val(prop.metrosconstruidospropiedad);
+    $('#frmAdminPropiedad\\:inputMetrosTerreno').val(prop.metrosterrenopropiedad);
+    $('#frmAdminPropiedad\\:inputDormitorios').val(prop.cantidaddormitorios);
+    $('#frmAdminPropiedad\\:inputBanios').val(prop.cantidadbanios);
+    $('#frmAdminPropiedad\\:inputAlquiler').val(prop.enalquiler);
+    $('#frmAdminPropiedad\\:inputVenta').val(prop.enventa);
+    $('#frmAdminPropiedad\\:idprop').val(prop.idpropiedad);
+    var boton = $('#frmAdminPropiedad\\:btnCambiarDir');
+            boton.click();
+}
+
+function CrearMapaBase(){
+    map = new OpenLayers.Map('map', opts);
+    
+    //---------------------google map-----------------------------
+    map.addLayer(google_hybrid);
+    
+    //---------------------Posicion y Zoom
+    if(!map.getCenter()){
+        map.zoomToExtent(new OpenLayers.Bounds(-6316547.1474847,-4076411.4051729,-6307011.6282075,-4073545.0166127));
+    }
+    
+    //---------------------opcion cambiar capa
+    map.addControl(new OpenLayers.Control.LayerSwitcher({}));
+}
+
+function CargarPropiedades(){
+    //---------------------WFS - Propiedad-----------------------
+    map.addLayer(Propiedades);
+    
+}
+
+function AgregarPlogono(event){
+    var vertices = event.features[0].geometry.getVertices();
+    var desdeProjection = new OpenLayers.Projection("EPSG:900913");   
+    var aProjection   = new OpenLayers.Projection("EPSG:4326");
+    var strVertices = "";
+    for (var x in vertices){
+        strVertices += "(" + vertices[x].x + "," + vertices[x].y + ")";
+    }
+    
+    alert(strVertices);
 }
