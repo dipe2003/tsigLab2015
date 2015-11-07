@@ -1,6 +1,7 @@
 package interfaz.usuario;
 
 
+import java.io.IOException;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -70,6 +71,10 @@ public class Login implements Serializable {
         request.getSession().invalidate();
         this.UsuarioLogueado = false;
         return "index.xhtml";
+    }
+    
+    public void editarDatos() throws IOException{
+        FacesContext.getCurrentInstance().getExternalContext().redirect("registrarUsuario.xhtml?Opt=edit");
     }
      
     @PostConstruct
