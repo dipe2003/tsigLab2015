@@ -48,7 +48,7 @@ function AbrirPopup(event){
             +'</br> Tipo: '+ prop.dtype
             +'</br> En venta: '+ prop.enventa
             +'</br> En alquiler: '+ prop.enalquiler
-            +'</br> <a href="/InformacionPropiedad.xhtml?id='+ prop.idpropiedad+'">Mas Informacion</a>'
+            +'</br> <a href="InformacionPropiedad.xhtml?id='+ prop.idpropiedad+'">Mas Informacion</a>'
     ,
     null,
     true

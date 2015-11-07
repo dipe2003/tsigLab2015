@@ -12,7 +12,7 @@ import usuario.ControladorUsuario;
 
 @Named
 @ViewScoped
-public class registroUsuarioBean implements Serializable{
+public class RegistroUsuario implements Serializable{
     @EJB
     private ControladorUsuario cUsr;
     
@@ -20,7 +20,7 @@ public class registroUsuarioBean implements Serializable{
     private String NicknameUsuario;
     private String PasswordUsuario;
     private String RepeticionPasswordUsuario;
-
+    
     //  Getters
     public String getCorreoUsuario() {return CorreoUsuario;}
     public String getNicknameUsuario() {return NicknameUsuario;}
@@ -33,27 +33,33 @@ public class registroUsuarioBean implements Serializable{
     public void setPasswordUsuario(String PasswordUsuario) {this.PasswordUsuario = PasswordUsuario;}
     public void setRepeticionPasswordUsuario(String RepeticionPasswordUsuario) {this.RepeticionPasswordUsuario = RepeticionPasswordUsuario;}
     
-    public void comprobarPass(){
+    public int comprobarPass(){
         if (!PasswordUsuario.equals(RepeticionPasswordUsuario)) {
-            FacesContext.getCurrentInstance().addMessage("frmUsr:repPass", new FacesMessage("Error", "Las contraseñas no coinciden"));
+            return -1;
         }
+        return 0;
     }
     
-    public void comprobarNickname(){
+    public int comprobarNickname(){
         if(cUsr.ExisteNickname(NicknameUsuario)) {
-            FacesContext.getCurrentInstance().addMessage("frmUsr:errNick", new FacesMessage("Error", "El nickname ya esta registrado."));
+            return -1;
         }
+        return 0;
     }
     
     public void registrarUsuario(){
-        if(cUsr.CrearUsuario(NicknameUsuario, PasswordUsuario, CorreoUsuario)==null){
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error", "No se pudo registrar"));
-        }        
+        String msj = "";
+        if (comprobarPass()==-1) {
+            msj = "Las copntraseñas no coinciden";
+        }else{
+            if (comprobarNickname()==-1) {
+                msj = "El Nick ya está registrado.";
+            }else{
+                if(cUsr.CrearUsuario(NicknameUsuario, PasswordUsuario, CorreoUsuario)==null){
+                    msj = "No se pudo registrar.";
+                }
+            }            
+        }
+        FacesContext.getCurrentInstance().addMessage("frmUsr:errReg", new FacesMessage("Error", msj));
     }
-    
-    public void regUsr() throws IOException{
-        FacesContext.getCurrentInstance().getExternalContext().redirect("registrarUsuario.xhtml");
-    }
-    
-    
 }
