@@ -58,8 +58,11 @@
                             <h:message for="login" />
                         </h:panelGroup>
                         <h:panelGroup rendered="#{login.usuarioLogueado}">
+                          
                             <h:outputText class="nickLogueado" value="#{login.nickname}"/>
+
                             <h:commandButton id="logout" class="btn btn-success loginButton" action="#{login.logout()}" value="Salir"/>
+                            <h:commandButton id="edit" class="btn btn-success loginButton" action="#{login.editarDatos()}" value="Editar"/>
                         </h:panelGroup>
                     </div>
                 </h:form>

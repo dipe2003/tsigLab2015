@@ -8,18 +8,29 @@
         <h:form id="frmUsr">           
             <div class="formulario">                
                 <div class="tituloGrande">
-                    Registrar Usuario
+                    <c:if test="#{registroUsuario.opt == 'no'}">
+                        Registrar Usuario
+                    </c:if><c:otherwise>
+                        Editar Datos de Usuario
+                    </c:otherwise>                    
                 </div>
                 
                 <div class="contenidoFormulario">   
                     Correo  <h:inputText id="inputCorreo" value="#{registroUsuario.correoUsuario}" class="form-control loginInput" required="true" requiredMessage="Ingresa Correo" />
                     <h:message for="inputCorreo" id="errCorreo" class="error"/>
                     Nickname <h:inputText id="inputNick" value="#{registroUsuario.nicknameUsuario}" class="form-control loginInput" required="true" requiredMessage="Ingresa Nickname"/>
-                    Contraseña <h:inputSecret id="inputPass" value="#{registroUsuario.passwordUsuario}" class="form-control loginInput" required="true" requiredMessage="Ingresa Contraseña"/>
-                    Repite Contraseña<h:inputSecret id="repPass" value="#{registroUsuario.repeticionPasswordUsuario}" class="form-control loginInput" required="true" requiredMessage="Ingresa Contraseña"/>
-
-                    <h:commandButton id="btnReg" value="Registrar" action="#{registroUsuario.registrarUsuario()}" class="btn btn-success loginButton"/>
-                    <h:message for="btnReg" id="errReg" class="error"/>
+                    <h:panelGroup rendered="#{registroUsuario.opt == 'no'}">
+                        Contraseña <h:inputSecret id="inputPass" value="#{registroUsuario.passwordUsuario}" class="form-control loginInput" required="true" requiredMessage="Ingresa Contraseña"/>
+                        Repite Contraseña<h:inputSecret id="repPass" value="#{registroUsuario.repeticionPasswordUsuario}" class="form-control loginInput" required="true" requiredMessage="Ingresa Contraseña"/>
+                        <h:commandButton id="btnReg" value="Registrar" action="#{registroUsuario.registrarUsuario()}" class="btn btn-success loginButton"/>
+                        <h:message for="btnReg" id="errReg" class="error"/>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{registroUsuario.opt != 'no'}">
+                        Contraseña Actual <h:inputSecret id="inputActual" value="#{registroUsuario.passwordActual}" class="form-control loginInput" required="true" requiredMessage="Ingresa Contraseña"/>
+                        Contraseña Nueva <h:inputSecret id="inputNueva" value="#{registroUsuario.passwordNuevo}" class="form-control loginInput" required="true" requiredMessage="Ingresa Contraseña"/>
+                        <h:commandButton id="btnEdit" value="Guardar" action="#{registroUsuario.editarUsuario()}" class="btn btn-success loginButton"/>
+                        <h:message for="btnEdit" id="errEdit" class="error"/>
+                    </h:panelGroup>
                 </div>
             </div>
         </h:form>

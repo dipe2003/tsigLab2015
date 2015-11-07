@@ -54,4 +54,23 @@ public class ControladorUsuario {
         return mUsr.GetUsuario(IdUsuario);
     }
     
+    /**
+     * Actualiza los datos del usuario registrado en la base de datos.
+     * @param NicknameUsuario
+     * @param PasswordUsuario
+     * @param CorreoUsuario
+     * @param IdUsuario
+     * @return devuelve el id del usuario si se actualizo. Retorna -1 si no se pudo actualizar.
+     */
+    public int ActualizarDatosUsuario(String NicknameUsuario, String PasswordUsuario, String CorreoUsuario, int IdUsuario){
+        try{
+            Usuario usr = GetUsuario(IdUsuario);
+            usr.setCorreoUsuario(CorreoUsuario);
+            usr.setNicknameUsuario(NicknameUsuario);
+            usr.setPasswordUsuario(PasswordUsuario);
+            return mUsr.ActualizarUsuario(usr);
+        }catch(NullPointerException ex){}
+        return -1;
+    }
+    
 }
