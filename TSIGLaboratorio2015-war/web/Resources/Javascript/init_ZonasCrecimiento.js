@@ -5,7 +5,7 @@ var opts = {
 };
 
 function init_ZonasCrecimiento() {
-    var map = new OpenLayers.Map('map_element_zonas', opts);
+    var map = new OpenLayers.Map('map_registroZonaCrecimiento', opts);
     
     //---------------------google map-----------------------------
     // Hibrido
@@ -70,17 +70,38 @@ function init_ZonasCrecimiento() {
     drawPolygon.activate(); 
     
     vector_layer.events.on({
-    featuresadded: onFeaturesAdded
-});
+    click: onFeaturesAdded
+    });
+    //
+
+
+    drawPolygon.handler.callbacks.point = function(data) {
+        if(vector_layer.features.length > 0)
+        {
+            vector_layer.removeAllFeatures();
+        }
+    };
+
+    var regPolyControl = new OpenLayers.Control.DrawFeature(vector_layer,OpenLayers.Handler.RegularPolygon);
+
+    regPolyControl.handler.callbacks.create = function(data) {
+    if(vector_layer.features.length > 0)
+        {
+            vector_layer.removeAllFeatures();
+        }
+    };
+    //
 }
 
 function onFeaturesAdded(event){
     var vertices = event.features[0].geometry.getVertices();
+    var desdeProjection = new OpenLayers.Projection("EPSG:900913");   
+    var aProjection   = new OpenLayers.Projection("EPSG:4326");
     var strVertices = "";
-    for (var x in vertices) {
+    for (var x in vertices){
         strVertices += "(" + vertices[x].x + "," + vertices[x].y + ")";
     }
-
+    
     alert(strVertices);
 }
 
