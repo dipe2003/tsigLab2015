@@ -10,44 +10,44 @@
     <h:head>
         <meta charset='utf-8' />
         <title>Busco Haus</title>
-                <style>
-                    .olControlCustomButtonToggleItemActive {
-                        right: 10px !important;
-                        background: #076799 none repeat scroll 0% 0%;
-                        cursor: pointer;
-                        height: 28px;
-                        width: 100px;
-                        margin-top: 5px;
-                        color: white;
-                    }
-                    .olControlCustomButtonToggleItemInactive {
-                        right: 10px !important;
-                        background: #A8CF45 none repeat scroll 0% 0%;
-                        cursor: pointer;
-                        height: 28px;
-                        width: 100px;
-                        margin-top: 5px;
-                        color: white;
-                    }
+        <style>
+            .olControlCustomButtonToggleItemActive {
+                right: 10px !important;
+                background: #076799 none repeat scroll 0% 0%;
+                cursor: pointer;
+                height: 28px;
+                width: 100px;
+                margin-top: 5px;
+                color: white;
+            }
+            .olControlCustomButtonToggleItemInactive {
+                right: 10px !important;
+                background: #A8CF45 none repeat scroll 0% 0%;
+                cursor: pointer;
+                height: 28px;
+                width: 100px;
+                margin-top: 5px;
+                color: white;
+            }
         </style>
         
         <script type='text/javascript' src='http://maps.google.com/maps/api/js?v=3.5'/>
         <script type='text/javascript' src='./Resources/OpenLayers/OpenLayers.js'/>
-              
+        
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         
-        <script type="text/javascript" src="./Resources/Javascript/init.js"/>
-        <script type="text/javascript" src="./Resources/Javascript/init_Home.js"/>
-        <script type="text/javascript" src="./Resources/Javascript/init_Admin.js"/>
+        <script type="text/javascript" src="./Resources/Javascript/MapInit.js"/>
+        <script type="text/javascript" src="./Resources/Javascript/Index.js"/>
+        <script type="text/javascript" src="./Resources/Javascript/RegistrarPropiedad.js"/>
         
         <link rel="stylesheet" href="Resources/Css/Base.css" />
         <link rel="stylesheet" href="Resources/Css/Mensajes.css" />
-
+        
     </h:head>
     
-    <h:body onload='init(); init_listado(); init_admin();' style="background-color: #EEE;">
+    <h:body onload='initIndex(); initRegistroPropiedad();' style="background-color: #EEE;">
         <div id="header">
             <div id="headerCenter">
                 <h:form id="login">
@@ -71,33 +71,43 @@
             </div>
         </div>
         <div id="hoja">
-            <div id="menu">
-                <a href="index.xhtml">
-                <div class="menuItem">Home</div>
-                </a>                
-                <a href="listarPropiedades.xhtml" >
-                <div class="menuItem">Listar Propiedades</div>
-                </a>
-                <h:panelGroup rendered="#{login.usuarioLogueado}">
-                <a href="registrarPropiedad.xhtml" >
-                <div class="menuItem">Registrar Propiedad</div>
-                </a>
-                </h:panelGroup>
-                <h:panelGroup rendered="#{login.usuarioLogueado}">
-                <a href="administrarPropiedades.xhtml" >
-                <div class="menuItem">Administrar Propiedadades</div>
-                </a>
-                </h:panelGroup>
-            </div>
+            <h:panelGroup rendered="#{login.usuarioLogueado}">
+                <div id="menu">
+                    <a href="index.xhtml">
+                        <div class="menuItem">Home</div>
+                    </a>                
+                    <a href="registrarPropiedad.xhtml" >
+                        <div class="menuItem">Registrar Propiedad</div>
+                    </a>
+                    <a href="administrarPropiedades.xhtml" >
+                        <div class="menuItem">Administrar Propiedadades</div>
+                    </a>
+                </div>
+            </h:panelGroup>
             
             <h:panelGroup >
-            <ui:insert name="page_content" >
-                <div  id='map_element_listado' class="mapa"></div>
-                    <div class="tituloGrande">
-                    Bienvenido
-                </div>
-            </ui:insert>
-            </h:panelGroup>           
+                <ui:insert name="page_content" >
+                    <div  id='map_index' class="mapa" style="height: 500px"></div>
+                    <div class="contenidoFiltro">  
+                        <input type="text" id="direccion" class="loginInput" placeholder="Direccion"/>
+                        Rango de Precio: <input type="text" id="desde" class="loginInput" placeholder="Desde" style="width: 50px" /> 
+                        <input type="text" id="hasta" class="loginInput"  placeholder="Hasta" style="width: 50px" />
+                        Tipo de Inmueble: <select id="tipo" class="loginInput">
+                            <option value="">Todas</option>
+                            <option value="0">Casa</option>
+                            <option value="1">Apartamento</option>
+                            <option value="undefined">Terreno</option>
+                        </select>
+                        Tipo de Inmueble: <select id="VentaAlquiler" class="loginInput">
+                            <option value="">Todas</option>
+                            <option value="Alquiler">Alquiler</option>
+                            <option value="Venta">Venta</option>
+                            <option value="AlquilerYVenta">Venta y Alquiler</option>
+                        </select>
+                        <input type="button" id="precio" value="Filtrar" onclick="filtrar()" class="loginButton" style="width: 100px; margin-top: 0;"/>
+                    </div>
+                </ui:insert>
+            </h:panelGroup>         
         </div>
     </h:body>
 </html>
