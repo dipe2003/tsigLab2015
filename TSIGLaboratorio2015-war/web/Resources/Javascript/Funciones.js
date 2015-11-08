@@ -295,7 +295,7 @@ function SeleccionarPoligono(event){
     strVertices += vertices[0].lon + " " + vertices[0].lat;
     $('#frmAdminZona\\:inputCoordsZona').val(strVertices);
     $('#frmAdminZona\\:inputIdZonaCrecimiento').val(event.feature.attributes.idzonacrecimiento);
-
+}
 
 function cargarEstilo(feature){
     //---------------------estilo--------------------------------

@@ -87,10 +87,7 @@ var vector_layer = new OpenLayers.Layer.Vector('Marcar Propiedades');
 
 var drawPoint = new OpenLayers.Control.DrawFeature(vector_layer, OpenLayers.Handler.Point);
 
-var drawPolygon = new OpenLayers.Control.DrawFeature(vector_layer, OpenLayers.Handler.Polygon);
-
 // Zonas de crecimiento
 var vector_layer_zonas = new OpenLayers.Layer.Vector('Marcar Zona de Crecimiento');
-var drawPoint = new OpenLayers.Control.DrawFeature(vector_layer_zonas, OpenLayers.Handler.Point);
 var drawPolygon = new OpenLayers.Control.DrawFeature(vector_layer_zonas, OpenLayers.Handler.Polygon);
 var modifyPolygon = new OpenLayers.Control.ModifyFeature(ZonasCrecimiento);
