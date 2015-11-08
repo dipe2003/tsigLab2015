@@ -5,6 +5,8 @@ function init() {
     
     map.addLayer(vector_layer);
     
+    map.addLayer(ZonasCrecimiento);
+    
     map.addControl(drawPolygon);
     drawPolygon.activate(); 
     

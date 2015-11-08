@@ -223,9 +223,11 @@ function AgregarPlogono(event){
     var desdeProjection = new OpenLayers.Projection("EPSG:900913");   
     var aProjection   = new OpenLayers.Projection("EPSG:4326");
     var strVertices = "";
-    for (var x in vertices){
-        strVertices += "(" + vertices[x].x + "," + vertices[x].y + ")";
+
+    for (var a in vertices){
+        vertices[a] = vertices[a].getBounds().getCenterLonLat().transform(desdeProjection, aProjection);
+        strVertices += vertices[a].lon + " " + vertices[a].lat +",";
     }
-    
-    alert(strVertices);
+        strVertices += vertices[0].lon + " " + vertices[0].lat;
+    $('#frmZona\\:inputCoords').val(strVertices);
 }

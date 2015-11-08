@@ -7,7 +7,7 @@
     <ui:define name="page_content">
         <script type="text/javascript" src="./Resources/Javascript/RegistrarZonaCrecimiento.js"/>
         <div  id='map' class="mapa"></div>
-        <h:form id="frmProp">           
+        <h:form id="frmZona">           
             <div class="formulario">                
                 <div class="tituloGrande">
                     Registrar Zona Crecimiento
@@ -20,9 +20,9 @@
                                 <f:selectItem itemValue="Baja" itemLabel="Baja" />		   							
                             </h:selectOneMenu>
                 </div>
-                <h:inputText id="inputCoords" value="#{registrarZonaCrecimiento.coords}" style="display: none" />             
+                <h:inputText id="inputCoords" value="#{registrarZonaCrecimiento.coords}" style="display: none;" />             
                 <div class="aceptar">
-                    <h:commandButton value="Registrar" action="#{registrarZonaCrecimiento.coords}" class="btn btn-success loginButton"/>
+                    <h:commandButton value="Registrar" action="#{registrarZonaCrecimiento.registrarZonaCrecimiento()}" class="btn btn-success loginButton"/>
                 </div>                
             </div>
         </h:form>
