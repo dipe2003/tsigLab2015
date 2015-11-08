@@ -1,11 +1,12 @@
 function init() {
     
     CrearMapaBase();
+    
+    map.addLayer(ZonasCrecimiento);
+    
     CargarPropiedades();
     
     map.addLayer(vector_layer);
-    
-    map.addLayer(ZonasCrecimiento);
     
     map.addControl(drawPolygon);
     drawPolygon.activate(); 
@@ -17,5 +18,6 @@ function init() {
     drawPolygon.handler.callbacks.point = function(data) {
         if(vector_layer.features.length > 0) vector_layer.removeAllFeatures();
     };
+    
     
 }

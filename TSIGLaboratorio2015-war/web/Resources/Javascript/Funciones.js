@@ -1,5 +1,57 @@
+//------------------------------------get url parameter----------------------------------------------------
+var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+        
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+            
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
+//---------------------------------------------------------------------------------------------------------
+
+function filtrarUnaPropiedad(){
+    
+    var id = getUrlParameter('id');
+    
+    var Propiedad = new OpenLayers.Filter.Comparison({
+        type: OpenLayers.Filter.Comparison.LIKE,
+        property: 'idpropiedad',
+        value: id,
+    });
+    
+    filterStrategy.setFilter(Propiedad);
+    filterStrategy.activate(); 
+    
+    Propiedades.refresh({force: true});
+    Propiedades.redraw();
+}
 
 function filtrar(){
+    
+    //publica
+    var Publica = new OpenLayers.Filter.Comparison({
+        type: OpenLayers.Filter.Comparison.LIKE,
+        property: 'estadopropiedad',
+        value: '1',
+    });
+    
+    //reservada
+    var Reservada = new OpenLayers.Filter.Comparison({
+        type: OpenLayers.Filter.Comparison.LIKE,
+        property: 'estadopropiedad',
+        value: '3',
+    });
+    
+    var PublicaOReservada = new OpenLayers.Filter.Logical({
+        type: OpenLayers.Filter.Logical.OR,
+        filters: [Publica, Reservada]
+    });
     
     //direccion
     var filterDireccion = new OpenLayers.Filter.Comparison({
@@ -36,7 +88,7 @@ function filtrar(){
     if (attributeVentaAlquiler === ""){
         var parent_filter = new OpenLayers.Filter.Logical({
             type: OpenLayers.Filter.Logical.AND,
-            filters: [filterDireccion, filterDesde, filterHasta, filterTipo]
+            filters: [filterDireccion, filterDesde, filterHasta, filterTipo,PublicaOReservada]
         });
     }else{
         
@@ -73,7 +125,7 @@ function filtrar(){
         
         var parent_filter = new OpenLayers.Filter.Logical({
             type: OpenLayers.Filter.Logical.AND,
-            filters: [filterDireccion, filterDesde, filterHasta, filterTipo, VentaAlquiler]
+            filters: [filterDireccion, filterDesde, filterHasta, filterTipo, VentaAlquiler,PublicaOReservada]
         });
     }
     
@@ -175,7 +227,7 @@ function VerInfo(event){
 }
 
 function VerInfoChDir(feature){
-        var prop = feature.attributes;
+    var prop = feature.attributes;
     var desdeProjection = new OpenLayers.Projection("EPSG:900913");   
     var aProjection   = new OpenLayers.Projection("EPSG:4326");
     var punto = feature.geometry;
@@ -194,7 +246,7 @@ function VerInfoChDir(feature){
     $('#frmAdminPropiedad\\:inputVenta').val(prop.enventa);
     $('#frmAdminPropiedad\\:idprop').val(prop.idpropiedad);
     var boton = $('#frmAdminPropiedad\\:btnCambiarDir');
-            boton.click();
+    boton.click();
 }
 
 function CrearMapaBase(){
@@ -223,11 +275,79 @@ function AgregarPlogono(event){
     var desdeProjection = new OpenLayers.Projection("EPSG:900913");   
     var aProjection   = new OpenLayers.Projection("EPSG:4326");
     var strVertices = "";
-
+    
     for (var a in vertices){
         vertices[a] = vertices[a].getBounds().getCenterLonLat().transform(desdeProjection, aProjection);
         strVertices += vertices[a].lon + " " + vertices[a].lat +",";
     }
-        strVertices += vertices[0].lon + " " + vertices[0].lat;
+    strVertices += vertices[0].lon + " " + vertices[0].lat;
     $('#frmZona\\:inputCoords').val(strVertices);
+}
+
+function cargarEstilo(feature){
+    //---------------------estilo--------------------------------
+    // alta
+    var vector_style_alta = new OpenLayers.Style({
+        'fillColor': 'red',
+        'fillOpacity': .2,
+        'strokeColor': '#7F0002',
+        'strokeWidth': 3,
+        'pointRadius': 8
+    });
+    
+    // media
+    var vector_style_media = new OpenLayers.Style({
+        'fillColor': 'yellow',
+        'fillOpacity': .2,
+        'strokeColor': '#ffc100',
+        'strokeWidth': 3,
+        'pointRadius': 8
+    });
+    
+    // baja
+    var vector_style_baja = new OpenLayers.Style({
+        'fillColor': 'green',
+        'fillOpacity': .2,
+        'strokeColor': '#A8CF45',
+        'strokeWidth': 3,
+        'pointRadius': 8
+    });
+    
+    var vector_style_map;
+    
+    if (feature.attributes.demandazonacrecimiento === "Alta"){ //casa
+        vector_style_map = new OpenLayers.StyleMap({
+            'default': vector_style_alta
+        });
+    }else if (feature.attributes.demandazonacrecimiento === "Media"){//apto
+        vector_style_map = new OpenLayers.StyleMap({
+            'default': vector_style_media
+        });
+    }else{//terreno
+        vector_style_map = new OpenLayers.StyleMap({
+            'default': vector_style_baja
+        });
+    }
+    
+    var style = $.extend({}, vector_style_map.createSymbolizer(feature), {
+        strokeWidth: 2
+    });
+    feature.style = style;
+    ZonasCrecimiento.drawFeature(feature);
+}
+
+function filtrarPropiedadesDeUsuario(){
+    var id = $("#frmAdminPropiedad\\:idusr").val();
+    
+    var Propiedad = new OpenLayers.Filter.Comparison({
+        type: OpenLayers.Filter.Comparison.EQUAL_TO ,
+        property: 'usuariopropiedad_idusuario',
+        value: id,
+    });
+    
+    filterStrategy.setFilter(Propiedad);
+    filterStrategy.activate(); 
+    
+    Propiedades.refresh({force: true});
+    Propiedades.redraw();
 }

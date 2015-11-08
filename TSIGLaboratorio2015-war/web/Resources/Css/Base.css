@@ -76,7 +76,7 @@ body{
 }
 .formulario{
     width: 100%;
-    overflow: auto;
+    overflow: hidden;
 }
 .tituloGrande{
     font-size: 50px;
@@ -89,7 +89,6 @@ body{
     width: 30%;
     padding-left: 20px;
     float: left;
-    height: 400px;
 }
 .columnas{
     width: 70%;
@@ -168,9 +167,8 @@ label.css-label {
 
 .contenidoFiltro{
     width: 100%;
-    display: flex;
-    box-shadow: #999999 0px 3px 3px;
-    text-align: end;
+    font-size: 15px;
+    padding: 20px;
 }
 
 .output{
