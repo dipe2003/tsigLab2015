@@ -5,23 +5,25 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="page_content">
-        <script type="text/javascript" src="./Resources/Javascript/RegistrarZonaCrecimiento.js"/>
+        <script type="text/javascript" src="./Resources/Javascript/AdministrarZonaCrecimiento.js"/>
         <div  id='map' class="mapa"></div>
-        <h:form id="frmZona">           
+        <h:form id="frmAdminZona">           
             <div class="formulario">                
                 <div class="tituloGrande">
-                    Registrar Zona Crecimiento
+                    Administrar Zonas de Crecimiento
                 </div>
                 <div class="contenidoFormulario">                    
-                    Demanda: <h:selectOneMenu value="#{registrarZonaCrecimiento.demandaZonaCrecimiento}">
+                    Demanda: <h:selectOneMenu value="#{adminZonaCrecimiento.demandaZonaCrecimiento}">
                                 <f:selectItem itemValue="Alta" itemLabel="Alta" />
                                 <f:selectItem itemValue="Media" itemLabel="Media" />
                                 <f:selectItem itemValue="Baja" itemLabel="Baja" />		   							
                             </h:selectOneMenu>
                 </div>
-                <h:inputText id="inputCoords" value="#{registrarZonaCrecimiento.coords}" style="display: none;" />             
+                <h:inputText id="inputCoordsZona" value="#{adminZonaCrecimiento.coords}"  />             
+                <h:inputText id="inputIdZonaCrecimiento" value="#{adminZonaCrecimiento.idZonaCrecimiento}"  />             
                 <div class="aceptar">
-                    <h:commandButton value="Registrar" action="#{registrarZonaCrecimiento.registrarZonaCrecimiento()}" class="btn btn-success loginButton"/>
+                    <h:commandButton value="Guardar" action="#{adminZonaCrecimiento.registrarZonaCrecimiento()}" class="btn btn-success loginButton"/>
+                    <h:commandButton value="Eliminar" action="#{adminZonaCrecimiento.eliminarZonaCrecimiento()}" class="btn btn-success loginButton"/>
                 </div>                
             </div>
         </h:form>

@@ -3,19 +3,18 @@ function init() {
     CrearMapaBase();
     CargarPropiedades();
     
-    map.addLayer(vector_layer);
+    map.addLayer(vector_layer_zonas);
     
     map.addLayer(ZonasCrecimiento);
     
     map.addControl(drawPolygon);
     drawPolygon.activate(); 
     
-    vector_layer.events.on({
-    featuresadded: AgregarPlogono
+    vector_layer_zonas.events.on({
+    featuresadded: AgregarPoligono
     });
 
     drawPolygon.handler.callbacks.point = function(data) {
-        if(vector_layer.features.length > 0) vector_layer.removeAllFeatures();
+        if(vector_layer_zonas.features.length > 0) vector_layer_zonas.removeAllFeatures();
     };
-    
 }

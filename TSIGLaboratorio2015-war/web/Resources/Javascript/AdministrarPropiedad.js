@@ -10,7 +10,7 @@ function init() {
     map.addControl(DragPoint);
     
     map.addControl(control_panel);
-    control_panel.moveTo(new OpenLayers.Pixel(0,0));
+    control_panel.moveTo(new OpenLayers.Pixel(890,250));
     
     control_panel.addControls([btnChDir]);
     map.addControl(control_panel);

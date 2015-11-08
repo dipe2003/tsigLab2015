@@ -218,7 +218,7 @@ function CargarPropiedades(){
     
 }
 
-function AgregarPlogono(event){
+function AgregarPoligono(event){
     var vertices = event.features[0].geometry.getVertices();
     var desdeProjection = new OpenLayers.Projection("EPSG:900913");   
     var aProjection   = new OpenLayers.Projection("EPSG:4326");
@@ -230,4 +230,18 @@ function AgregarPlogono(event){
     }
         strVertices += vertices[0].lon + " " + vertices[0].lat;
     $('#frmZona\\:inputCoords').val(strVertices);
+}
+function SeleccionarPoligono(event){
+    var vertices = event.feature.geometry.getVertices();
+    var desdeProjection = new OpenLayers.Projection("EPSG:900913");   
+    var aProjection   = new OpenLayers.Projection("EPSG:4326");
+    var strVertices = "";
+    for (var i = 0; i < vertices.length; i++) {
+         vertices[i] = vertices[i].getBounds().getCenterLonLat().transform(desdeProjection, aProjection);
+        strVertices += vertices[i].lon + " " + vertices[i].lat +",";
+    }
+    strVertices += vertices[0].lon + " " + vertices[0].lat;
+    $('#frmAdminZona\\:inputCoordsZona').val(strVertices);
+    $('#frmAdminZona\\:inputIdZonaCrecimiento').val(event.feature.attributes.idzonacrecimiento);
+
 }
