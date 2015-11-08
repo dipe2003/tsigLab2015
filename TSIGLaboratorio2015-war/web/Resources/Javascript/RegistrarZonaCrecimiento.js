@@ -1,6 +1,9 @@
 function init() {
     
     CrearMapaBase();
+    
+    map.addLayer(ZonasCrecimiento);
+    
     CargarPropiedades();
     
     map.addLayer(vector_layer_zonas);

@@ -97,22 +97,26 @@
                     <script type="text/javascript" src="./Resources/Javascript/Index.js"/>
                     <div  id='map' class="mapa" style="height: 500px"></div>
                     <div class="contenidoFiltro">  
-                        <input type="text" id="direccion" class="loginInput" placeholder="Direccion"/>
-                        Rango de Precio: <input type="text" id="desde" class="loginInput" placeholder="Desde" style="width: 50px" /> 
-                        <input type="text" id="hasta" class="loginInput"  placeholder="Hasta" style="width: 50px" />
-                        Tipo de Inmueble: <select id="tipo" class="loginInput">
+                        Direccion: <br/>
+                        <input type="text" id="direccion" class="form-control loginInput" placeholder="ej: Batlle y Ordóñez 810"/><br/>
+                        Rango de Precio: <br/>
+                        <input type="text" id="desde" class="form-control loginInput" placeholder="Desde" style="width: 70px; float: left" />  
+                        <input type="text" id="hasta" class="form-control loginInput"  placeholder="Hasta" style="width: 70px" /><br/>
+                        Tipo de Inmueble: <br/>
+                        <select id="tipo" class="form-control loginInput">
                             <option value="">Todas</option>
                             <option value="0">Casa</option>
                             <option value="1">Apartamento</option>
                             <option value="undefined">Terreno</option>
-                        </select>
-                        Tipo de Inmueble: <select id="VentaAlquiler" class="loginInput">
+                        </select><br/>
+                        Tipo de Inmueble:<br/>
+                        <select id="VentaAlquiler" class="form-control loginInput">
                             <option value="">Todas</option>
                             <option value="Alquiler">Alquiler</option>
                             <option value="Venta">Venta</option>
                             <option value="AlquilerYVenta">Venta y Alquiler</option>
-                        </select>
-                        <input type="button" id="precio" value="Filtrar" onclick="filtrar()" class="loginButton" style="width: 100px; margin-top: 0;"/>
+                        </select><br/>
+                        <input type="button" id="precio" value="Filtrar" onclick="filtrar()" class="btn btn-success loginButton" style="width: 100px; margin-top: 0;"/>
                     </div>
                 </ui:insert>
             </h:panelGroup>         

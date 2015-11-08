@@ -49,6 +49,7 @@
             <h:inputText value="#{adminPropiedades.coordX}" id="coordx" style="display: none" />
             <h:inputText value="#{adminPropiedades.coordY}" id="coordy" style="display: none" />
             <h:inputText value="#{adminPropiedades.idPropiedad}" id="idprop" style="display: none"/>
+            <h:inputText value="#{adminPropiedades.idUsuario}" id="idusr" style="display: none"/>
             <h:commandButton id="btnCargar" value="actualizar bean" class="btn btn-success loginButton" style="display: none"  >
                 <f:ajax event="click" execute="@form" listener="#{adminPropiedades.actualizarDatosBean(adminPropiedades.idPropiedad)}" render="@form"/>
             </h:commandButton>

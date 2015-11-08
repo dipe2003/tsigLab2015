@@ -26,8 +26,8 @@ var Propiedades = new OpenLayers.Layer.Vector('Propiedades', {
 
 var google_hybrid = new OpenLayers.Layer.Google("San Jose",{type: google.maps.MapTypeId.HYBRID},{isBaseLayer:true});
 
-var ZonasCrecimiento = new OpenLayers.Layer.Vector('Zonas de Crecimiento', {
-    strategies: [new OpenLayers.Strategy.Fixed(), filterStrategy],
+var ZonasCrecimiento = new OpenLayers.Layer.Vector('Zonas de Crecimieto', {
+    strategies: [new OpenLayers.Strategy.Fixed()],
     protocol: new OpenLayers.Protocol.WFS({
         url: 'http://localhost:8080/geoserver/wfs',
         featureType: 'zonacrecimiento',
@@ -38,7 +38,7 @@ var ZonasCrecimiento = new OpenLayers.Layer.Vector('Zonas de Crecimiento', {
         version: '1.1.0'
     }, {transistionEffect:'resize'}),
     preFeatureInsert: function(feature) {
-        cargarIconos(feature);
+        cargarEstilo(feature);
     }
 });
 

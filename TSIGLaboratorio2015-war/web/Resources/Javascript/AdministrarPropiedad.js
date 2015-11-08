@@ -14,4 +14,6 @@ function init() {
     
     control_panel.addControls([btnChDir]);
     map.addControl(control_panel);
+    
+    filtrarPropiedadesDeUsuario();
 }
