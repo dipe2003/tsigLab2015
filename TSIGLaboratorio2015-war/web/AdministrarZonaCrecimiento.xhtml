@@ -19,10 +19,10 @@
                                 <f:selectItem itemValue="Baja" itemLabel="Baja" />		   							
                             </h:selectOneMenu>
                 </div>
-                <h:inputText id="inputCoordsZona" value="#{adminZonaCrecimiento.coords}"  />             
-                <h:inputText id="inputIdZonaCrecimiento" value="#{adminZonaCrecimiento.idZonaCrecimiento}"  />             
+                <h:inputText id="inputCoordsZona" value="#{adminZonaCrecimiento.coords}" style="display: none" />             
+                <h:inputText id="inputIdZonaCrecimiento" value="#{adminZonaCrecimiento.idZonaCrecimiento}" style="display: none"  />             
                 <div class="aceptar">
-                    <h:commandButton value="Guardar" action="#{adminZonaCrecimiento.registrarZonaCrecimiento()}" class="btn btn-success loginButton"/>
+                    <h:commandButton value="Guardar" action="#{adminZonaCrecimiento.guardarZonaCrecimiento()}" class="btn btn-success loginButton"/>
                     <h:commandButton value="Eliminar" action="#{adminZonaCrecimiento.eliminarZonaCrecimiento()}" class="btn btn-success loginButton"/>
                 </div>                
             </div>

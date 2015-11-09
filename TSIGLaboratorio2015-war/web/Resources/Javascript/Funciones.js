@@ -1,18 +1,18 @@
 //------------------------------------get url parameter----------------------------------------------------
 var getUrlParameter = function getUrlParameter(sParam) {
-        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-                sURLVariables = sPageURL.split('&'),
-                sParameterName,
-                i;
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
         
-        for (i = 0; i < sURLVariables.length; i++) {
-            sParameterName = sURLVariables[i].split('=');
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
             
-            if (sParameterName[0] === sParam) {
-                return sParameterName[1] === undefined ? true : sParameterName[1];
-            }
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
         }
-    };
+    }
+};
 //---------------------------------------------------------------------------------------------------------
 
 function filtrarUnaPropiedad(){
@@ -289,13 +289,16 @@ function SeleccionarPoligono(event){
     var aProjection   = new OpenLayers.Projection("EPSG:4326");
     var strVertices = "";
     for (var i = 0; i < vertices.length; i++) {
-         vertices[i] = vertices[i].getBounds().getCenterLonLat().transform(desdeProjection, aProjection);
-        strVertices += vertices[i].lon + " " + vertices[i].lat +",";
+        var centro = vertices[i].getBounds().getCenterLonLat().clone();
+        centro = centro.transform(desdeProjection, aProjection);
+        strVertices += centro.lon + " " + centro.lat + ",";
     }
-    strVertices += vertices[0].lon + " " + vertices[0].lat;
+    var centro = vertices[0].getBounds().getCenterLonLat().clone();
+        centro = centro.transform(desdeProjection, aProjection);
+    strVertices += centro.lon + " " + centro.lat;
     $('#frmAdminZona\\:inputCoordsZona').val(strVertices);
     $('#frmAdminZona\\:inputIdZonaCrecimiento').val(event.feature.attributes.idzonacrecimiento);
-
+}
 
 function cargarEstilo(feature){
     //---------------------estilo--------------------------------

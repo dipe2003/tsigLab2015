@@ -10,7 +10,7 @@ import javax.inject.Named;
 public class ControladorZonasCrecimiento implements Serializable{
     @EJB
     private ManejadorZonasCrecimiento mZona;
-
+    
     public int crearZonaCrecimiento(String demandaZonaCrecimiento){
         ZonaCrecimiento zona = new ZonaCrecimiento(demandaZonaCrecimiento);
         return mZona.CrearZonaCrecimiento(zona);
@@ -24,5 +24,31 @@ public class ControladorZonasCrecimiento implements Serializable{
      */
     public int insertarUbicacion(String CordenadasPoligono, int IdZonaCrecimiento){
         return mZona.InsertarUbicacionZonaCrecimiento(CordenadasPoligono, IdZonaCrecimiento);
+    }
+    
+    /**
+     * Eliminar la zona de crecimiento especificada por su id.
+     * @param IdZonaCrecimiento
+     * @return
+     */
+    public int EliminarZonaCrecimiento(int IdZonaCrecimiento){
+        return mZona.EliminarZonaCrecimiento(IdZonaCrecimiento);
+    }
+    
+    /**
+     * Acutlizar los datos de una zona de crecimiento.
+     * @param IdZonaCrecimiento
+     * @param DemandaZonaCrecimiento
+     * @param CoordenadasPoligono
+     * @return
+     */
+    public int ActualizarZonaCrecimiento(int IdZonaCrecimiento, String DemandaZonaCrecimiento, String CoordenadasPoligono){
+        try{
+            ZonaCrecimiento zona = mZona.GetZonaCrecimiento(IdZonaCrecimiento);
+            zona.setDemandaZonaCrecimiento(DemandaZonaCrecimiento);
+            mZona.ActualizarZonaCrecimiento(zona);
+            return mZona.InsertarUbicacionZonaCrecimiento(CoordenadasPoligono, IdZonaCrecimiento);
+        }catch(NullPointerException ex){}
+        return -1;
     }
 }

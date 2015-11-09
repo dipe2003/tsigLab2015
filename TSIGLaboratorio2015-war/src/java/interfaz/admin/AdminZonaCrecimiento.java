@@ -28,15 +28,12 @@ public class AdminZonaCrecimiento implements Serializable{
     public void setCoords(String Coords){this.Coords = Coords;}
     public void setIdZonaCrecimiento(int IdZonaCrecimiento) {this.IdZonaCrecimiento = IdZonaCrecimiento;}
     
-    public void registrarZonaCrecimiento(){
-        int IdZona = -1;
-        if ((IdZona = cZona.crearZonaCrecimiento(DemandaZonaCrecimiento))!=-1) {
-            cZona.insertarUbicacion(Coords, IdZona);
-        }
+    public void guardarZonaCrecimiento(){
+        cZona.ActualizarZonaCrecimiento(IdZonaCrecimiento, DemandaZonaCrecimiento, Coords);
     }
     
     public void eliminarZonaCrecimiento(){
-        
+        cZona.EliminarZonaCrecimiento(IdZonaCrecimiento);
     }
     
     public void init(){
