@@ -77,6 +77,13 @@ var select_feature_control = new OpenLayers.Control.
     toggle: false,
     multipleKey: 'shiftKey'
 });
+var select_feature_puntosinteres_control = new OpenLayers.Control.
+        SelectFeature(
+        PuntosInteres,{
+            multiple: false,
+    toggle: false,
+    multipleKey: 'shiftKey'
+});
 
 var DragPoint = new OpenLayers.Control.DragFeature(Propiedades, {
     onComplete: function(feature){

@@ -204,6 +204,29 @@ function AbrirPopup(event){
     arrayPopup.push(popup);
     select_feature_control.unselectAll();
 }
+function AbrirPopupPuntoInteres(event){
+    var punto = event.feature.attributes;
+    var popup = new OpenLayers.Popup.FramedCloud(
+            "IdPopup",
+    new OpenLayers.LonLat(event.feature.geometry.x,event.feature.geometry.y),
+    null,
+    '<div style="color:#FF0000; font-size:15px; font-weight:600">'+punto.nombre + '</div>'
+            +'</br> Tipo: '+ punto.tipo
+            +'</br> Distancia: ' 
+    ,
+    null,
+    true
+            );
+    if (arrayPopup.length>0){
+        for(var index = 0; index < arrayPopup.length; index++) {
+            map.removePopup(arrayPopup[index]);
+        }
+    }
+    arrayPopup = new Array();
+    map.addPopup(popup);
+    arrayPopup.push(popup);
+    select_feature_puntosinteres_control.unselectAll();
+}
 
 function AgregarPunto(ev){
     var desdeProjection = new OpenLayers.Projection("EPSG:900913");   
