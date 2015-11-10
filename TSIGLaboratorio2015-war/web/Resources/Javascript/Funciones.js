@@ -370,37 +370,37 @@ function filtrarPropiedadesDeUsuario(){
 
 function cargarIconosPuntosInteres(feature){
     //---------------------estilo--------------------------------
-    // terreno
-    var vector_style_terreno = new OpenLayers.Style({
+    // supermercados
+    var vector_style_super = new OpenLayers.Style({
         'pointRadius': 20,
-        'externalGraphic': 'http://villawoodproperties.com.au/sites/www.villawoodproperties.com.au/files/basic_page/vw-5es-icon-3.png'
+        'externalGraphic': 'http://static.ceo.org.pl/sites/default/files/SZK20/Loga/shopping_cart-blue_shokunin_openclipart.png'
     });
     
-    // casa
-    var vector_style_casa = new OpenLayers.Style({
+    // servicios medicos
+    var vector_style_medica = new OpenLayers.Style({
         'pointRadius': 20,
-        'externalGraphic': 'http://investapr.com/wp-content/themes/realty/lib/images/map-marker/map-marker-red-fat.png'
+        'externalGraphic': 'http://www.ei1.com/images/occhealth_icon.png'
     });
     
-    // apartamento
-    var vector_style_apartamento = new OpenLayers.Style({
+    // combustibles
+    var vector_style_combustible = new OpenLayers.Style({
         'pointRadius': 20,
-        'externalGraphic': 'http://www.rootscsa.org/wp-content/uploads/2014/06/home_office_icon.png'
+        'externalGraphic': 'https://knowledge.energyinst.org/__data/assets/image/0007/127465/1417794034_gas_station22.png'
     });
     
     var vector_style_map;
     
-    if (feature.attributes.tipo === "medica"){ //casa
+    if (feature.attributes.tipo === "medica"){ //medica
         vector_style_map = new OpenLayers.StyleMap({
-            'default': vector_style_casa
+            'default': vector_style_medica
         });
-    }else if (feature.attributes.tipo === "combustible"){//apto
+    }else if (feature.attributes.tipo === "combustible"){//combustible
         vector_style_map = new OpenLayers.StyleMap({
-            'default': vector_style_apartamento
+            'default': vector_style_combustible
         });
-    }else{//terreno
+    }else{//super
         vector_style_map = new OpenLayers.StyleMap({
-            'default': vector_style_terreno
+            'default': vector_style_super
         });
     }
     
@@ -409,5 +409,5 @@ function cargarIconosPuntosInteres(feature){
     });
     
     feature.style = style;
-    Propiedades.drawFeature(feature);
+    PuntosInteres.drawFeature(feature);
 }
