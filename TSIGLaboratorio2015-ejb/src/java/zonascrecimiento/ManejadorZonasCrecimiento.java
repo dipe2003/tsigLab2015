@@ -61,7 +61,7 @@ public class ManejadorZonasCrecimiento {
     public List<ZonaCrecimiento> ListarZonasCrecimiento(){
         List<ZonaCrecimiento> lista = new ArrayList<>();
         try{
-            TypedQuery<ZonaCrecimiento> query = em.createQuery("SELECT pi FROM ZonaCrecimiento pi", ZonaCrecimiento.class);
+            TypedQuery<ZonaCrecimiento> query = em.createQuery("SELECT z FROM ZonaCrecimiento z", ZonaCrecimiento.class);
             lista = query.getResultList();
         }catch(Exception ex){
             System.out.println("Error: " + ex.getMessage());
@@ -78,6 +78,16 @@ public class ManejadorZonasCrecimiento {
         }
         return -1;
     }
-        
+    
+    public int EliminarZonaCrecimiento(int IdZonaCrecimiento){
+        Query query = em.createQuery("DELETE FROM ZonaCrecimiento z WHERE z.IdZonaCrecimiento= :idZona");
+        try{
+            query.setParameter("idZona", IdZonaCrecimiento);
+            return query.executeUpdate();
+        }catch(Exception ex){
+            System.out.println("Error: " +ex.getMessage());
+        }
+        return -1;
+    }
 }
     
