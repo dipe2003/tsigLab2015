@@ -16,51 +16,38 @@ var getUrlParameter = function getUrlParameter(sParam) {
 //---------------------------------------------------------------------------------------------------------
 
 function filtrarUnaPropiedad(){
-    
     var id = getUrlParameter('id');
-    
     var Propiedad = new OpenLayers.Filter.Comparison({
         type: OpenLayers.Filter.Comparison.LIKE,
         property: 'idpropiedad',
         value: id,
     });
-    
     filterStrategy.setFilter(Propiedad);
     filterStrategy.activate(); 
-    
     Propiedades.refresh({force: true});
     Propiedades.redraw();
 }
 
 function filtrar(){
-    
-    //publica
     var Publica = new OpenLayers.Filter.Comparison({
         type: OpenLayers.Filter.Comparison.LIKE,
         property: 'estadopropiedad',
         value: '1',
     });
-    
-    //reservada
     var Reservada = new OpenLayers.Filter.Comparison({
         type: OpenLayers.Filter.Comparison.LIKE,
         property: 'estadopropiedad',
         value: '3',
     });
-    
     var PublicaOReservada = new OpenLayers.Filter.Logical({
         type: OpenLayers.Filter.Logical.OR,
         filters: [Publica, Reservada]
     });
-    
-    //direccion
     var filterDireccion = new OpenLayers.Filter.Comparison({
         type: OpenLayers.Filter.Comparison.LIKE,
         property: 'direccionpropiedad',
         value: $("#direccion").val(),
     });
-    
-    //precio
     var attributePrecioDesde = $("#desde").val();
     if (attributePrecioDesde === "") attributePrecioDesde = 0;
     var filterDesde = new OpenLayers.Filter.Comparison({
@@ -75,15 +62,11 @@ function filtrar(){
         property: 'preciopropiedad',
         value: attributePrecioHasta,
     });
-    
-    //tipo
     var filterTipo = new OpenLayers.Filter.Comparison({
         type: OpenLayers.Filter.Comparison.LIKE,
         property: 'tipoinmueble',
         value: $("#tipo").val(),
     });
-    
-    //VentaAlquiler
     var attributeVentaAlquiler = $("#VentaAlquiler").val();
     if (attributeVentaAlquiler === ""){
         var parent_filter = new OpenLayers.Filter.Logical({
@@ -91,113 +74,63 @@ function filtrar(){
             filters: [filterDireccion, filterDesde, filterHasta, filterTipo,PublicaOReservada]
         });
     }else{
-        
         var alquiler = "FALSE";
         var venta = "FALSE";
-        
-        if (attributeVentaAlquiler === "Alquiler") {
-            alquiler = "TRUE";
-        }
-        if (attributeVentaAlquiler === "Venta") {
-            venta = "TRUE";
-        }
-        if (attributeVentaAlquiler === "AlquilerYVenta") {
-            alquiler = "TRUE";
-            venta = "TRUE";
-        }
-        
+        if (attributeVentaAlquiler === "Alquiler") alquiler = "TRUE";
+        if (attributeVentaAlquiler === "Venta") venta = "TRUE";
+        if (attributeVentaAlquiler === "AlquilerYVenta") { alquiler = "TRUE"; venta = "TRUE";}
         var filterVenta = new OpenLayers.Filter.Comparison({
             type: OpenLayers.Filter.Comparison.LIKE,
             property: 'enventa',
             value: venta
         });
-        
         var filterAlquiler = new OpenLayers.Filter.Comparison({
             type: OpenLayers.Filter.Comparison.LIKE,
             property: 'enalquiler',
             value: alquiler
         });
-        
         var VentaAlquiler = new OpenLayers.Filter.Logical({
             type: OpenLayers.Filter.Logical.AND,
             filters: [filterVenta, filterAlquiler]
         });
-        
         var parent_filter = new OpenLayers.Filter.Logical({
             type: OpenLayers.Filter.Logical.AND,
             filters: [filterDireccion, filterDesde, filterHasta, filterTipo, VentaAlquiler,PublicaOReservada]
         });
     }
-    
     filterStrategy.setFilter(parent_filter);
     filterStrategy.activate(); 
-    
     Propiedades.refresh({force: true});
     Propiedades.redraw();
 }
 
 function cargarIconos(feature){
-    //---------------------estilo--------------------------------
-    // terreno
-    var vector_style_terreno = new OpenLayers.Style({
-        'pointRadius': 20,
-        'externalGraphic': 'http://villawoodproperties.com.au/sites/www.villawoodproperties.com.au/files/basic_page/vw-5es-icon-3.png'
-    });
-    
-    // casa
-    var vector_style_casa = new OpenLayers.Style({
-        'pointRadius': 20,
-        'externalGraphic': 'http://investapr.com/wp-content/themes/realty/lib/images/map-marker/map-marker-red-fat.png'
-    });
-    
-    // apartamento
-    var vector_style_apartamento = new OpenLayers.Style({
-        'pointRadius': 20,
-        'externalGraphic': 'http://www.rootscsa.org/wp-content/uploads/2014/06/home_office_icon.png'
-    });
-    
-    var vector_style_map;
-    
+    var imagen;
     if (feature.attributes.tipoinmueble === "0"){ //casa
-        vector_style_map = new OpenLayers.StyleMap({
-            'default': vector_style_casa
-        });
+        imagen = 'http://villawoodproperties.com.au/sites/www.villawoodproperties.com.au/files/basic_page/vw-5es-icon-3.png';
     }else if (feature.attributes.tipoinmueble === "1"){//apto
-        vector_style_map = new OpenLayers.StyleMap({
-            'default': vector_style_apartamento
-        });
+       imagen = 'http://investapr.com/wp-content/themes/realty/lib/images/map-marker/map-marker-red-fat.png';
     }else{//terreno
-        vector_style_map = new OpenLayers.StyleMap({
-            'default': vector_style_terreno
-        });
+       imagen = 'http://www.rootscsa.org/wp-content/uploads/2014/06/home_office_icon.png';
     }
-    
-    var style = $.extend({}, vector_style_map.createSymbolizer(feature), {
-        strokeWidth: 5
-    });
+    var vector_style = new OpenLayers.Style({'pointRadius': 20});
+    var vector_style_map = new OpenLayers.StyleMap({'default': vector_style});
+    var style = $.extend({}, vector_style_map.createSymbolizer(feature), { externalGraphic: imagen });
     feature.style = style;
     Propiedades.drawFeature(feature);
 }
 
 function AbrirPopup(event){
     var prop = event.feature.attributes;
-    var popup = new OpenLayers.Popup.FramedCloud(
-            "IdPopup",
-    new OpenLayers.LonLat(event.feature.geometry.x,event.feature.geometry.y),
-    null,
+    var popup = new OpenLayers.Popup.FramedCloud("IdPopup",new OpenLayers.LonLat(event.feature.geometry.x,event.feature.geometry.y),null,
     '<div style="color:#FF0000; font-size:15px; font-weight:600">'+prop.direccionpropiedad + '</div>'
             +'</br> Tipo: '+ prop.dtype
             +'</br> En venta: '+ prop.enventa
             +'</br> En alquiler: '+ prop.enalquiler
             +'</br> <a href="InformacionPropiedad.xhtml?id='+ prop.idpropiedad+'">Mas Informacion</a>'
-    ,
-    null,
-    true
-            );
+    ,null,true);
     if (arrayPopup.length>0){
-        for(var index = 0; index < arrayPopup.length; index++) {
-            map.removePopup(arrayPopup[index]);
-        }
+        for(var index = 0; index < arrayPopup.length; index++) {map.removePopup(arrayPopup[index]);}
     }
     arrayPopup = new Array();
     map.addPopup(popup);
@@ -235,13 +168,9 @@ function AgregarPunto(ev){
     var punto = ev.feature.geometry.getBounds().getCenterLonLat().clone().transform(desdeProjection, aProjection);
     coord_x = punto.lon.toFixed(5);
     coord_y = punto.lat.toFixed(5);
-    
     $('#frmProp\\:coordx').val(coord_x);
     $('#frmProp\\:coordy').val(coord_y);
-    
-    if (vector_layer.features.length>1){
-        vector_layer.removeFeatures(vector_layer.features[0]);
-    }    
+    if (vector_layer.features.length>1) vector_layer.removeFeatures(vector_layer.features[0]);
     $("#frmProp\\:registrarPropiedad").click();
 }
 
@@ -274,23 +203,15 @@ function VerInfoChDir(feature){
 
 function CrearMapaBase(){
     map = new OpenLayers.Map('map', opts);
-    
-    //---------------------google map-----------------------------
     map.addLayer(google_hybrid);
-    
-    //---------------------Posicion y Zoom
     if(!map.getCenter()){
         map.zoomToExtent(new OpenLayers.Bounds(-6316547.1474847,-4076411.4051729,-6307011.6282075,-4073545.0166127));
     }
-    
-    //---------------------opcion cambiar capa
     map.addControl(new OpenLayers.Control.LayerSwitcher({}));
 }
 
 function CargarPropiedades(){
-    //---------------------WFS - Propiedad-----------------------
     map.addLayer(Propiedades);
-    
 }
 
 function AgregarPoligono(event){
@@ -298,7 +219,6 @@ function AgregarPoligono(event){
     var desdeProjection = new OpenLayers.Projection("EPSG:900913");   
     var aProjection   = new OpenLayers.Projection("EPSG:4326");
     var strVertices = "";
-    
     for (var a in vertices){
         vertices[a] = vertices[a].getBounds().getCenterLonLat().transform(desdeProjection, aProjection);
         strVertices += vertices[a].lon + " " + vertices[a].lat +",";
@@ -324,50 +244,17 @@ function SeleccionarPoligono(event){
 }
 
 function cargarEstilo(feature){
-    //---------------------estilo--------------------------------
-    // alta
-    var vector_style_alta = new OpenLayers.Style({
-        'fillColor': 'red',
-        'fillOpacity': .2,
-        'strokeColor': '#7F0002',
-        'strokeWidth': 3,
-        'pointRadius': 8
-    });
-    
-    // media
-    var vector_style_media = new OpenLayers.Style({
-        'fillColor': 'yellow',
-        'fillOpacity': .2,
-        'strokeColor': '#ffc100',
-        'strokeWidth': 3,
-        'pointRadius': 8
-    });
-    
-    // baja
-    var vector_style_baja = new OpenLayers.Style({
-        'fillColor': 'green',
-        'fillOpacity': .2,
-        'strokeColor': '#A8CF45',
-        'strokeWidth': 3,
-        'pointRadius': 8
-    });
-    
+    var vector_style_alta = new OpenLayers.Style({'fillColor': 'red','fillOpacity': .2,'strokeColor': '#7F0002','strokeWidth': 3});
+    var vector_style_media = new OpenLayers.Style({'fillColor': 'yellow','fillOpacity': .2,'strokeColor': '#ffc100','strokeWidth': 3});
+    var vector_style_baja = new OpenLayers.Style({'fillColor': 'green','fillOpacity': .2,'strokeColor': '#A8CF45','strokeWidth': 3});
     var vector_style_map;
-    
     if (feature.attributes.demandazonacrecimiento === "Alta"){ //casa
-        vector_style_map = new OpenLayers.StyleMap({
-            'default': vector_style_alta
-        });
+        vector_style_map = new OpenLayers.StyleMap({'default': vector_style_alta});
     }else if (feature.attributes.demandazonacrecimiento === "Media"){//apto
-        vector_style_map = new OpenLayers.StyleMap({
-            'default': vector_style_media
-        });
+        vector_style_map = new OpenLayers.StyleMap({'default': vector_style_media});
     }else{//terreno
-        vector_style_map = new OpenLayers.StyleMap({
-            'default': vector_style_baja
-        });
+        vector_style_map = new OpenLayers.StyleMap({'default': vector_style_baja});
     }
-    
     var style = $.extend({}, vector_style_map.createSymbolizer(feature), {
         strokeWidth: 2
     });
@@ -377,60 +264,31 @@ function cargarEstilo(feature){
 
 function filtrarPropiedadesDeUsuario(){
     var id = $("#frmAdminPropiedad\\:idusr").val();
-    
     var Propiedad = new OpenLayers.Filter.Comparison({
         type: OpenLayers.Filter.Comparison.EQUAL_TO ,
         property: 'usuariopropiedad_idusuario',
         value: id,
     });
-    
     filterStrategy.setFilter(Propiedad);
     filterStrategy.activate(); 
-    
     Propiedades.refresh({force: true});
     Propiedades.redraw();
 }
 
 function cargarIconosPuntosInteres(feature){
-    //---------------------estilo--------------------------------
-    // supermercados
-    var vector_style_super = new OpenLayers.Style({
-        'pointRadius': 20,
-        'externalGraphic': 'http://static.ceo.org.pl/sites/default/files/SZK20/Loga/shopping_cart-blue_shokunin_openclipart.png'
-    });
-    
-    // servicios medicos
-    var vector_style_medica = new OpenLayers.Style({
-        'pointRadius': 20,
-        'externalGraphic': 'http://www.ei1.com/images/occhealth_icon.png'
-    });
-    
-    // combustibles
-    var vector_style_combustible = new OpenLayers.Style({
-        'pointRadius': 20,
-        'externalGraphic': 'https://knowledge.energyinst.org/__data/assets/image/0007/127465/1417794034_gas_station22.png'
-    });
-    
-    var vector_style_map;
-    
-    if (feature.attributes.tipo === "medica"){ //medica
-        vector_style_map = new OpenLayers.StyleMap({
-            'default': vector_style_medica
-        });
-    }else if (feature.attributes.tipo === "combustible"){//combustible
-        vector_style_map = new OpenLayers.StyleMap({
-            'default': vector_style_combustible
-        });
-    }else{//super
-        vector_style_map = new OpenLayers.StyleMap({
-            'default': vector_style_super
-        });
+    var imagen;
+    if (feature.attributes.tipoinmueble === "medica"){ //casa
+        imagen = 'http://static.ceo.org.pl/sites/default/files/SZK20/Loga/shopping_cart-blue_shokunin_openclipart.png';
+    }else if (feature.attributes.tipoinmueble === "combustible"){//apto
+       imagen = 'http://www.ei1.com/images/occhealth_icon.png';
+    }else{//terreno
+       imagen = 'https://knowledge.energyinst.org/__data/assets/image/0007/127465/1417794034_gas_station22.png';
     }
-    
-    var style = $.extend({}, vector_style_map.createSymbolizer(feature), {
-        strokeWidth: 5
-    });
-    
+    var vector_style = new OpenLayers.Style({'pointRadius': 20});
+    var vector_style_map = new OpenLayers.StyleMap({'default': vector_style});
+    var style = $.extend({}, vector_style_map.createSymbolizer(feature), { externalGraphic: imagen });
+    feature.style = style;
+    Propiedades.drawFeature(feature);
     feature.style = style;
     PuntosInteres.drawFeature(feature);
 }
