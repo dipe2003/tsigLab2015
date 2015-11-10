@@ -107,11 +107,11 @@ function filtrar(){
 function cargarIconos(feature){
     var imagen;
     if (feature.attributes.tipoinmueble === "0"){ //casa
-        imagen = 'http://villawoodproperties.com.au/sites/www.villawoodproperties.com.au/files/basic_page/vw-5es-icon-3.png';
+        imagen = 'http://investapr.com/wp-content/themes/realty/lib/images/map-marker/map-marker-red-fat.png';
     }else if (feature.attributes.tipoinmueble === "1"){//apto
-       imagen = 'http://investapr.com/wp-content/themes/realty/lib/images/map-marker/map-marker-red-fat.png';
-    }else{//terreno
        imagen = 'http://www.rootscsa.org/wp-content/uploads/2014/06/home_office_icon.png';
+    }else{//terreno
+       imagen = 'http://villawoodproperties.com.au/sites/www.villawoodproperties.com.au/files/basic_page/vw-5es-icon-3.png';
     }
     var vector_style = new OpenLayers.Style({'pointRadius': 20});
     var vector_style_map = new OpenLayers.StyleMap({'default': vector_style});
@@ -277,9 +277,9 @@ function filtrarPropiedadesDeUsuario(){
 
 function cargarIconosPuntosInteres(feature){
     var imagen;
-    if (feature.attributes.tipoinmueble === "medica"){ //casa
+    if (feature.attributes.tipo === "medica"){ //casa
         imagen = 'http://static.ceo.org.pl/sites/default/files/SZK20/Loga/shopping_cart-blue_shokunin_openclipart.png';
-    }else if (feature.attributes.tipoinmueble === "combustible"){//apto
+    }else if (feature.attributes.tipo === "combustible"){//apto
        imagen = 'http://www.ei1.com/images/occhealth_icon.png';
     }else{//terreno
        imagen = 'https://knowledge.energyinst.org/__data/assets/image/0007/127465/1417794034_gas_station22.png';
@@ -287,8 +287,6 @@ function cargarIconosPuntosInteres(feature){
     var vector_style = new OpenLayers.Style({'pointRadius': 20});
     var vector_style_map = new OpenLayers.StyleMap({'default': vector_style});
     var style = $.extend({}, vector_style_map.createSymbolizer(feature), { externalGraphic: imagen });
-    feature.style = style;
-    Propiedades.drawFeature(feature);
     feature.style = style;
     PuntosInteres.drawFeature(feature);
 }
