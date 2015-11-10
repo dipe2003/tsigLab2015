@@ -11,7 +11,8 @@ function init() {
     select_feature_control.activate();
     map.layers[2].events.register('featureselected', this, AbrirPopup);
     
+    map.addLayer(PuntosInteres);
+    
     filtrar();
     
 }
-
