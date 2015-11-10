@@ -24,6 +24,22 @@ var Propiedades = new OpenLayers.Layer.Vector('Propiedades', {
     }
 });
 
+var PuntosInteres = new OpenLayers.Layer.Vector('Puntos Interes', {
+    strategies: [new OpenLayers.Strategy.Fixed()],
+    protocol: new OpenLayers.Protocol.WFS({
+        url: 'http://localhost:8080/geoserver/wfs',
+        featureType: 'puntosinteres',
+        featureNS: 'tsiglab2015',
+        featurePrefix:'tsiglab2015',            
+        geometryName: 'the_geom',
+        srsName: new OpenLayers.Projection('EPSG:900913'),
+        version: '1.1.0'
+    }, {transistionEffect:'resize'}),
+    preFeatureInsert: function(feature) {
+        cargarIconosPuntosInteres(feature);
+    }
+});
+
 var google_hybrid = new OpenLayers.Layer.Google("San Jose",{type: google.maps.MapTypeId.HYBRID},{isBaseLayer:true});
 
 var ZonasCrecimiento = new OpenLayers.Layer.Vector('Zonas de Crecimieto', {

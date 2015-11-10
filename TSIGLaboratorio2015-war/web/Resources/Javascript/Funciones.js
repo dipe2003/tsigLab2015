@@ -367,3 +367,47 @@ function filtrarPropiedadesDeUsuario(){
     Propiedades.refresh({force: true});
     Propiedades.redraw();
 }
+
+function cargarIconosPuntosInteres(feature){
+    //---------------------estilo--------------------------------
+    // terreno
+    var vector_style_terreno = new OpenLayers.Style({
+        'pointRadius': 20,
+        'externalGraphic': 'http://villawoodproperties.com.au/sites/www.villawoodproperties.com.au/files/basic_page/vw-5es-icon-3.png'
+    });
+    
+    // casa
+    var vector_style_casa = new OpenLayers.Style({
+        'pointRadius': 20,
+        'externalGraphic': 'http://investapr.com/wp-content/themes/realty/lib/images/map-marker/map-marker-red-fat.png'
+    });
+    
+    // apartamento
+    var vector_style_apartamento = new OpenLayers.Style({
+        'pointRadius': 20,
+        'externalGraphic': 'http://www.rootscsa.org/wp-content/uploads/2014/06/home_office_icon.png'
+    });
+    
+    var vector_style_map;
+    
+    if (feature.attributes.tipo === "medica"){ //casa
+        vector_style_map = new OpenLayers.StyleMap({
+            'default': vector_style_casa
+        });
+    }else if (feature.attributes.tipo === "combustible"){//apto
+        vector_style_map = new OpenLayers.StyleMap({
+            'default': vector_style_apartamento
+        });
+    }else{//terreno
+        vector_style_map = new OpenLayers.StyleMap({
+            'default': vector_style_terreno
+        });
+    }
+    
+    var style = $.extend({}, vector_style_map.createSymbolizer(feature), {
+        strokeWidth: 5
+    });
+    
+    feature.style = style;
+    Propiedades.drawFeature(feature);
+}
