@@ -29,7 +29,7 @@ public class ManejadorPropiedad {
         }catch(Exception ex){
             System.out.println("Error: " + ex.getMessage());
             return -1;
-        }        
+        }
     }
     
     public int ActualizarPropiedad(Propiedad propiedad){
@@ -126,7 +126,7 @@ public class ManejadorPropiedad {
         return casas;
     }
     
-        public List<Propiedad> ListarCasasUsuario(int IdUsuario){
+    public List<Propiedad> ListarCasasUsuario(int IdUsuario){
         List<Propiedad> casas = new ArrayList<>();
         try{
             TypedQuery<Propiedad> query = em.createQuery("SELECT i FROM Inmueble i, Usuario u WHERE i MEMBER OF u.Propiedades AND u.IdUsuario= :idUsuario", Propiedad.class);
@@ -203,12 +203,30 @@ public class ManejadorPropiedad {
     
     public Propiedad GetPropiedad(String DireccionPropiedad){
         try{
-          TypedQuery<Propiedad> query = em.createQuery("SELECT p FROM Propiedad p WHERE p.DireccionPropiedad= :dirProp", Propiedad.class);
-          query.setParameter("dirProp", DireccionPropiedad);
-          return (Propiedad) query.getSingleResult();
+            TypedQuery<Propiedad> query = em.createQuery("SELECT p FROM Propiedad p WHERE p.DireccionPropiedad= :dirProp", Propiedad.class);
+            query.setParameter("dirProp", DireccionPropiedad);
+            return (Propiedad) query.getSingleResult();
         }catch(Exception ex){}
-        return null;        
+        return null;
     }
-            
-}
     
+    public List<Propiedad> GetPropiedadCercanasPtoInteres(String TipoPuntoInteres, int MetrosDistancia){
+        List<Propiedad> lista = new ArrayList<>();
+        try{
+            Query query = em.createNativeQuery("SELECT * FROM Propiedad p, puntosinteres pi WHERE ST_DWithin(p.the_geom, pi.the_geom, "+MetrosDistancia+" AND pi.tipo= " + TipoPuntoInteres + " ORDER BY p.idpropiedad ASC");
+            lista = query.getResultList();
+        }catch(Exception ex){}
+        return lista;
+    }
+    
+    public List<String> GetPuntosInteresCercanoPropiedad(int IdPropiedad, int MetrosDistancia){
+        List<String> lista = new ArrayList<>();
+        try{
+            Query query = em.createNativeQuery("SELECT * FROM Propiedad p, puntosinteres pi WHERE ST_DWithin(p.the_geom, pi.the_geom, "+MetrosDistancia+" AND p.idpropiedad= " + IdPropiedad);
+            lista = query.getResultList();
+        }catch(Exception ex){}
+        return lista;
+    }
+    
+}
+

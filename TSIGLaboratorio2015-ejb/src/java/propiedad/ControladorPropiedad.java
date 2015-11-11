@@ -326,11 +326,41 @@ public class ControladorPropiedad {
         return mProp.ListarApartamentosUsuario(IdUsuario);
     }
     
+    /**
+     * Obtiene una propiedad por su direccion.
+     * @param DireccionPropiedad
+     * @return 
+     */
     public Propiedad ObtenerPropiedadPorDireccion(String DireccionPropiedad){
         return mProp.GetPropiedad(DireccionPropiedad);
     }
     
+    /**
+     * Obtiene una propiedad por su id.
+     * @param IdPropiedad
+     * @return 
+     */
     public Propiedad ObtenerPropiedadPorId(int IdPropiedad){
         return mProp.GetPropiedad(IdPropiedad);
+    }
+    
+    /**
+     * Obtiene todas las listas de propiedades que estan a una distancia en metros especificada de un tipo de punto de interes.
+     * @param TipoPuntoInteres
+     * @param MetrosDistancia
+     * @return 
+     */
+    public List<Propiedad> GetPropiedadCercanasPtoInteres(String TipoPuntoInteres, int MetrosDistancia){
+        return mProp.GetPropiedadCercanasPtoInteres(TipoPuntoInteres, MetrosDistancia);
+    }
+    
+    /**
+     * Devuelve una lista de puntos a una distancia en metros especificada de la propiedad indicada por su id.
+     * @param IdPropiedad
+     * @param MetrosDistancia
+     * @return 
+     */
+    public List<String> GetPuntosInteresCercanoPropiedad(int IdPropiedad, int MetrosDistancia){
+        return mProp.GetPuntosInteresCercanoPropiedad(IdPropiedad, MetrosDistancia);
     }
 }
