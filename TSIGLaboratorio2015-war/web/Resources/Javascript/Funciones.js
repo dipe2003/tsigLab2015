@@ -139,13 +139,15 @@ function AbrirPopup(event){
 }
 function AbrirPopupPuntoInteres(event){
     var punto = event.feature.attributes;
+    var nombre = punto.nombre.replace(/\s+/g, '');
+    var distancia = $('#'+nombre).val().toString() + ' m';
     var popup = new OpenLayers.Popup.FramedCloud(
             "IdPopup",
     new OpenLayers.LonLat(event.feature.geometry.x,event.feature.geometry.y),
     null,
     '<div style="color:#FF0000; font-size:15px; font-weight:600">'+punto.nombre + '</div>'
             +'</br> Tipo: '+ punto.tipo
-            +'</br> Distancia: ' 
+            +'</br> Distancia: ' + distancia
     ,
     null,
     true
@@ -277,12 +279,12 @@ function filtrarPropiedadesDeUsuario(){
 
 function cargarIconosPuntosInteres(feature){
     var imagen;
-    if (feature.attributes.tipo === "medica"){ //casa
+    if (feature.attributes.tipo === "medica"){
+        imagen = 'http://www.ei1.com/images/occhealth_icon.png';        
+    }else if (feature.attributes.tipo === "combustible"){// 
+        imagen = 'https://knowledge.energyinst.org/__data/assets/image/0007/127465/1417794034_gas_station22.png';       
+    }else{
         imagen = 'http://static.ceo.org.pl/sites/default/files/SZK20/Loga/shopping_cart-blue_shokunin_openclipart.png';
-    }else if (feature.attributes.tipo === "combustible"){//apto
-       imagen = 'http://www.ei1.com/images/occhealth_icon.png';
-    }else{//terreno
-       imagen = 'https://knowledge.energyinst.org/__data/assets/image/0007/127465/1417794034_gas_station22.png';
     }
     var vector_style = new OpenLayers.Style({'pointRadius': 20});
     var vector_style_map = new OpenLayers.StyleMap({'default': vector_style});

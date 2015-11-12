@@ -52,6 +52,9 @@ public class InformacionPropiedad implements Serializable{
     private String NombreUsuario;
     private String CorreoUsuario;
     
+    // puntos de interes
+    private Map<String, Integer> PuntosInteres;
+    
     //  Getters
     public String getTipoPropiedad() {return TipoPropiedad;}
     public int getIdPropiedad() {return idPropiedad;}
@@ -72,6 +75,7 @@ public class InformacionPropiedad implements Serializable{
     public String getNombreUsuario() {return NombreUsuario;}
     public String getCorreoUsuario() {return CorreoUsuario;}
     public String getEstadoPropiedad() {return EstadoPropiedad;}
+    public Map<String, Integer> getPuntosInteres() {return PuntosInteres;}
     
     //  Setter
     public void setTipoPropiedad(String TipoPropiedad) {this.TipoPropiedad = TipoPropiedad;}
@@ -93,6 +97,7 @@ public class InformacionPropiedad implements Serializable{
     public void setNombreUsuario(String NombreUsuario) {this.NombreUsuario = NombreUsuario;}
     public void setCorreoUsuario(String CorreoUsuario) {this.CorreoUsuario = CorreoUsuario;}
     public void setEstadoPropiedad(String EstadoPropiedad) {this.EstadoPropiedad = EstadoPropiedad;}
+    public void setPuntosInteres(Map<String, Integer> PuntosInteres) {this.PuntosInteres = PuntosInteres;}
     
     @PostConstruct
     public void init(){
@@ -104,6 +109,7 @@ public class InformacionPropiedad implements Serializable{
         Propiedad propiedad = cProp.ObtenerPropiedadPorId(IdPropiedad);
         setTipoPropiedad(propiedad);
         setCaracteristicasMarcadas(propiedad);
+        PuntosInteres = new HashMap<>();
         try{
             if (!this.TipoPropiedad.equals("Terreno")) {
                 this.CantidadBanios =((Inmueble)propiedad).getCantidadBanios();
@@ -120,6 +126,8 @@ public class InformacionPropiedad implements Serializable{
             this.NombreUsuario = usuario.getNicknameUsuario();
             this.CorreoUsuario = usuario.getCorreoUsuario();
             this.EstadoPropiedad = propiedad.getEstadoPropiedad().toString();
+            
+            PuntosInteres = cProp.GetDistanciasPuntosInteres(IdPropiedad);            
         }catch(Exception ex){}
     }
     

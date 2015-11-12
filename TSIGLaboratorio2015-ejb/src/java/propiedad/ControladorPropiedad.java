@@ -2,6 +2,7 @@ package propiedad;
 
 import inmueble.Inmueble;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.bean.ManagedBean;
@@ -362,5 +363,14 @@ public class ControladorPropiedad {
      */
     public List<String> GetPuntosInteresCercanoPropiedad(int IdPropiedad, int MetrosDistancia){
         return mProp.GetPuntosInteresCercanoPropiedad(IdPropiedad, MetrosDistancia);
+    }
+    
+    /**
+     * Devuelve los puntos de interes y sus distancias a la propiedad especificada.
+     * @param IdPropiedad
+     * @return Retorna un Map con el nombre de cada punto de interes como key y las distancias a la propiedad como value.
+     */
+    public Map<String, Integer> GetDistanciasPuntosInteres(int IdPropiedad){
+        return mProp.GetDistanciasPuntosInteres(IdPropiedad);
     }
 }

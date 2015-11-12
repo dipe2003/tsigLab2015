@@ -39,6 +39,12 @@
                     No hay propiedad seleccionada.
                 </div>
             </h:panelGroup>
+            <h:panelGroup style="display: none">
+                <h:outputText value="Puntos"/>
+                <c:forEach var="pto" items="#{informacionPropiedad.puntosInteres}" >
+                    <input type="text" id="#{pto.key}" value="#{informacionPropiedad.puntosInteres[pto.key]}"/>
+                </c:forEach>
+            </h:panelGroup>
         </h:form>
-    </ui:define>
+    </ui:define> 
 </ui:composition>

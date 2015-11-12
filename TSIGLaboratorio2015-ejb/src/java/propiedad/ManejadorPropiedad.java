@@ -3,7 +3,9 @@ package propiedad;
 
 import inmueble.Inmueble;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
@@ -226,6 +228,24 @@ public class ManejadorPropiedad {
             lista = query.getResultList();
         }catch(Exception ex){}
         return lista;
+    }
+    
+    public Map<String, Integer> GetDistanciasPuntosInteres(int IdPropiedad){
+        Map<String, Integer> distancias = new HashMap<>();
+        try{
+            Query query = em.createNativeQuery("SELECT ST_DISTANCE(p.the_geom, pi.the_geom) FROM propiedad p, puntosinteres pi WHERE p.idpropiedad="+IdPropiedad+ " ORDER BY pi.nombre");
+            List<Double> listDistancias = query.getResultList();
+            
+            query = em.createNativeQuery("SELECT pi.nombre FROM puntosinteres pi ORDER BY pi.nombre ASC");
+            List<String> listNombres = query.getResultList();
+            
+            for (int i = 0; i < listDistancias.size(); i++) {
+                distancias.put(listNombres.get(i).replaceAll(" ", ""), listDistancias.get(i).intValue());
+            }
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return distancias;
     }
     
 }
