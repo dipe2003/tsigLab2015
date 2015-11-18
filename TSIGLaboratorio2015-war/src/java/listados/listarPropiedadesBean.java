@@ -4,6 +4,7 @@ package listados;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
@@ -21,15 +22,19 @@ public class listarPropiedadesBean implements Serializable{
     private String[] TipoPropiedad;
     private String TipoSeleccionado;
     
+    private Map<String, Boolean> tipoPtoInteres;
+    
     //  Getters
     public List<Propiedad> getPropiedades() {return Propiedades;}
     public String[] getTipoPropiedad() {return TipoPropiedad;}
     public String getTipoSeleccionado() {return TipoSeleccionado;}
+    public Map<String, Boolean> getTipoPtoInteres() {return tipoPtoInteres;}
     
     //  Setters
     public void setPropiedades(List<Propiedad> Propiedades) {this.Propiedades = Propiedades;}
     public void setTipoPropiedad(String[] TipoPropiedad) {this.TipoPropiedad = TipoPropiedad;}
     public void setTipoSeleccionado(String TipoSeleccionado) {this.TipoSeleccionado = TipoSeleccionado;}
+    public void setTipoPtoInteres(Map<String, Boolean> tipoPtoInteres) {this.tipoPtoInteres = tipoPtoInteres;}
     
     //
     public void cambiarLista(){

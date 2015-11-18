@@ -111,13 +111,22 @@
                             <option value="1">Apartamento</option>
                             <option value="undefined">Terreno</option>
                         </select><br/>
-                        Tipo de Inmueble:<br/>
+                        Tipo de Negocio<br/>
                         <select id="VentaAlquiler" class="form-control loginInput">
                             <option value="">Todas</option>
                             <option value="Alquiler">Alquiler</option>
                             <option value="Venta">Venta</option>
                             <option value="AlquilerYVenta">Venta y Alquiler</option>
                         </select><br/>
+                        Puntos de Interes:<br/>
+                        <input type="text" id="distancia" class="form-control loginInput" placeholder="Distancia (m)" style="width: 120px; float: left" />
+>
+                        <input type="checkbox" id="TipoPtoInteres" class="form-control loginInput">
+                            <option value="super">Supermercados</option>
+                            <option value="medica">Atencion Medica</option>
+                            <option value="combustible">Estaciones de Servicio</option>
+                        </input><br/>
+                        
                         <input type="button" id="precio" value="Filtrar" onclick="filtrar()" class="btn btn-success loginButton" style="width: 100px; margin-top: 0;"/>
                     </div>
                 </ui:insert>

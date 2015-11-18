@@ -373,4 +373,14 @@ public class ControladorPropiedad {
     public Map<String, Integer> GetDistanciasPuntosInteres(int IdPropiedad){
         return mProp.GetDistanciasPuntosInteres(IdPropiedad);
     }
+    
+    /**
+     * 
+     * @param TiposPuntoInteres
+     * @param MetrosDistancia
+     * @return 
+     */
+    public List<Integer> GetPropiedadesCercanasPtoInteres(List<String> TiposPuntoInteres, int MetrosDistancia){
+        return GetPropiedadesCercanasPtoInteres(TiposPuntoInteres, MetrosDistancia);
+    }
 }

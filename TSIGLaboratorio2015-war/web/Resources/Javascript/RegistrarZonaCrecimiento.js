@@ -7,9 +7,7 @@ function init() {
     CargarPropiedades();
     
     map.addLayer(vector_layer_zonas);
-    
-    map.addLayer(ZonasCrecimiento);
-    
+        
     map.addControl(drawPolygon);
     drawPolygon.activate(); 
     

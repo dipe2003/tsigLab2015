@@ -109,9 +109,9 @@ function cargarIconos(feature){
     if (feature.attributes.tipoinmueble === "0"){ //casa
         imagen = 'http://investapr.com/wp-content/themes/realty/lib/images/map-marker/map-marker-red-fat.png';
     }else if (feature.attributes.tipoinmueble === "1"){//apto
-       imagen = 'http://www.rootscsa.org/wp-content/uploads/2014/06/home_office_icon.png';
+        imagen = 'http://www.rootscsa.org/wp-content/uploads/2014/06/home_office_icon.png';
     }else{//terreno
-       imagen = 'http://villawoodproperties.com.au/sites/www.villawoodproperties.com.au/files/basic_page/vw-5es-icon-3.png';
+        imagen = 'http://villawoodproperties.com.au/sites/www.villawoodproperties.com.au/files/basic_page/vw-5es-icon-3.png';
     }
     var vector_style = new OpenLayers.Style({'pointRadius': 20});
     var vector_style_map = new OpenLayers.StyleMap({'default': vector_style});
@@ -122,11 +122,13 @@ function cargarIconos(feature){
 
 function AbrirPopup(event){
     var prop = event.feature.attributes;
+    var negocio = "";
+    if(prop.enventa === 'true') negocio += '</br> En Venta';
+    if(prop.enalquiler === 'true') negocio += '</br> En Alquiler'
     var popup = new OpenLayers.Popup.FramedCloud("IdPopup",new OpenLayers.LonLat(event.feature.geometry.x,event.feature.geometry.y),null,
     '<div style="color:#FF0000; font-size:15px; font-weight:600">'+prop.direccionpropiedad + '</div>'
             +'</br> Tipo: '+ prop.dtype
-            +'</br> En venta: '+ prop.enventa
-            +'</br> En alquiler: '+ prop.enalquiler
+            + negocio
             +'</br> <a href="InformacionPropiedad.xhtml?id='+ prop.idpropiedad+'">Mas Informacion</a>'
     ,null,true);
     if (arrayPopup.length>0){
@@ -239,7 +241,7 @@ function SeleccionarPoligono(event){
         strVertices += centro.lon + " " + centro.lat + ",";
     }
     var centro = vertices[0].getBounds().getCenterLonLat().clone();
-        centro = centro.transform(desdeProjection, aProjection);
+    centro = centro.transform(desdeProjection, aProjection);
     strVertices += centro.lon + " " + centro.lat;
     $('#frmAdminZona\\:inputCoordsZona').val(strVertices);
     $('#frmAdminZona\\:inputIdZonaCrecimiento').val(event.feature.attributes.idzonacrecimiento);

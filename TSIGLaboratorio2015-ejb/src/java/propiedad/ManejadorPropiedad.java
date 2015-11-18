@@ -221,6 +221,20 @@ public class ManejadorPropiedad {
         return lista;
     }
     
+    public List<Integer> GetPropiedadesCercanasPtoInteres(List<String> TiposPuntoInteres, int MetrosDistancia){
+        List<Integer> lista = new ArrayList<>();
+        String coleccion = "";
+        for (int i = 0; i < lista.size(); i++) {
+            coleccion += lista.get(i);
+            if(i+1<lista.size())coleccion += ", ";
+        }
+        try{
+            Query query = em.createNativeQuery("SELECT p.idpropiedad FROM Propiedad p, puntosinteres pi WHERE ST_DWithin(p.the_geom, pi.the_geom, "+coleccion+" AND pi.tipo IN (" + TiposPuntoInteres + ") ORDER BY p.idpropiedad ASC");
+            lista = query.getResultList();
+        }catch(Exception ex){}
+        return lista;
+    }
+    
     public List<String> GetPuntosInteresCercanoPropiedad(int IdPropiedad, int MetrosDistancia){
         List<String> lista = new ArrayList<>();
         try{
