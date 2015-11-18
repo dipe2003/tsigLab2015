@@ -65,7 +65,7 @@ public class listarPropiedadesBean implements Serializable{
     }
     
     public void filtrar(){
-        ids = "funciona";
+        ids = "9 260";
     }
     
 }

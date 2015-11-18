@@ -130,7 +130,7 @@
                           
                         
                         <h:form id="filtro">
-                            <h:inputText id="ids" class="form-control loginInput" style="width: 70px; float: left" value="#{listarPropiedadesBean.ids}"> </h:inputText>  <br/>
+                            <h:inputText id="ids" class="form-control loginInput" style="width: 70px; float: left" value="#{listarPropiedadesBean.ids}" > </h:inputText>  <br/>
                             <h:commandButton id="precio" value="Filtrar" class="btn btn-success loginButton" style="width: 100px; margin-top: 0;">
                                 <f:ajax listener="#{listarPropiedadesBean.filtrar()}" event="click" execute="@form" render="ids" onevent="FiltroAvanzado"/>
                             </h:commandButton>

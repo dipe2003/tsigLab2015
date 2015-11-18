@@ -28,7 +28,7 @@ function filtrarUnaPropiedad(){
     Propiedades.redraw();
 }
 
-function filtrar(){
+function filtrar(FiltroPorIds){
     var Publica = new OpenLayers.Filter.Comparison({
         type: OpenLayers.Filter.Comparison.LIKE,
         property: 'estadopropiedad',
@@ -71,7 +71,7 @@ function filtrar(){
     if (attributeVentaAlquiler === ""){
         var parent_filter = new OpenLayers.Filter.Logical({
             type: OpenLayers.Filter.Logical.AND,
-            filters: [filterDireccion, filterDesde, filterHasta, filterTipo,PublicaOReservada]
+            filters: [filterDireccion, filterDesde, filterHasta, filterTipo,PublicaOReservada,FiltroPorIds]
         });
     }else{
         var alquiler = "FALSE";
@@ -95,7 +95,7 @@ function filtrar(){
         });
         var parent_filter = new OpenLayers.Filter.Logical({
             type: OpenLayers.Filter.Logical.AND,
-            filters: [filterDireccion, filterDesde, filterHasta, filterTipo, VentaAlquiler,PublicaOReservada]
+            filters: [filterDireccion, filterDesde, filterHasta, filterTipo, VentaAlquiler,PublicaOReservada,FiltroPorIds]
         });
     }
     filterStrategy.setFilter(parent_filter);
