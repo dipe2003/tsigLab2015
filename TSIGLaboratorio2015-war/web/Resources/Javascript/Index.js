@@ -2,10 +2,10 @@
 function init() {
     
     CrearMapaBase();
-
+    
     
     CargarPropiedades();
-
+    
     map.addControl(select_feature_control);
     select_feature_control.activate();
     map.layers[1].events.register('featureselected', this, AbrirPopup);
@@ -14,4 +14,11 @@ function init() {
     
     filtrar();
     
+}
+
+function FiltroAvanzado(data){
+    if (data.status === "success"){
+        filtrar();
+        //alert($( "#filtro\\:ids" ).val()); hacer el filtro avanzado
+    }
 }

@@ -24,18 +24,20 @@ public class listarPropiedadesBean implements Serializable{
     
     private Map<String, Boolean> tipoPtoInteres;
     
+    private String ids;
+    
     //  Getters
     public List<Propiedad> getPropiedades() {return Propiedades;}
     public String[] getTipoPropiedad() {return TipoPropiedad;}
     public String getTipoSeleccionado() {return TipoSeleccionado;}
     public Map<String, Boolean> getTipoPtoInteres() {return tipoPtoInteres;}
-    
+    public String getIds() {return ids;}
     //  Setters
     public void setPropiedades(List<Propiedad> Propiedades) {this.Propiedades = Propiedades;}
     public void setTipoPropiedad(String[] TipoPropiedad) {this.TipoPropiedad = TipoPropiedad;}
     public void setTipoSeleccionado(String TipoSeleccionado) {this.TipoSeleccionado = TipoSeleccionado;}
     public void setTipoPtoInteres(Map<String, Boolean> tipoPtoInteres) {this.tipoPtoInteres = tipoPtoInteres;}
-    
+    public void setIds(String ids) {this.ids = ids;}
     //
     public void cambiarLista(){
         switch(TipoSeleccionado){
@@ -59,7 +61,11 @@ public class listarPropiedadesBean implements Serializable{
         Propiedades = new ArrayList<>();
         Propiedades = cProp.ListarPropiedades();
         this.TipoPropiedad = new String[]{"Todas", "Casas", "Apartamentos", "Terrenos" };
+        ids = "";
     }
     
+    public void filtrar(){
+        ids = "funciona";
+    }
     
 }
