@@ -119,14 +119,15 @@
                             <option value="AlquilerYVenta">Venta y Alquiler</option>
                         </select><br/>
                         Puntos de Interes:<br/>
-                        <h:form>
+                        <h:form id="filtro">
                             <h:inputText id="distancia" value="#{listarPropiedadesBean.distanciaMetros}" class="form-control loginInput" p:placeholder="Distancia (m)" style="width: 120px; float: left" />
                             <c:forEach var="tipo" items="#{listarPropiedadesBean.tiposPunto}">                    
                                 <h:selectBooleanCheckbox value="#{listarPropiedadesBean.tipoPtoInteres[tipo]}" />  #{tipo}<br/>
                             </c:forEach>                        
-                            <h:commandButton id="precio" value="Filtrar" onclick="filtrar()" class="btn btn-success loginButton" style="width: 100px; margin-top: 0;">
-                                <f:ajax event="click" execute="@form"  listener="#{listarPropiedadesBean.buscarPropiedades()}" />
+                            <h:commandButton id="precio" value="Filtrar" class="btn btn-success loginButton" style="width: 100px; margin-top: 0;">
+                                <f:ajax event="click" execute="@form" listener="#{listarPropiedadesBean.buscarPropiedades()}" onevent="FiltroAvanzado" render="ids" />
                             </h:commandButton>
+                            <h:inputText id="ids" value="#{listarPropiedadesBean.ids}" />
                         </h:form>
                     </div>
                 </ui:insert>

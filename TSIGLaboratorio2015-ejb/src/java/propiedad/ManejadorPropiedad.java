@@ -229,7 +229,7 @@ public class ManejadorPropiedad {
             if(i+1<TiposPuntoInteres.size())coleccion += ", ";
         }
         try{
-            Query query = em.createNativeQuery("SELECT p.idpropiedad FROM Propiedad p, puntosinteres pi WHERE ST_DWithin(p.the_geom, pi.the_geom, "+MetrosDistancia+") AND pi.tipo IN (" + coleccion + ") ORDER BY p.idpropiedad ASC");
+            Query query = em.createNativeQuery("SELECT DISTINCT p.idpropiedad FROM Propiedad p, puntosinteres pi WHERE ST_DWithin(p.the_geom, pi.the_geom, "+MetrosDistancia+") AND pi.tipo IN (" + coleccion + ") ORDER BY p.idpropiedad ASC");
             lista = query.getResultList();
         }catch(Exception ex){}
         return lista;
