@@ -54,7 +54,18 @@ public class listarPropiedadesBean implements Serializable{
         ids = "";
         try{
             metros = Integer.parseInt(DistanciaMetros);
-            this.IdsPropiedades = cProp.GetPropiedadesCercanasPtoInteres(getPtosMarcados(), metros);
+            List<Integer> idPropPtos = cProp.GetPropiedadesCercanasPtoInteres(getPtosMarcados(), metros);
+            List<Integer> idPropCar = cProp.GetPropiedadesPorCaracteristicas(getCaracteristicasMarcadas());
+            if(idPropCar.size()>0){
+                for (int i = 0; i < idPropPtos.size(); i++) {
+                    if (!idPropCar.contains(idPropPtos.get(i))) {
+                        idPropCar.remove(idPropPtos.get(i));
+                    }
+                }
+                this.IdsPropiedades = idPropCar;
+            }else{
+                this.IdsPropiedades = idPropPtos;
+            }
             for(int i=0; i < IdsPropiedades.size(); i++){
                 ids += String.valueOf(IdsPropiedades.get(i));
                 if(i+1< IdsPropiedades.size()) ids+=" ";
