@@ -68,12 +68,8 @@ function filtrar(FiltroPorIds){
         value: $("#tipo").val(),
     });
     var attributeVentaAlquiler = $("#VentaAlquiler").val();
-    if (attributeVentaAlquiler === ""){
-        var parent_filter = new OpenLayers.Filter.Logical({
-            type: OpenLayers.Filter.Logical.AND,
-            filters: [filterDireccion, filterDesde, filterHasta, filterTipo,PublicaOReservada,FiltroPorIds]
-        });
-    }else{
+    var filtros = [filterDireccion, filterDesde, filterHasta, filterTipo,PublicaOReservada];
+    if (attributeVentaAlquiler !== ""){
         var alquiler = "FALSE";
         var venta = "FALSE";
         if (attributeVentaAlquiler === "Alquiler") alquiler = "TRUE";
@@ -93,11 +89,16 @@ function filtrar(FiltroPorIds){
             type: OpenLayers.Filter.Logical.AND,
             filters: [filterVenta, filterAlquiler]
         });
-        var parent_filter = new OpenLayers.Filter.Logical({
-            type: OpenLayers.Filter.Logical.AND,
-            filters: [filterDireccion, filterDesde, filterHasta, filterTipo, VentaAlquiler,PublicaOReservada,FiltroPorIds]
-        });
+        filtros.push(VentaAlquiler);
     }
+    
+    if ( typeof FiltroPorIds !== "undefined") filtros.push(FiltroPorIds);
+    
+    var parent_filter = new OpenLayers.Filter.Logical({
+        type: OpenLayers.Filter.Logical.AND,
+        filters: filtros
+    });
+    
     filterStrategy.setFilter(parent_filter);
     filterStrategy.activate(); 
     Propiedades.refresh({force: true});
