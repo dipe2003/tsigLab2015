@@ -283,11 +283,11 @@ function filtrarPropiedadesDeUsuario(){
 function cargarIconosPuntosInteres(feature){
     var imagen;
     if (feature.attributes.tipo === "medica"){
-        imagen = 'http://icons.iconarchive.com/icons/icons-land/gis-gps-map/256/Hospital-icon.png';        
+        imagen = 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-glossy-orange-orbs-icons-signs/106176-3d-glossy-orange-orb-icon-signs-h-hospital.png';        
     }else if (feature.attributes.tipo === "combustible"){// 
-        imagen = 'http://www.veryicon.com/icon/ico/Transport/GIS%20GPS%20MAP/GasStation.ico';       
+        imagen = 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/3d-glossy-blue-orbs-icons-business/075776-3d-glossy-blue-orb-icon-business-gas-pump.png';       
     }else{
-        imagen = 'http://stroy.dammir.ru/attachments/Image/Kommerciya.png';
+        imagen = 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-glossy-pink-orbs-icons-business/107171-3d-glossy-pink-orb-icon-business-cart-solid.png';
     }
     var vector_style = new OpenLayers.Style({'pointRadius': 20});
     var vector_style_map = new OpenLayers.StyleMap({'default': vector_style});
