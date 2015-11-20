@@ -262,5 +262,17 @@ public class ManejadorPropiedad {
         return distancias;
     }
     
+    public List<Integer> GetPropiedadesPorCaracteristicas(List<Integer> IdsCaracteristica){
+        List<Integer> lista = new ArrayList<>();
+        try{
+            Query query = em.createQuery("SELECT DISTINCT p.IdPropiedad FROM Propiedad p, Caracteristica c WHERE c.IdCaracteristica IN (:idsCaracteristicas) AND c MEMBER p.Caracteristicas");
+            query.setParameter("idsCaracteristicas", IdsCaracteristica);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: "+ex.getMessage());
+        }
+        return lista;
+    }
+    
 }
 

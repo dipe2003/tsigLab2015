@@ -98,36 +98,47 @@
                 <ui:insert name="page_content" >
                     <script type="text/javascript" src="./Resources/Javascript/Index.js"/>
                     <div  id='map' class="mapa" style="height: 500px"></div>
-                    <div class="contenidoFiltro">  
-                        Direccion: <br/>
-                        <input type="text" id="direccion" class="form-control loginInput" placeholder="ej: Batlle y Ordóñez 810"/><br/>
-                        Rango de Precio: <br/>
-                        <input type="text" id="desde" class="form-control loginInput" placeholder="Desde" style="width: 70px; float: left" />  
-                        <input type="text" id="hasta" class="form-control loginInput"  placeholder="Hasta" style="width: 70px" /><br/>
-                        Tipo de Inmueble: <br/>
-                        <select id="tipo" class="form-control loginInput">
-                            <option value="">Todas</option>
-                            <option value="0">Casa</option>
-                            <option value="1">Apartamento</option>
-                            <option value="undefined">Terreno</option>
-                        </select><br/>
-                        Tipo de Negocio<br/>
-                        <select id="VentaAlquiler" class="form-control loginInput">
-                            <option value="">Todas</option>
-                            <option value="Alquiler">Alquiler</option>
-                            <option value="Venta">Venta</option>
-                            <option value="AlquilerYVenta">Venta y Alquiler</option>
-                        </select><br/>
-                        Puntos de Interes:<br/>
+                    <div class="formulario">
                         <h:form id="filtro">
-                            <h:inputText id="distancia" value="#{listarPropiedadesBean.distanciaMetros}" class="form-control loginInput" p:placeholder="Distancia (m)" style="width: 120px; float: left" />
-                            <c:forEach var="tipo" items="#{listarPropiedadesBean.tiposPunto}">                    
-                                <h:selectBooleanCheckbox value="#{listarPropiedadesBean.tipoPtoInteres[tipo]}" />  #{tipo}<br/>
-                            </c:forEach>                        
-                            <h:commandButton id="precio" value="Filtrar" class="btn btn-success loginButton" style="width: 100px; margin-top: 0;">
-                                <f:ajax event="click" execute="@form" listener="#{listarPropiedadesBean.buscarPropiedades()}" onevent="FiltroAvanzado" render="ids" />
-                            </h:commandButton>
-                            <h:inputText id="ids" value="#{listarPropiedadesBean.ids}" />
+                            <div class="contenidoFiltro">  
+                                Direccion: <br/>
+                                <input type="text" id="direccion" class="form-control loginInput" placeholder="ej: Batlle y Ordóñez 810"/><br/>
+                                Rango de Precio: <br/>
+                                <input type="text" id="desde" class="form-control loginInput" placeholder="Desde" style="width: 70px; float: left" />  
+                                <input type="text" id="hasta" class="form-control loginInput"  placeholder="Hasta" style="width: 70px" /><br/>
+                                Tipo de Inmueble: <br/>
+                                <select id="tipo" class="form-control loginInput">
+                                    <option value="">Todas</option>
+                                    <option value="0">Casa</option>
+                                    <option value="1">Apartamento</option>
+                                    <option value="undefined">Terreno</option>
+                                </select><br/>
+                                Tipo de Negocio<br/>
+                                <select id="VentaAlquiler" class="form-control loginInput">
+                                    <option value="">Todas</option>
+                                    <option value="Alquiler">Alquiler</option>
+                                    <option value="Venta">Venta</option>
+                                    <option value="AlquilerYVenta">Venta y Alquiler</option>
+                                </select><br/>
+                                Puntos de Interes:<br/>
+                                
+                                <h:inputText id="distancia" value="#{listarPropiedadesBean.distanciaMetros}" class="form-control loginInput" p:placeholder="Distancia (m)" style="width: 120px; float: left" />
+                                <c:forEach var="tipo" items="#{listarPropiedadesBean.tiposPunto}">                    
+                                    <h:selectBooleanCheckbox value="#{listarPropiedadesBean.tipoPtoInteres[tipo]}" />  #{tipo}<br/>
+                                </c:forEach>                        
+                                
+                                <h:inputText id="ids" value="#{listarPropiedadesBean.ids}" />                                
+                            </div>
+                            <div class="columnas">
+                                <c:forEach var="car" items="#{listarPropiedadesBean.listaCaracteristica}">                    
+                                    <h:selectBooleanCheckbox value="#{listarPropiedadesBean.listCarChecked[car.idCaracteristica]}" />  #{car.nombreCaracteristica}<br/>
+                                </c:forEach>
+                            </div>
+                            <div class="aceptar">
+                                <h:commandButton id="precio" value="Filtrar" class="btn btn-success loginButton" style="width: 100px; margin-top: 0;">
+                                    <f:ajax event="click" execute="@form" listener="#{listarPropiedadesBean.buscarPropiedades()}" onevent="FiltroAvanzado" render="ids" />
+                                </h:commandButton>
+                            </div>
                         </h:form>
                     </div>
                 </ui:insert>

@@ -383,4 +383,13 @@ public class ControladorPropiedad {
     public List<Integer> GetPropiedadesCercanasPtoInteres(List<String> TiposPuntoInteres, int MetrosDistancia){
         return mProp.GetPropiedadesCercanasPtoInteres(TiposPuntoInteres, MetrosDistancia);
     }
+    
+    /**
+     * 
+     * @param IdsCaracteristica
+     * @return 
+     */
+    public List<Integer> GetPropiedadesPorCaracteristicas(List<Integer> IdsCaracteristica){
+        return mProp.GetPropiedadesPorCaracteristicas(IdsCaracteristica);
+    }
 }
