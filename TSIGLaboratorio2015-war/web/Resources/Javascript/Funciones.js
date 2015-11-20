@@ -108,9 +108,9 @@ function filtrar(FiltroPorIds){
 function cargarIconos(feature){
     var imagen;
     if (feature.attributes.tipoinmueble === "0"){ //casa
-        imagen = 'http://investapr.com/wp-content/themes/realty/lib/images/map-marker/map-marker-red-fat.png';
+        imagen = 'https://cdn4.iconfinder.com/data/icons/SHINE7/general/400/home.png';
     }else if (feature.attributes.tipoinmueble === "1"){//apto
-        imagen = 'http://www.rootscsa.org/wp-content/uploads/2014/06/home_office_icon.png';
+        imagen = 'http://www.vetmed.vt.edu/information-systems/images/OfficeBuilding.png';
     }else{//terreno
         imagen = 'http://villawoodproperties.com.au/sites/www.villawoodproperties.com.au/files/basic_page/vw-5es-icon-3.png';
     }
@@ -283,11 +283,11 @@ function filtrarPropiedadesDeUsuario(){
 function cargarIconosPuntosInteres(feature){
     var imagen;
     if (feature.attributes.tipo === "medica"){
-        imagen = 'http://www.ei1.com/images/occhealth_icon.png';        
+        imagen = 'http://icons.iconarchive.com/icons/icons-land/gis-gps-map/256/Hospital-icon.png';        
     }else if (feature.attributes.tipo === "combustible"){// 
-        imagen = 'https://knowledge.energyinst.org/__data/assets/image/0007/127465/1417794034_gas_station22.png';       
+        imagen = 'http://www.veryicon.com/icon/ico/Transport/GIS%20GPS%20MAP/GasStation.ico';       
     }else{
-        imagen = 'http://static.ceo.org.pl/sites/default/files/SZK20/Loga/shopping_cart-blue_shokunin_openclipart.png';
+        imagen = 'http://stroy.dammir.ru/attachments/Image/Kommerciya.png';
     }
     var vector_style = new OpenLayers.Style({'pointRadius': 20});
     var vector_style_map = new OpenLayers.StyleMap({'default': vector_style});
