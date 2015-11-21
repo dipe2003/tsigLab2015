@@ -1,6 +1,7 @@
 package propiedad;
 
 import inmueble.Inmueble;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
@@ -395,7 +396,7 @@ public class ControladorPropiedad {
     
     /**
      * Agrega una visita a la propiedad.
-     * @param idpropiedad 
+     * @param idpropiedad
      */
     public void AgregarVisitaPropiedad(int idpropiedad){
         try{
@@ -404,5 +405,20 @@ public class ControladorPropiedad {
             mProp.ActualizarPropiedad(prop);
         }catch(NullPointerException ex){}
         
+    }
+    
+    /**
+     *Devuelve un map con las propiedades y sus visitas (solo se devuelven las propiedades publicas y reservadas).
+     * @return
+     */
+    public Map<String, Integer> ListarMapPropiedad(){
+        Map<String, Integer> props = new HashMap<>();
+        List<Propiedad> lista = mProp.ListarMapPropiedadesTopFive();
+        for(Propiedad propiedad: lista){
+            if(propiedad.getEstadoPropiedad().equals(EnumEstadoPropiedad.Publica) || propiedad.getEstadoPropiedad().equals(EnumEstadoPropiedad.Reservada)){
+                props.put(propiedad.getDireccionPropiedad(), propiedad.getVisitasPropiedad());
+            }
+        }
+        return props;
     }
 }

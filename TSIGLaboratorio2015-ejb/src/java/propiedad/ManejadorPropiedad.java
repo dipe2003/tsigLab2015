@@ -73,6 +73,22 @@ public class ManejadorPropiedad {
         }
         return lista;
     }
+    public List<Propiedad> ListarMapPropiedadesTopFive(){
+       List<Propiedad> lista = new ArrayList<>();
+        try{
+            Query query = em.createQuery("select p FROM Propiedad p ORDER BY p.VisitasPropiedad DESC");
+            if(query.getResultList().size()<5){
+               lista = query.getResultList();
+            }else{
+                 query.setMaxResults(5);
+                 lista = query.getResultList();
+            }            
+            return lista;
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
     
     public List<Propiedad> ListarPropiedadesUsuario(int IdUsuario){
         List<Propiedad> lista = new ArrayList<>();

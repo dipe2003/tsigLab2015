@@ -37,12 +37,13 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="./Resources/Javascript/jquery-1.11.3.min.js"></script>
         
+        <script type="text/javascript" src="./Resources/Javascript/Chart.js"></script>
         <script type="text/javascript" src="./Resources/Javascript/Variables.js"/>
-        
+        <script type="text/javascript" src="./Resources/Javascript/GraficosVisitas.js"></script>
         <link rel="stylesheet" href="Resources/Css/Base.css" />
         <link rel="stylesheet" href="Resources/Css/Mensajes.css" />
-        
     </h:head>
     
     <h:body onload='init();' style="background-color: #EEE;">
@@ -54,15 +55,15 @@
                             Usuario <h:inputText class="form-control loginInput" value="#{login.nickname}"/>
                             Password <h:inputSecret class="form-control loginInput" value="#{login.password}"/>
                             <h:commandButton id="login" class="btn btn-success loginButton" action="#{login.login()}" value="Ingresar"/>
-                            <h:commandButton id="reg" class="btn btn-success loginButton" action="/registrarUsuario.xhtml" value="Registrarse"/>
+                            
                             <h:message for="login" />
                         </h:panelGroup>
                         <h:panelGroup rendered="#{login.usuarioLogueado}">
                             
                             <h:outputText class="nickLogueado" value="#{login.nickname}"/>
-                            
-                            <h:commandButton id="logout" class="btn btn-success loginButton" action="#{login.logout()}" value="Salir"/>
                             <h:commandButton id="edit" class="btn btn-success loginButton" action="#{login.editarDatos()}" value="Editar"/>
+                            <h:commandButton id="reg" class="btn btn-success loginButton" action="/registrarUsuario.xhtml" value="Registrar"/>
+                            <h:commandButton id="logout" class="btn btn-success loginButton" action="#{login.logout()}" value="Salir"/>                            
                         </h:panelGroup>
                     </div>
                 </h:form>
@@ -139,7 +140,15 @@
                                     <f:ajax event="click" execute="@form" listener="#{listarPropiedadesBean.buscarPropiedades()}" onevent="FiltroAvanzado" render="ids" />
                                 </h:commandButton>
                             </div>
+                            <h:inputText value="#{graficosPopiedades.labels}" id="labels" style="display:none" />
+                            <h:inputText value="#{graficosPopiedades.datos}" id="datosGraf" style="display:none"  />
                         </h:form>
+                    </div>
+                    <div style="width:100%; flex: auto; text-align: center;">
+                        <label class="tituloGrande" for = "grafico">
+                            Top 5 Visitas<br />
+                        </label>
+                        <canvas id="grafico" width="400" height="200" style="width: 90%; height:40%;"></canvas>
                     </div>
                 </ui:insert>
             </h:panelGroup>         

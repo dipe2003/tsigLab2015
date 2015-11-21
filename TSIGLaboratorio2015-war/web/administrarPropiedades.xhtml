@@ -6,6 +6,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="page_content">
         <script type="text/javascript" src="./Resources/Javascript/AdministrarPropiedad.js"/>
+        
         <div id='map' class="mapa"></div>
         <h:form id="frmAdminPropiedad">           
             <div class="formulario">                
@@ -56,9 +57,8 @@
             </h:commandButton>
             <h:commandButton id="btnCambiarDir" value="cambiar dir" class="btn btn-success loginButton" style="display: none"  >
                 <f:ajax event="click" execute="@form" listener="#{adminPropiedades.cambiarDir(adminPropiedades.idPropiedad)}" render="@form" />
-            </h:commandButton>
-            
-            
+            </h:commandButton>            
         </h:form>
+        
     </ui:define>
 </ui:composition>
