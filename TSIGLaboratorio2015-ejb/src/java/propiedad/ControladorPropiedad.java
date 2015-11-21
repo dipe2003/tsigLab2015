@@ -394,6 +394,14 @@ public class ControladorPropiedad {
         return mProp.GetPropiedadesPorCaracteristicas(IdsCaracteristica);
     }
     
+    public int SetearImagenes(String imagenuno,String imagendos,String imagentres, int id){
+        return mProp.SetearImagenes(imagenuno, imagendos, imagentres, id);
+    }
+    
+    public List<String> GetImagenesPropiedad(int IdPropiedad){
+        return mProp.GetImagenesPropiedad(IdPropiedad);
+    }
+    
     /**
      * Agrega una visita a la propiedad.
      * @param idpropiedad

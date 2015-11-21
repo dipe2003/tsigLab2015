@@ -3,11 +3,13 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"                
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="page_content">
         <script type="text/javascript" src="./Resources/Javascript/RegistrarPropiedad.js"/>
+        <script type="text/javascript" src="./Resources/Javascript/SubirImagenes.js"/>
         <div  id='map' class="mapa"></div>
-        <h:form id="frmProp">           
+        <h:form id="frmProp" enctype="multipart/form-data">           
             <div class="formulario">                
                 <div class="tituloGrande">
                     Registrar Propiedad
@@ -20,13 +22,13 @@
                     </h:selectOneMenu>
                     
                     Direccion  <h:inputText id="inputDireccion" value="#{registrarPropiedad.direccionPropiedad}" class="form-control loginInput"/>
-                    Precio <h:inputText value="#{registrarPropiedad.precioPropiedad}" class="form-control loginInput"/>
-                    Metros Construidos <h:inputText value="#{registrarPropiedad.metrosConstruidosPropiedad}" class="form-control loginInput"/>
-                    Metros de Terreno<h:inputText value="#{registrarPropiedad.metrosTerrenoPropiedad}" class="form-control loginInput"/>
+                    Precio <h:inputText id="inputPrecio" value="#{registrarPropiedad.precioPropiedad}" class="form-control loginInput"/>
+                    Metros Construidos <h:inputText id="inputMconstruidos" value="#{registrarPropiedad.metrosConstruidosPropiedad}" class="form-control loginInput"/>
+                    Metros de Terreno<h:inputText id="inputMterreno" value="#{registrarPropiedad.metrosTerrenoPropiedad}" class="form-control loginInput"/>
                     <h:panelGroup id="noterreno">
                         <h:panelGroup rendered="#{registrarPropiedad.tipoPropiedadSeleccionado != 'Terreno'}">
-                            Cantidad de Dormitorios<h:inputText value="#{registrarPropiedad.cantidadDormitorios}" class="form-control loginInput"/>
-                            Cantidad de Baños<h:inputText value="#{registrarPropiedad.cantidadBanios}" class="form-control loginInput"/>
+                            Cantidad de Dormitorios<h:inputText id="inputDormitorios" value="#{registrarPropiedad.cantidadDormitorios}" class="form-control loginInput"/>
+                            Cantidad de Baños<h:inputText id="inputBanios" value="#{registrarPropiedad.cantidadBanios}" class="form-control loginInput"/>
                         </h:panelGroup>
                     </h:panelGroup>
                     En Alquiler <h:selectBooleanCheckbox value="#{registrarPropiedad.enAlquiler}"/> <br/>
@@ -38,12 +40,35 @@
                     <c:forEach var="car" items="#{registrarPropiedad.listaCaracteristica}">                    
                         <h:selectBooleanCheckbox value="#{registrarPropiedad.listChecked[car.idCaracteristica]}" />  #{car.nombreCaracteristica}<br/>
                     </c:forEach>
-                </div>         
+                </div>    
+                
+                <div id="contenedorImagenes">
+                    
+                    <div class="elementoimagen">
+                        <img src="" class="imagen" id="ImagenUno"/>
+                        <h:inputFile id="imagenPropiedaduno" value="#{registrarPropiedad.partImagenUno}" class="boton subirImagen" p:accept="image/*"></h:inputFile>
+                    </div>
+                    
+                    <div class="elementoimagen">
+                        <img src="" class="imagen" id="ImagenDos"/>
+                        <h:inputFile id="imagenPropiedaddos" value="#{registrarPropiedad.partImagenDos}" class="boton subirImagen" p:accept="image/*"></h:inputFile>
+                    </div>
+                    
+                    <div class="elementoimagen">
+                        <img src="" class="imagen" id="ImagenTres"/>
+                        <h:inputFile id="imagenPropiedadtres" value="#{registrarPropiedad.partImagenTres}" class="boton subirImagen" p:accept="image/*"></h:inputFile>
+                    </div>
+                    
+                </div>
+                
                 <h:commandButton id="registrarPropiedad" value="BuscarDir" class="btn btn-success loginButton" style="display: none"  >
                     <f:ajax event="click" execute="coordx coordy" listener="#{registrarPropiedad.obtenerDireccion(registrarPropiedad.coordX, registrarPropiedad.coordY)}" render="inputDireccion errDireccion"/>
                 </h:commandButton>
                 <h:inputText value="#{registrarPropiedad.coordX}" id="coordx" style="display: none" />
-                <h:inputText value="#{registrarPropiedad.coordY}" id="coordy" style="display: none" />               
+                <h:inputText value="#{registrarPropiedad.coordY}" id="coordy" style="display: none" />           
+                
+                
+                
                 <div class="aceptar">
                     <h:commandButton value="Registrar" action="#{registrarPropiedad.registrarPropiedad()}" class="btn btn-success loginButton"/>
                 </div>                

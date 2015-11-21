@@ -301,5 +301,27 @@ public class ManejadorPropiedad {
         return lista;
     }
     
+     public int SetearImagenes(String imagenuno,String imagendos,String imagentres, int id){
+        Query query = em.createNativeQuery(""
+                + "INSERT INTO imagenes(\"idPropiedad\", location) VALUES ("+id+",'"+imagenuno+"');"
+                + "INSERT INTO imagenes(\"idPropiedad\", location) VALUES ("+id+",'"+imagendos+"');"
+                + "INSERT INTO imagenes(\"idPropiedad\", location) VALUES ("+id+",'"+imagentres+"')");
+        try{
+            return query.executeUpdate();
+        }catch(Exception ex){
+            System.out.println("Error:" + ex.getMessage());
+        }
+        return -1;
+    }
+     
+     public List<String> GetImagenesPropiedad(int IdPropiedad){
+        List<String> lista = new ArrayList<>();
+        try{
+            Query query = em.createNativeQuery("SELECT imagenes.\"location\" FROM public.imagenes WHERE imagenes.\"idPropiedad\" = " + IdPropiedad);
+            lista = query.getResultList();
+        }catch(Exception ex){}
+        return lista;
+    }
+    
 }
 

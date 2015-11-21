@@ -45,6 +45,9 @@ public class InformacionPropiedad implements Serializable{
     private String EstadoPropiedad;
     private List<Caracteristica> listaCaracteristica;
     private Map<Integer, Boolean> listChecked;
+    private String imagenUno;
+    private String imagenDos;
+    private String imagenTres;
     
     //  Inmueble
     private int CantidadDormitorios;
@@ -79,7 +82,9 @@ public class InformacionPropiedad implements Serializable{
     public String getCorreoUsuario() {return CorreoUsuario;}
     public String getEstadoPropiedad() {return EstadoPropiedad;}
     public Map<String, Integer> getPuntosInteres() {return PuntosInteres;}
-    
+    public String getImagenUno() {return imagenUno;}
+    public String getImagenDos() {return imagenDos;}
+    public String getImagenTres() {return imagenTres;}
     //  Setter
     public void setTipoPropiedad(String TipoPropiedad) {this.TipoPropiedad = TipoPropiedad;}
     public void setIdPropiedad(int idPropiedad) {this.idPropiedad = idPropiedad;}
@@ -101,6 +106,9 @@ public class InformacionPropiedad implements Serializable{
     public void setCorreoUsuario(String CorreoUsuario) {this.CorreoUsuario = CorreoUsuario;}
     public void setEstadoPropiedad(String EstadoPropiedad) {this.EstadoPropiedad = EstadoPropiedad;}
     public void setPuntosInteres(Map<String, Integer> PuntosInteres) {this.PuntosInteres = PuntosInteres;}
+    public void setImagenUno(String imagenUno) {this.imagenUno = imagenUno;}
+    public void setImagenDos(String imagenDos) {this.imagenDos = imagenDos;}
+    public void setImagenTres(String imagenTres) {this.imagenTres = imagenTres;}
     
     @PostConstruct
     public void init(){
@@ -131,7 +139,13 @@ public class InformacionPropiedad implements Serializable{
             this.CorreoUsuario = usuario.getCorreoUsuario();
             this.EstadoPropiedad = propiedad.getEstadoPropiedad().toString();
             
-            PuntosInteres = cProp.GetDistanciasPuntosInteres(IdPropiedad);
+            List<String> imagenes = cProp.GetImagenesPropiedad(IdPropiedad);
+            this.imagenUno = imagenes.get(0);
+            this.imagenDos = imagenes.get(1);
+            this.imagenTres = imagenes.get(2);
+            
+            PuntosInteres = cProp.GetDistanciasPuntosInteres(IdPropiedad);            
+           
             try{
                 if(!login.getUsuarioLogueado())cProp.AgregarVisitaPropiedad(IdPropiedad);
             }catch(NullPointerException ex){}

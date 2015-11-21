@@ -179,3 +179,22 @@ label.css-label {
     border-top: 1px solid #076799;
     transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
 }
+
+.imagen{
+    width: 300px;
+    height: 200px;
+    border: solid 5px whitesmoke;
+    box-shadow: grey 5px 5px 5px;
+    margin-bottom: 20px;
+}
+
+#contenedorImagenes{
+    display: flex;
+    text-align: center;
+    width: 100%;
+}
+
+.elementoimagen{
+    width: 300px;
+    margin: 15px;
+}
