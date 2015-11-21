@@ -1,11 +1,3 @@
-$(document).ready(function(){
-    
-    $(".imagen").error(function(){
-        $(this).attr('src', './Resources/Images/brokenimage.jpg');
-    });
-
-});
-
 function init() {
     
     CrearMapaBase();
@@ -20,6 +12,10 @@ function init() {
     CargarPropiedades();
     
     filtrarUnaPropiedad();
+    
+     $(".imagen").error(function(){
+        $(this).attr('src', './Resources/Images/brokenimage.jpg');
+    });
     
 }
 
