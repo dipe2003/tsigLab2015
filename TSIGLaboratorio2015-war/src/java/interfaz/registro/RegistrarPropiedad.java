@@ -14,6 +14,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 import propiedad.ControladorPropiedad;
 import propiedad.caracteristica.Caracteristica;
 import propiedad.caracteristica.ControladorCaracteristica;
@@ -27,6 +28,8 @@ public class RegistrarPropiedad implements Serializable {
     private ControladorCaracteristica cCar;
     @EJB
     private ControladorPropiedad cProp;
+    @EJB
+    private FileUpload fUp;
     
     private String[] TipoPropiedades;
     private String TipoPropiedadSeleccionado;
@@ -40,6 +43,9 @@ public class RegistrarPropiedad implements Serializable {
     private List<Caracteristica> listaCaracteristica;
     private boolean EnAlquiler;
     private boolean EnVenta;
+    private Part PartImagenUno;
+    private Part PartImagenDos;
+    private Part PartImagenTres;
 //  Inmueble
     private int CantidadDormitorios;
     private int CantidadBanios;
@@ -64,7 +70,9 @@ public class RegistrarPropiedad implements Serializable {
     public boolean isEnAlquiler() {return EnAlquiler;}
     public boolean isEnVenta() {return EnVenta;}
     public String[] getTipoPropiedades() {return TipoPropiedades;}
-    
+    public Part getPartImagenUno() {return PartImagenUno;}
+    public Part getPartImagenDos() {return PartImagenDos;}
+    public Part getPartImagenTres() {return PartImagenTres;}
     //  Setters
     public void setTipoPropiedadSeleccionado(String TipoPropiedadSeleccionado) {this.TipoPropiedadSeleccionado = TipoPropiedadSeleccionado;}
     public void setCoordX(String CoordX) {this.CoordX = CoordX;}
@@ -81,8 +89,9 @@ public class RegistrarPropiedad implements Serializable {
     public void setEnAlquiler(boolean EnAlquiler) {this.EnAlquiler = EnAlquiler;}
     public void setEnVenta(boolean EnVenta) {this.EnVenta = EnVenta;}
     public void setTipoPropiedades(String[] TipoPropiedades) {this.TipoPropiedades = TipoPropiedades;}
-    
-    
+    public void setPartImagenUno(Part PartImagenUno) {this.PartImagenUno = PartImagenUno;}
+    public void setPartImagenDos(Part PartImagenDos) {this.PartImagenDos = PartImagenDos;}
+    public void setPartImagenTres(Part PartImagenTres) {this.PartImagenTres = PartImagenTres;}
     /**
      * Retorna la lista con las caracteristicas selaccionadas
      * @return Retorna la lista vacia en caso de ninguna seleccionada
@@ -130,6 +139,10 @@ public class RegistrarPropiedad implements Serializable {
         }
         if (id!=-1) {
             cProp.InsertarUbicacionPropiedad(id, Float.parseFloat(CoordX), Float.parseFloat(this.CoordY));
+            String imagenuno = fUp.guardarArchivo(String.valueOf(id), PartImagenUno, "uno");
+            String imagendos = fUp.guardarArchivo(String.valueOf(id), PartImagenDos, "dos");
+            String imagentres = fUp.guardarArchivo(String.valueOf(id), PartImagenTres, "tres");
+            cProp.SetearImagenes(imagenuno,imagendos,imagentres,id);
             return "index.xhtml";
         }
         return "registrarPropiedades.xhtml";

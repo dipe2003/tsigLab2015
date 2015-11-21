@@ -392,4 +392,12 @@ public class ControladorPropiedad {
     public List<Integer> GetPropiedadesPorCaracteristicas(List<Integer> IdsCaracteristica){
         return mProp.GetPropiedadesPorCaracteristicas(IdsCaracteristica);
     }
+    
+    public int SetearImagenes(String imagenuno,String imagendos,String imagentres, int id){
+        return mProp.SetearImagenes(imagenuno, imagendos, imagentres, id);
+    }
+    
+    public List<String> GetImagenesPropiedad(int IdPropiedad){
+        return mProp.GetImagenesPropiedad(IdPropiedad);
+    }
 }

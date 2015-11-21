@@ -31,7 +31,18 @@
                         <c:forEach var="car" items="#{informacionPropiedad.listaCaracteristica}">                    
                             <h:selectBooleanCheckbox value="#{informacionPropiedad.listChecked[car.idCaracteristica]}" disabled="true" />  #{car.nombreCaracteristica}<br/>
                         </c:forEach>
-                    </div>                    
+                    </div>    
+                    <div id="contenedorImagenes">
+                        <div class="elementoimagen">
+                            <img src="#{informacionPropiedad.imagenUno}" class="imagen"/>
+                        </div>
+                        <div class="elementoimagen">
+                            <img src="#{informacionPropiedad.imagenDos}" class="imagen"/>
+                        </div>
+                        <div class="elementoimagen">
+                            <img src="#{informacionPropiedad.imagenTres}" class="imagen"/>
+                        </div>
+                    </div>
                 </div>
             </h:panelGroup>
             <h:panelGroup rendered="#{empty informacionPropiedad.direccionPropiedad}">
