@@ -1,6 +1,7 @@
 package propiedad;
 
 import inmueble.Inmueble;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
@@ -242,7 +243,7 @@ public class ControladorPropiedad {
         dbPropiedad.setPrecioPropiedad(datosPropiedad.getPrecioPropiedad());
         if (datosPropiedad instanceof Inmueble) {
             ((Inmueble)dbPropiedad).setCantidadBanios(((Inmueble)datosPropiedad).getCantidadBanios());
-            ((Inmueble)dbPropiedad).setCantidadDormitorios(((Inmueble)datosPropiedad).getCantidadDormitorios()); 
+            ((Inmueble)dbPropiedad).setCantidadDormitorios(((Inmueble)datosPropiedad).getCantidadDormitorios());
         }
         if (mProp.InsertarUbicacionPropiedad(datosPropiedad.getIdPropiedad(), CoordX, CoordY)!=-1) {
             return mProp.ActualizarPropiedad(dbPropiedad);
@@ -330,7 +331,7 @@ public class ControladorPropiedad {
     /**
      * Obtiene una propiedad por su direccion.
      * @param DireccionPropiedad
-     * @return 
+     * @return
      */
     public Propiedad ObtenerPropiedadPorDireccion(String DireccionPropiedad){
         return mProp.GetPropiedad(DireccionPropiedad);
@@ -339,7 +340,7 @@ public class ControladorPropiedad {
     /**
      * Obtiene una propiedad por su id.
      * @param IdPropiedad
-     * @return 
+     * @return
      */
     public Propiedad ObtenerPropiedadPorId(int IdPropiedad){
         return mProp.GetPropiedad(IdPropiedad);
@@ -349,7 +350,7 @@ public class ControladorPropiedad {
      * Obtiene todas las listas de propiedades que estan a una distancia en metros especificada de un tipo de punto de interes.
      * @param TipoPuntoInteres
      * @param MetrosDistancia
-     * @return 
+     * @return
      */
     public List<Propiedad> GetPropiedadCercanasPtoInteres(String TipoPuntoInteres, int MetrosDistancia){
         return mProp.GetPropiedadCercanasPtoInteres(TipoPuntoInteres, MetrosDistancia);
@@ -359,7 +360,7 @@ public class ControladorPropiedad {
      * Devuelve una lista de puntos a una distancia en metros especificada de la propiedad indicada por su id.
      * @param IdPropiedad
      * @param MetrosDistancia
-     * @return 
+     * @return
      */
     public List<String> GetPuntosInteresCercanoPropiedad(int IdPropiedad, int MetrosDistancia){
         return mProp.GetPuntosInteresCercanoPropiedad(IdPropiedad, MetrosDistancia);
@@ -375,19 +376,19 @@ public class ControladorPropiedad {
     }
     
     /**
-     * 
+     *
      * @param TiposPuntoInteres
      * @param MetrosDistancia
-     * @return 
+     * @return
      */
     public List<Integer> GetPropiedadesCercanasPtoInteres(List<String> TiposPuntoInteres, int MetrosDistancia){
         return mProp.GetPropiedadesCercanasPtoInteres(TiposPuntoInteres, MetrosDistancia);
     }
     
     /**
-     * 
+     *
      * @param IdsCaracteristica
-     * @return 
+     * @return
      */
     public List<Integer> GetPropiedadesPorCaracteristicas(List<Integer> IdsCaracteristica){
         return mProp.GetPropiedadesPorCaracteristicas(IdsCaracteristica);
@@ -399,5 +400,31 @@ public class ControladorPropiedad {
     
     public List<String> GetImagenesPropiedad(int IdPropiedad){
         return mProp.GetImagenesPropiedad(IdPropiedad);
+    /**
+     * Agrega una visita a la propiedad.
+     * @param idpropiedad
+     */
+    public void AgregarVisitaPropiedad(int idpropiedad){
+        try{
+            Propiedad prop = mProp.GetPropiedad(idpropiedad);
+            prop.agregarVisita();
+            mProp.ActualizarPropiedad(prop);
+        }catch(NullPointerException ex){}
+        
+    }
+    
+    /**
+     *Devuelve un map con las propiedades y sus visitas (solo se devuelven las propiedades publicas y reservadas).
+     * @return
+     */
+    public Map<String, Integer> ListarMapPropiedad(){
+        Map<String, Integer> props = new HashMap<>();
+        List<Propiedad> lista = mProp.ListarMapPropiedadesTopFive();
+        for(Propiedad propiedad: lista){
+            if(propiedad.getEstadoPropiedad().equals(EnumEstadoPropiedad.Publica) || propiedad.getEstadoPropiedad().equals(EnumEstadoPropiedad.Reservada)){
+                props.put(propiedad.getDireccionPropiedad(), propiedad.getVisitasPropiedad());
+            }
+        }
+        return props;
     }
 }

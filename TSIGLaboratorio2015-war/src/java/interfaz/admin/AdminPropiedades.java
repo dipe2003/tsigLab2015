@@ -40,6 +40,7 @@ public class AdminPropiedades implements Serializable{
     private int NumeroPadronPropiedad;
     private boolean EnAlquiler;
     private boolean EnVenta;
+    private int TotalVisitas;
     //  Inmueble
     private int CantidadDormitorios;
     private int CantidadBanios;
@@ -74,6 +75,7 @@ public class AdminPropiedades implements Serializable{
     public Propiedad getPropiedad() {return propiedad;}
     public String getIdPropiedad() {return idPropiedad;}
     public String getTipoPropiedad() {return TipoPropiedad;}
+    public int getTotalVisitas() {return TotalVisitas;}
     
     //  Setters
     public void setPropiedades(List<String> Propiedades) {this.Propiedades = Propiedades;}
@@ -96,6 +98,7 @@ public class AdminPropiedades implements Serializable{
     public void setPropiedad(Propiedad propiedad) {this.propiedad = propiedad;}
     public void setIdPropiedad(String idPropiedad) {this.idPropiedad = idPropiedad;}
     public void setTipoPropiedad(String TipoPropiedad) {this.TipoPropiedad = TipoPropiedad;}
+    public void setTotalVisitas(int TotalVisitas) {this.TotalVisitas = TotalVisitas;}
     
     public void modificarPropiedad(){
         propiedad.setDireccionPropiedad(DireccionPropiedad);
@@ -120,6 +123,7 @@ public class AdminPropiedades implements Serializable{
         this.EnVenta = propiedad.isEnVenta();
         this.EnAlquiler = propiedad.isEnAlquiler();
         this.estadoSeleccionado = propiedad.getEstadoPropiedad().name();
+        this.TotalVisitas = propiedad.getVisitasPropiedad();
         setTipoPropiedad();
         setCaracteristicasMarcadas();
         this.DireccionPropiedad = propiedad.getDireccionPropiedad();
@@ -129,6 +133,7 @@ public class AdminPropiedades implements Serializable{
         this.EnVenta = propiedad.isEnVenta();
         this.EnAlquiler = propiedad.isEnAlquiler();
         this.estadoSeleccionado = propiedad.getEstadoPropiedad().name();
+        this.TotalVisitas = propiedad.getVisitasPropiedad();
         setTipoPropiedad();
         setCaracteristicasMarcadas();
         String dir = cProp.ObtenerDireccion(Float.parseFloat(CoordX), Float.parseFloat(CoordY));
