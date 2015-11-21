@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import propiedad.ControladorPropiedad;
@@ -27,6 +28,8 @@ public class InformacionPropiedad implements Serializable{
     private ControladorPropiedad cProp;
     @EJB
     private ControladorCaracteristica cCar;
+    @Inject
+    private Login login;
     
     private String TipoPropiedad;
     private int idPropiedad;
@@ -110,6 +113,7 @@ public class InformacionPropiedad implements Serializable{
         setTipoPropiedad(propiedad);
         setCaracteristicasMarcadas(propiedad);
         PuntosInteres = new HashMap<>();
+
         try{
             if (!this.TipoPropiedad.equals("Terreno")) {
                 this.CantidadBanios =((Inmueble)propiedad).getCantidadBanios();
@@ -127,7 +131,11 @@ public class InformacionPropiedad implements Serializable{
             this.CorreoUsuario = usuario.getCorreoUsuario();
             this.EstadoPropiedad = propiedad.getEstadoPropiedad().toString();
             
-            PuntosInteres = cProp.GetDistanciasPuntosInteres(IdPropiedad);            
+            PuntosInteres = cProp.GetDistanciasPuntosInteres(IdPropiedad);
+            try{
+                if(!login.getUsuarioLogueado())cProp.AgregarVisitaPropiedad(IdPropiedad);
+            }catch(NullPointerException ex){}
+            
         }catch(Exception ex){}
     }
     

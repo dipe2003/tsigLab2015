@@ -202,6 +202,10 @@ function VerInfoChDir(feature){
     $('#frmAdminPropiedad\\:inputAlquiler').val(prop.enalquiler);
     $('#frmAdminPropiedad\\:inputVenta').val(prop.enventa);
     $('#frmAdminPropiedad\\:idprop').val(prop.idpropiedad);
+    $('#frmAdminPropiedad\\:inputVisitas').val(prop.visitaspropiedad);
+    
+    var botonC = $('#frmAdminPropiedad\\:btnCargar');
+    botonC.click();
     var boton = $('#frmAdminPropiedad\\:btnCambiarDir');
     boton.click();
 }

@@ -19,6 +19,7 @@
                 </h:panelGroup>
                 <h:panelGroup rendered="#{not empty adminPropiedades.propiedades}" >
                     <div class="contenidoFormulario">
+                        Cantidad de Visitas <h:inputText id="inputVisitas" value="#{adminPropiedades.totalVisitas}" class="form-control loginInput" disabled="true"/>
                         Direccion  <h:inputText id="inputDireccion" value="#{adminPropiedades.direccionPropiedad}" class="form-control loginInput" disabled="true"/>
                         Precio <h:inputText id="inputPrecio" value="#{adminPropiedades.precioPropiedad}" class="form-control loginInput"/>
                         Metros Construidos <h:inputText id="inputMetrosConstruidos" value="#{adminPropiedades.metrosConstruidosPropiedad}" class="form-control loginInput"/>

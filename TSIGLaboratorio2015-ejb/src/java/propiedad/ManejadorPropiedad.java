@@ -264,9 +264,15 @@ public class ManejadorPropiedad {
     
     public List<Integer> GetPropiedadesPorCaracteristicas(List<Integer> IdsCaracteristica){
         List<Integer> lista = new ArrayList<>();
+        String where= "";
+        for(int i = 0; i < IdsCaracteristica.size(); i++){
+            where += "c.caracteristicas_idcaracteristica = " + String.valueOf(IdsCaracteristica.get(i));
+            if(i+1 < IdsCaracteristica.size()) where += " AND ";
+        }
         try{
-            Query query = em.createQuery("SELECT DISTINCT p.IdPropiedad FROM Propiedad p, Caracteristica c WHERE c.IdCaracteristica IN (:idsCaracteristicas) AND c MEMBER p.Caracteristicas");
-            query.setParameter("idsCaracteristicas", IdsCaracteristica);
+            //Query query = em.createNativeQuery("SELECT DISTINCT p.IdPropiedad FROM Propiedad p, Caracteristica c WHERE c MEMBER p.Caracteristicas AND "+where);
+            String strQuery = "select c.propiedad_idpropiedad FROM propiedad_caracteristica c WHERE " + where;
+            Query query = em.createNativeQuery(strQuery);
             lista = query.getResultList();
         }catch(Exception ex){
             System.out.println("Error: "+ex.getMessage());

@@ -31,6 +31,7 @@ public class Propiedad implements Serializable{
     private boolean EnVenta;
     @ManyToOne
     private Usuario UsuarioPropiedad;
+    private int VisitasPropiedad;
     
     //   Constructores
     
@@ -73,7 +74,7 @@ public class Propiedad implements Serializable{
     public boolean isEnAlquiler() {return EnAlquiler;}
     public boolean isEnVenta() {return EnVenta;}
     public Usuario getUsuarioPropiedad() {return UsuarioPropiedad;}
-   
+    public int getVisitasPropiedad() {return VisitasPropiedad;}   
     
     //  Setters    
     public void setIdPropiedad(int IdPropiedad) {this.IdPropiedad = IdPropiedad;}
@@ -92,9 +93,13 @@ public class Propiedad implements Serializable{
             UsuarioPropiedad.getPropiedades().add(this);
         }
     }
-    
+    public void setVisitasPropiedad(int VisitasPropiedad) {this.VisitasPropiedad = VisitasPropiedad;}    
     
     //  Caracteristicas
     public void addCaracteristica(Caracteristica caracteristica){this.Caracteristicas.add(caracteristica);}
 
+    //  Visitas
+    public void agregarVisita(){
+        this.VisitasPropiedad++;
+    }
 }
