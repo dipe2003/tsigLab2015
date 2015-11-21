@@ -400,6 +400,8 @@ public class ControladorPropiedad {
     
     public List<String> GetImagenesPropiedad(int IdPropiedad){
         return mProp.GetImagenesPropiedad(IdPropiedad);
+    }
+    
     /**
      * Agrega una visita a la propiedad.
      * @param idpropiedad

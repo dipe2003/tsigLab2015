@@ -145,7 +145,7 @@ public class InformacionPropiedad implements Serializable{
             this.imagenTres = imagenes.get(2);
             
             PuntosInteres = cProp.GetDistanciasPuntosInteres(IdPropiedad);            
-            PuntosInteres = cProp.GetDistanciasPuntosInteres(IdPropiedad);
+           
             try{
                 if(!login.getUsuarioLogueado())cProp.AgregarVisitaPropiedad(IdPropiedad);
             }catch(NullPointerException ex){}
