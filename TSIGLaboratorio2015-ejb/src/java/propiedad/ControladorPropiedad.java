@@ -408,17 +408,10 @@ public class ControladorPropiedad {
     }
     
     /**
-     *Devuelve un map con las propiedades y sus visitas (solo se devuelven las propiedades publicas y reservadas).
+     * Devuelve una lista con las propiedades (solo se devuelven las propiedades publicas y reservadas) dentro del limite marcado.
      * @return
      */
-    public Map<String, Integer> ListarMapPropiedad(){
-        Map<String, Integer> props = new HashMap<>();
-        List<Propiedad> lista = mProp.ListarMapPropiedadesTopFive();
-        for(Propiedad propiedad: lista){
-            if(propiedad.getEstadoPropiedad().equals(EnumEstadoPropiedad.Publica) || propiedad.getEstadoPropiedad().equals(EnumEstadoPropiedad.Reservada)){
-                props.put(propiedad.getDireccionPropiedad(), propiedad.getVisitasPropiedad());
-            }
-        }
-        return props;
+    public List<Propiedad> ListarPropiedadesRanking(int Ranking){
+        return mProp.ListarPropiedadesRanking(Ranking);
     }
 }

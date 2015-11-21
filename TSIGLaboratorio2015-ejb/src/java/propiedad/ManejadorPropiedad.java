@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import propiedad.enums.EnumEstadoPropiedad;
 import propiedad.enums.EnumTipoInmueble;
 import terreno.Terreno;
 
@@ -73,14 +74,18 @@ public class ManejadorPropiedad {
         }
         return lista;
     }
-    public List<Propiedad> ListarMapPropiedadesTopFive(){
+    public List<Propiedad> ListarPropiedadesRanking(int Ranking){
        List<Propiedad> lista = new ArrayList<>();
+       List<EnumEstadoPropiedad> estados = new ArrayList<>();
+       estados.add(EnumEstadoPropiedad.Publica);
+       estados.add(EnumEstadoPropiedad.Reservada);
         try{
-            Query query = em.createQuery("select p FROM Propiedad p ORDER BY p.VisitasPropiedad DESC");
-            if(query.getResultList().size()<5){
+            Query query = em.createQuery("select p FROM Propiedad p WHERE p.EstadoPropiedad IN(:estados) ORDER BY p.VisitasPropiedad DESC");
+            query.setParameter("estados", estados);
+            if(query.getResultList().size()<Ranking){
                lista = query.getResultList();
             }else{
-                 query.setMaxResults(5);
+                 query.setMaxResults(Ranking);
                  lista = query.getResultList();
             }            
             return lista;

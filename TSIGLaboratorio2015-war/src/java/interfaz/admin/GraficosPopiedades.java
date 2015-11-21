@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import propiedad.ControladorPropiedad;
+import propiedad.Propiedad;
 
 @Named
 @ViewScoped
@@ -18,12 +19,12 @@ public class GraficosPopiedades implements Serializable{
     private ControladorPropiedad cProp;
     
     private int TotalPropiedades;
-    private Map<String, Integer> PropiedadesVisitas;
+    private List<Propiedad> PropiedadesVisitas;
     private String Labels;
     private String Datos;
     //  Getters
     public int getTotalPropiedades() {return TotalPropiedades;}    
-    public Map<String, Integer> getPropiedadesVisitas() {return PropiedadesVisitas;}
+    public List<Propiedad> getPropiedadesVisitas() {return PropiedadesVisitas;}
 
     public String getLabels() {
         return Labels;
@@ -35,7 +36,7 @@ public class GraficosPopiedades implements Serializable{
     
     //  Setters
     public void setTotalPropiedades(int TotalPropiedades) {this.TotalPropiedades = TotalPropiedades;}
-    public void setPropiedadesVisitas(Map<String, Integer> PropiedadesVisitas) {this.PropiedadesVisitas = PropiedadesVisitas;}
+    public void setPropiedadesVisitas(List<Propiedad> PropiedadesVisitas) {this.PropiedadesVisitas = PropiedadesVisitas;}
 
     public void setLabels(String Labels) {
         this.Labels = Labels;
@@ -49,12 +50,12 @@ public class GraficosPopiedades implements Serializable{
     public void init(){
         Labels = "";
         Datos = "";
-        PropiedadesVisitas = cProp.ListarMapPropiedad();
+        PropiedadesVisitas = cProp.ListarPropiedadesRanking(5);
         List<String> labels = new ArrayList<>();
         List<Integer> datos = new ArrayList<>();
-        for(Map.Entry set: PropiedadesVisitas.entrySet()){
-            labels.add((String)set.getKey());
-            datos.add((int)set.getValue());
+        for (int i = 0; i < PropiedadesVisitas.size(); i++) {
+            labels.add(PropiedadesVisitas.get(i).getDireccionPropiedad());
+            datos.add(PropiedadesVisitas.get(i).getVisitasPropiedad());
         }
         
         for (int i = 0; i < labels.size(); i++) {
