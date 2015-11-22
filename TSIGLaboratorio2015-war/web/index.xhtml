@@ -126,7 +126,7 @@
                                     <h:selectBooleanCheckbox value="#{listarPropiedadesBean.tipoPtoInteres[tipo]}" />  #{tipo}<br/>
                                 </c:forEach>                        
                                 
-                                <h:inputText id="ids" value="#{listarPropiedadesBean.ids}" />                                
+                                <h:inputText id="ids" value="#{listarPropiedadesBean.ids}" style="display:none" />                                
                             </div>
                             <div class="columnas">
                                 <c:forEach var="car" items="#{listarPropiedadesBean.listaCaracteristica}">                    

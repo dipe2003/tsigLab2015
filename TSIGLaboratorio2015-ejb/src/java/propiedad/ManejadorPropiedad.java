@@ -244,13 +244,13 @@ public class ManejadorPropiedad {
     
     public List<Integer> GetPropiedadesCercanasPtoInteres(List<String> TiposPuntoInteres, int MetrosDistancia){
         List<Integer> lista = new ArrayList<>();
-        String coleccion = "";
+        String where = "pi.tipo= ";
         for (int i = 0; i < TiposPuntoInteres.size(); i++) {
-            coleccion = coleccion +"'"+TiposPuntoInteres.get(i)+"'";
-            if(i+1<TiposPuntoInteres.size())coleccion += ", ";
+            where = where +" '" + TiposPuntoInteres.get(i) + "' ";
+            if(i+1<TiposPuntoInteres.size()) where += " AND pi.Tipo= ";
         }
         try{
-            Query query = em.createNativeQuery("SELECT DISTINCT p.idpropiedad FROM Propiedad p, puntosinteres pi WHERE ST_DWithin(p.the_geom, pi.the_geom, "+MetrosDistancia+") AND pi.tipo IN (" + coleccion + ") ORDER BY p.idpropiedad ASC");
+            Query query = em.createNativeQuery("SELECT DISTINCT p.idpropiedad FROM Propiedad p, puntosinteres pi WHERE ST_DWithin(p.the_geom, pi.the_geom, "+MetrosDistancia+") AND " + where + " ORDER BY p.idpropiedad ASC");
             lista = query.getResultList();
         }catch(Exception ex){}
         return lista;
@@ -290,8 +290,7 @@ public class ManejadorPropiedad {
             where += "c.caracteristicas_idcaracteristica = " + String.valueOf(IdsCaracteristica.get(i));
             if(i+1 < IdsCaracteristica.size()) where += " AND ";
         }
-        try{
-            //Query query = em.createNativeQuery("SELECT DISTINCT p.IdPropiedad FROM Propiedad p, Caracteristica c WHERE c MEMBER p.Caracteristicas AND "+where);
+        try{            
             String strQuery = "select c.propiedad_idpropiedad FROM propiedad_caracteristica c WHERE " + where;
             Query query = em.createNativeQuery(strQuery);
             lista = query.getResultList();

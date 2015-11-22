@@ -121,7 +121,7 @@ public class InformacionPropiedad implements Serializable{
         setTipoPropiedad(propiedad);
         setCaracteristicasMarcadas(propiedad);
         PuntosInteres = new HashMap<>();
-
+        
         try{
             if (!this.TipoPropiedad.equals("Terreno")) {
                 this.CantidadBanios =((Inmueble)propiedad).getCantidadBanios();
@@ -139,13 +139,20 @@ public class InformacionPropiedad implements Serializable{
             this.CorreoUsuario = usuario.getCorreoUsuario();
             this.EstadoPropiedad = propiedad.getEstadoPropiedad().toString();
             
-            List<String> imagenes = cProp.GetImagenesPropiedad(IdPropiedad);
-            this.imagenUno = imagenes.get(0);
-            this.imagenDos = imagenes.get(1);
-            this.imagenTres = imagenes.get(2);
+            PuntosInteres = cProp.GetDistanciasPuntosInteres(IdPropiedad);
             
-            PuntosInteres = cProp.GetDistanciasPuntosInteres(IdPropiedad);            
-           
+            List<String> imagenes = cProp.GetImagenesPropiedad(IdPropiedad);
+            if (!imagenes.isEmpty()) {                
+                try{
+                    this.imagenUno = imagenes.get(0);
+                    this.imagenDos = imagenes.get(1);
+                    this.imagenTres = imagenes.get(2);
+                }catch(NullPointerException ex){
+                    this.imagenUno = "";
+                    this.imagenDos = "";
+                    this.imagenTres = "";
+                }
+            }
             try{
                 if(!login.getUsuarioLogueado())cProp.AgregarVisitaPropiedad(IdPropiedad);
             }catch(NullPointerException ex){}
