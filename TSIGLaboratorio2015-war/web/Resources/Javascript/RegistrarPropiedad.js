@@ -8,7 +8,7 @@ function init() {
     map.addControl(drawPoint);
     drawPoint.activate();
     drawPoint.events.register('featureadded', vector_layer, AgregarPunto);
-     
+    
     var tiempo=0;
     $('.imagen').hide().each(function() {
         $(this).delay(tiempo).fadeIn('slow');
@@ -25,9 +25,6 @@ function init() {
             reader.readAsDataURL(this.files[0]);
         }
     });
-    $("#ImagenUno").error(function(){
-        $(this).attr('src', './Resources/Images/brokenimage.jpg');
-    });
     
     $("#ImagenDos").attr('src', './Resources/Images/brokenimage.jpg');
     $("#frmProp\\:imagenPropiedaddos").change(function(){
@@ -38,9 +35,6 @@ function init() {
             }
             reader.readAsDataURL(this.files[0]);
         }
-    });
-    $("#ImagenDos").error(function(){
-        $(this).attr('src', './Resources/Images/brokenimage.jpg');
     });
     
     $("#ImagenTres").attr('src', './Resources/Images/brokenimage.jpg');
@@ -53,11 +47,6 @@ function init() {
             reader.readAsDataURL(this.files[0]);
         }
     });
-    $("#ImagenTres").error(function(){
-        $(this).attr('src', './Resources/Images/brokenimage.jpg');
-    });
-    
-   
     
     $("#frmProp\\:inputDireccion").val("");
     $("#frmProp\\:inputPrecio").val("");
@@ -67,3 +56,15 @@ function init() {
     $("#frmProp\\:inputBanios").val("");
     
 }
+
+$( document ).ready(function() {
+    $("#ImagenUno").error(function(){
+        $(this).attr('src', './Resources/Images/brokenimage.jpg');
+    });
+    $("#ImagenDos").error(function(){
+        $(this).attr('src', './Resources/Images/brokenimage.jpg');
+    });
+    $("#ImagenTres").error(function(){
+        $(this).attr('src', './Resources/Images/brokenimage.jpg');
+    });
+});
