@@ -2,7 +2,7 @@ function init() {
     
     CrearMapaBase();
     
- 
+    
     map.addLayer(PuntosInteres);
     
     map.addControl(select_feature_puntosinteres_control);
@@ -12,10 +12,11 @@ function init() {
     CargarPropiedades();
     
     filtrarUnaPropiedad();
-    
-     $(".imagen").error(function(){
-        $(this).attr('src', './Resources/Images/brokenimage.jpg');
-    });
-    
+     
 }
 
+$( document ).ready(function() {
+    $(".imagen").error(function(){
+        $(this).attr('src', './Resources/Images/brokenimage.jpg');
+    });
+});
