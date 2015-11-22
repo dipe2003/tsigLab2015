@@ -4,10 +4,10 @@ var getUrlParameter = function getUrlParameter(sParam) {
             sURLVariables = sPageURL.split('&'),
             sParameterName,
             i;
-        
+    
     for (i = 0; i < sURLVariables.length; i++) {
         sParameterName = sURLVariables[i].split('=');
-            
+        
         if (sParameterName[0] === sParam) {
             return sParameterName[1] === undefined ? true : sParameterName[1];
         }
@@ -18,7 +18,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
 function filtrarUnaPropiedad(){
     var id = getUrlParameter('id');
     var Propiedad = new OpenLayers.Filter.Comparison({
-        type: OpenLayers.Filter.Comparison.LIKE,
+        type: OpenLayers.Filter.Comparison.EQUAL_TO,
         property: 'idpropiedad',
         value: id,
     });
@@ -298,4 +298,15 @@ function cargarIconosPuntosInteres(feature){
     var style = $.extend({}, vector_style_map.createSymbolizer(feature), { externalGraphic: imagen });
     feature.style = style;
     PuntosInteres.drawFeature(feature);
+}
+
+function Redirigir(data){
+    if(data.status === 'success'){
+        var exito = $('#frmProp\\:exito').val();
+        if(exito === 'true'){
+            window.location.href="administrarPropiedades.xhtml";
+        }else{
+            alert("No se pudo registrar la propiedad.");
+        }
+    }
 }

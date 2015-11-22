@@ -1,6 +1,7 @@
 
 package interfaz.registro;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +31,8 @@ public class RegistrarPropiedad implements Serializable {
     private ControladorPropiedad cProp;
     @EJB
     private FileUpload fUp;
+    
+    private boolean Exito;
     
     private String[] TipoPropiedades;
     private String TipoPropiedadSeleccionado;
@@ -73,6 +76,8 @@ public class RegistrarPropiedad implements Serializable {
     public Part getPartImagenUno() {return PartImagenUno;}
     public Part getPartImagenDos() {return PartImagenDos;}
     public Part getPartImagenTres() {return PartImagenTres;}
+    public boolean isExito() {return Exito;}
+    
     //  Setters
     public void setTipoPropiedadSeleccionado(String TipoPropiedadSeleccionado) {this.TipoPropiedadSeleccionado = TipoPropiedadSeleccionado;}
     public void setCoordX(String CoordX) {this.CoordX = CoordX;}
@@ -92,6 +97,8 @@ public class RegistrarPropiedad implements Serializable {
     public void setPartImagenUno(Part PartImagenUno) {this.PartImagenUno = PartImagenUno;}
     public void setPartImagenDos(Part PartImagenDos) {this.PartImagenDos = PartImagenDos;}
     public void setPartImagenTres(Part PartImagenTres) {this.PartImagenTres = PartImagenTres;}
+    public void setExito(boolean Exito) {this.Exito = Exito;}
+    
     /**
      * Retorna la lista con las caracteristicas selaccionadas
      * @return Retorna la lista vacia en caso de ninguna seleccionada
@@ -118,9 +125,10 @@ public class RegistrarPropiedad implements Serializable {
     }
     
     //  Registro
-    public String registrarPropiedad(){
+    public void registrarPropiedad() throws IOException{
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        String url = context.getExternalContext().getRequestContextPath();
         int idUsuario = ((Usuario)request.getSession().getAttribute("Usuario")).getIdUsuario();
         int id = -1;
         switch(this.TipoPropiedadSeleccionado){
@@ -143,9 +151,8 @@ public class RegistrarPropiedad implements Serializable {
             String imagendos = fUp.guardarArchivo(String.valueOf(id), PartImagenDos, "dos");
             String imagentres = fUp.guardarArchivo(String.valueOf(id), PartImagenTres, "tres");
             cProp.SetearImagenes(imagenuno,imagendos,imagentres,id);
-            return "index.xhtml";
+            Exito = true;
         }
-        return "registrarPropiedades.xhtml";
     }
     
     @PostConstruct
@@ -160,6 +167,7 @@ public class RegistrarPropiedad implements Serializable {
             listChecked.put(listaCaracteristica.get(i).getIdCaracteristica(), Boolean.FALSE);
         }
         this.TipoPropiedades = new String[]{"Casa", "Apartamento", "Terreno" };
+        Exito = false;
     }
     
     

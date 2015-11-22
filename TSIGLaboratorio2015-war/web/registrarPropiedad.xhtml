@@ -65,11 +65,13 @@
                 </h:commandButton>
                 <h:inputText value="#{registrarPropiedad.coordX}" id="coordx" style="display: none" />
                 <h:inputText value="#{registrarPropiedad.coordY}" id="coordy" style="display: none" />           
-                
-                
+                <h:inputText value="#{registrarPropiedad.exito}" id="exito" />           
                 
                 <div class="aceptar">
-                    <h:commandButton value="Registrar" action="#{registrarPropiedad.registrarPropiedad()}" class="btn btn-success loginButton"/>
+                    <h:commandButton id="btnReg" value="Registrar" class="btn btn-success loginButton">
+                        <f:ajax event="click" execute="@all" listener="#{registrarPropiedad.registrarPropiedad()}" render="exito" onevent="Redirigir"/>
+                        </h:commandButton>
+                    <h:message id="msjReg" for="btnReg" class="info"/>
                 </div>                
             </div>
         </h:form>
